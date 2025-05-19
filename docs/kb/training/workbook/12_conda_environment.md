@@ -79,18 +79,6 @@ $ conda config --add channels conda-e3-virtual
 $ conda config --remove channels defaults
 ```
 
-Conda 4.7 introduced a new [.conda package
-format](https://conda.io/projects/conda/en/latest/user-guide/concepts/packages.html#conda-file-format).
-Artifactory 6.11.3 doesn't support that format and it creates issues with remote
-conda repository. See
-[RTFACT-19267](https://www.jfrog.com/jira/browse/RTFACT-19267). To use conda >=
-4.7 with Artifactory you should force conda to only download .tar.bz2 packages
-by setting the `use_only_tar_bz2` boolean.
-
-```console
-conda config --set use_only_tar_bz2 true
-```
-
 The previous commands created the following `~/.condarc` file:
 
 ```bash
@@ -98,7 +86,6 @@ auto_activate_base: false
 channel_alias: https://artifactory.esss.lu.se/artifactory/api/conda
 channels:
   - conda-e3-virtual
-use_only_tar_bz2: true
 ```
 
 You can modify the configuration by editing directly this file or using the

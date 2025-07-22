@@ -9,7 +9,7 @@ create either a merge request or an issue
 :::
 
 This is a training series for using ESS' EPICS environment
-[e3](https://gitlab.esss.lu.se/e3/e3). The series assumes some familiarity with
+[e3](https://gitlab.esss.lu.se/e3). The series assumes some familiarity with
 [EPICS](https://epics-controls.org), although you may be able to follow along
 regardless.
 

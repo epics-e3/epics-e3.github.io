@@ -38,7 +38,7 @@ custom tooling, and the other one uses existing community tooling. These solutio
 require different project structures, and the *wrappers* for the latter solution
 are referred to as *conda recipes*.
 
-### The `e3` python package, a source code registry, git tags, and *GitLab* CI
+### The `e3-build-tools` python package, a source code registry, git tags, and *GitLab* CI
 
 This is the default e3 management solution in use at ESS, which is based on the
 solution in use at PSI. Here, only source code and (select) *references* are stored,
@@ -52,7 +52,7 @@ having them on a single machine that exports them as mount points over NFS.
 
 The front-end for this solution is primarily two constituents:
 
-* The `e3` python package
+* The `e3-build-tools` python package
 * A working specification - a description of an environment
 
 Users who wish to set up their own full environments will need to either acquire
@@ -66,10 +66,11 @@ over NFS.
 
 #### The installation
 
-Building EPICS with the `e3` package generates a hierarchical tree, where different
-versions of base form individual sub-trees, and different versions of *require* form
-sub-trees within these sub-trees. A graphical representation of this (where
-`MODULE` and `MODULE_VERSION` are placeholders) is:
+Building EPICS with the `e3-build-tools` package generates a hierarchical tree,
+where different versions of base form individual sub-trees, and different
+versions of *require* form sub-trees within these sub-trees. A graphical
+representation of this (where `MODULE` and `MODULE_VERSION` are placeholders)
+is:
 
 ```console
 [iocuser@host:~]$ tree /epics

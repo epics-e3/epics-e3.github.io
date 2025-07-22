@@ -36,14 +36,14 @@ The specification handler is distributed on artifactory at ESS, and can be insta
 via
 
 ```console
-[iocuser@host:~]$ pip3 install --user e3 -i https://artifactory.esss.lu.se/artifactory/api/pypi/pypi-virtual/simple
+[iocuser@host:~]$ pip3 install --user e3-build-tools -i https://artifactory.esss.lu.se/artifactory/api/pypi/pypi-virtual/simple
 ```
 
 One can also clone and install the specification handler directly:
 
 ```console
-[iocuser@host:~]$ git clone https://gitlab.esss.lu.se/e3/e3.git
-[iocuser@host:~]$ cd e3
+[iocuser@host:~]$ git clone https://gitlab.esss.lu.se/e3/e3-build-tools.git
+[iocuser@host:~]$ cd e3-build-tools
 [iocuser@host:e3]$ pip3 install --user .
 ```
 

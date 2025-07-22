@@ -45,7 +45,7 @@ e3.[^prereqpkg]
 Start by downloading e3 from the artifactory.
 
 ```console
-[iocuser@host:~]$ pip3 install --user e3 -i https://artifactory.esss.lu.se/artifactory/api/pypi/pypi-virtual/simple
+[iocuser@host:~]$ pip3 install --user e3-build-tools -i https://artifactory.esss.lu.se/artifactory/api/pypi/pypi-virtual/simple
 ```
 
 This will install a number of utilities, most importantly `e3-build` which will

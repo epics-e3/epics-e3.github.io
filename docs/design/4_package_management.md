@@ -38,7 +38,7 @@ custom tooling, and the other one uses existing community tooling. These solutio
 require different project structures, and the *wrappers* for the latter solution
 are referred to as *conda recipes*.
 
-### The `e3-build-tools` python package, a source code registry, git tags, and *GitLab* CI
+### The `e3-build-tools` python package, registry, git tags, and *GitLab* CI
 
 This is the default e3 management solution in use at ESS, which is based on the
 solution in use at PSI. Here, only source code and (select) *references* are stored,

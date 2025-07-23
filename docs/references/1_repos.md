@@ -1,8 +1,8 @@
 # Repositories
 
-The main repository for e3 is:
+The repository for e3 build tools is:
 
-<https://gitlab.esss.lu.se/e3/e3>
+<https://gitlab.esss.lu.se/e3/e3i-build-tools>
 
 ---
 

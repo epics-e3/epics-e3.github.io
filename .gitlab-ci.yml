@@ -12,7 +12,6 @@ stages: [check, deploy]
 run markdown lint:
   stage: check
   image: pipelinecomponents/markdownlint:latest
-  allow_failure: true
   script:
     - mdl --config .mdlrc .
 

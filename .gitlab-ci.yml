@@ -1,22 +1,15 @@
 ---
-stages:
-  - check
-  - deploy
+default:
+  tags:
+    - docker
 
 include:
   - project: "ics-infrastructure/gitlab-ci-yml"
     file: "PreCommit.gitlab-ci.yml"
 
-run-pre-commit:
-  script:
-    - pre-commit run trailing-whitespace --all-files
-    - pre-commit run end-of-file-fixer --all-files
-    - pre-commit run check-yaml --all-files
-    - pre-commit run check-added-large-files --all-files
+stages: [check, deploy]
 
 run markdown lint:
-  tags:
-    - docker
   stage: check
   image: pipelinecomponents/markdownlint:latest
   allow_failure: true
@@ -24,8 +17,6 @@ run markdown lint:
     - mdl --config .mdlrc .
 
 pages:
-  tags:
-    - docker
   stage: deploy
   image: registry.esss.lu.se/ics-docker/sphinx
   script:

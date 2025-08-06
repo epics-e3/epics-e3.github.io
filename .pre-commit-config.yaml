@@ -13,6 +13,8 @@ repos:
     hooks:
       - id: markdownlint
         name: Markdownlint
-        entry: pipelinecomponents/markdownlint:latest mdl --config=.mdlrc
-        language: docker_image
+        entry: mdl
+        language: ruby
         files: \.(md|mdown|markdown)$
+        args:
+          - "--config=.mdlrc"

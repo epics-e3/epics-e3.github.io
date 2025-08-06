@@ -52,29 +52,7 @@ degree possible; when the language isn't available, use whatever works the best
 
 - Add info about where repos get cloned by default, suggest how to better
   organise them
-- Chapter on Best Practices
-- There should probably be a contact listed for questions
 - Link to more external things; autosave, css phoebus, git submodules, etc.
 - Possibly create separate mini-lessons for e3 users (non-devs)
-- Add glossary page (appendix?)
-- Rename/reorganize supplementary dirs
-- Complementary material should be cleaned up (and possibly removed)
-- Chapters need to be better balanced
-- More/better assignments needed
-
-#### Other subjects/content to add
-
-- Multiple e3s in a host
-- Hidden makefile rules (db, hdrs, vlibs, epics, and so on)
-- siteLibs, handling vendor libraries
-- compiling a module
-- setE3env.bash
-- e3.bash
-- more tools (epics_NIOCs, pciids, etherlabmaster, etc)
-- sequencer
-- db, template, subst files (msi and inflation)
-- e3 configuration variables
-- e3 building system
-- require
-- simulators (lewis, kameleon)
-- cellinstall
+- Chapters need to be well balanced
+- There should be exercises/assignments for every training chapter

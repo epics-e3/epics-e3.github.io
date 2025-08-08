@@ -1,6 +1,6 @@
-# E3 documentation
+# e3 documentation
 
-Source for E3 documentation hosted on GitLab pages: http://e3.pages.esss.lu.se
+Source for e3 documentation hosted on GitLab pages: http://e3.pages.esss.lu.se
 
 The documentation is built using
 [Sphinx](http://www.sphinx-doc.org/en/master/index.html) and

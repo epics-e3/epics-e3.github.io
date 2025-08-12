@@ -16,10 +16,10 @@ modifications to EPICS modules without needing to directly modify source trees.
 
 ```{toctree}
 :maxdepth: 2
-:caption: Quickstart
+:caption: Getting Started
 :glob:
-quickstart/1*
-quickstart/2*
+getting-started/1*
+getting-started/2*
 ```
 
 ```{toctree}

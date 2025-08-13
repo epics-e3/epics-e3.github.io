@@ -8,7 +8,7 @@ The documentation is built using
 the [Read the Docs](https://readthedocs.org/) theme. All files are written in
 Markdown, none in reStructuredText.
 
-It is updated only on tag.
+The deployment is updated on merge into the `master` branch.
 
 ## Build locally
 
@@ -17,6 +17,5 @@ From the root dir: `make` (to see all build options)
 ## MyST
 
 Supports all the syntax of the CommonMark Markdown but also several extensions
-to CommonMark (often called [MyST Markdown
-syntax](https://myst-parser.readthedocs.io/en/latest/using/syntax.html)). The
-syntax highlighting parser is Ruby Rogue.
+to CommonMark (often called [MyST Markdown syntax](https://myst-parser.readthedocs.io/en/latest/using/syntax.html)).
+The syntax highlighting parser is Ruby Rogue.

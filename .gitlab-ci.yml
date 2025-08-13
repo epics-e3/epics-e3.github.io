@@ -26,8 +26,8 @@ pages:
   stage: deploy
   image: registry.esss.lu.se/ics-docker/sphinx
   script:
-    - sphinx-build -M html docs docs/_build
-    - mv docs/_build/html public
+    - sphinx-build -M html src build
+    - mv build/html public
   artifacts:
     paths:
       - public

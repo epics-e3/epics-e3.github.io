@@ -78,35 +78,6 @@ $ conda create --name=e3 epics-base require
 This tells conda to create an environment named `e3` with EPICS base, require,
 and all dependencies.
 
-If you only need the pvAccess executables (e.g. `pvget`, `pvput`):
-
-```console
-$ conda create --name=epics epics-base
-```
-
-If you have more specific needs, you can pin versions, e.g.:
-
-```console
-$ conda create --name=my-special-e3-env epics-base=7.0.8.1 require asyn sequencer
-```
-
-You can also create an environment from an `environment.yml` file (a standard
-conda environment specification in YAML):
-
-```yaml
-dependencies:
-  - epics-base=7.0.9
-  - require>5
-  - modbus
-  - s7plc
-```
-
-Then create the environment with:
-
-```console
-$ conda env create --file=environment.yml
-```
-
 ## Using conda environments
 
 Once you have created an environment, activate it with:
@@ -129,10 +100,10 @@ $ conda info --envs
 
 # conda environments:
 #
-base                 * /Users/iocuser/miniforge3
-e3                     /Users/iocuser/miniforge3/envs/e3
-epics                  /Users/iocuser/miniforge3/envs/epics
-my-special-e3-env      /Users/iocuser/miniforge3/envs/my-special-e3-env
+base                 * /home/johndoe/miniforge3
+e3                     /home/johndoe/miniforge3/envs/e3
+epics                  /home/johndoe/miniforge3/envs/epics
+my-special-e3-env      /home/johndoe/miniforge3/envs/my-special-e3-env
 ```
 
 :::
@@ -170,6 +141,8 @@ for commands. See their docs for more information at:
 :::
 
 [^casing]: conda package names are lowercase only.
+
+---
 
 :::{seealso}
 

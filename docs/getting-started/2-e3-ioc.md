@@ -33,6 +33,10 @@ A minimal startup script:
 require iocstats  # or `require(iocstats)` if you prefer
 ```
 
+:::{caution}
+The last line of the file must end in a newline or that line will not be executed.
+:::
+
 :::{note}
 `iocInit()` is called implicitly. You can skip this with `iocsh --no-init`. See
 `iocsh --help` for more options.
@@ -68,8 +72,11 @@ loaded. To set the correct PV names, the environment variable `$IOCNAME` must be
 set before starting your IOC.
 :::
 
+---
+
 :::{seealso}
 
 - Back: [Getting started with e3](1-getting-started.md)
+- Next: [Environments](../user/1-environments.md)
 
 :::

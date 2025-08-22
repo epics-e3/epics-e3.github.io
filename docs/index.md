@@ -24,6 +24,14 @@ getting-started/2*
 
 ```{toctree}
 :maxdepth: 2
+:caption: User Documentation
+:glob:
+user/1*
+user/2*
+```
+
+```{toctree}
+:maxdepth: 2
 :caption: Design
 :glob:
 design/1*

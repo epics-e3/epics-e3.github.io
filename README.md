@@ -12,7 +12,7 @@ It is updated only on tag.
 
 ## Build locally
 
-From the root dir: `sphinx-build -b html docs/ docs/_build/html`
+From the root dir: `make` (to see all build options)
 
 ## MyST
 

@@ -8,15 +8,9 @@ create either a merge request or an issue
 [here](https://gitlab.esss.lu.se/e3/e3.pages.esss.lu.se).
 :::
 
-This is a training series for using ESS' EPICS environment
-[e3](https://gitlab.esss.lu.se/e3). The series assumes some familiarity with
-[EPICS](https://epics-controls.org), although you may be able to follow along
-regardless.
-
-:::{note}
-This workbook has been developed at ESS, so it contains some site-specific
-processes and standards. The ESS-specific components have been identified.
-:::
+This is a training series for using ESS' EPICS environment - *e3*. The series assumes
+some familiarity with [EPICS](https://epics-controls.org), although you may be
+able to follow along regardless.
 
 ---
 
@@ -24,8 +18,6 @@ processes and standards. The ESS-specific components have been identified.
 :caption: Table of Contents
 :maxdepth: 1
 :glob:
-workbook/1_*
-workbook/2_*
 workbook/3_*
 workbook/4_*
 workbook/5_*

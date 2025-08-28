@@ -53,5 +53,4 @@ kb/guide/index.md
 :glob:
 references/1*
 references/2*
-references/3*
 ```

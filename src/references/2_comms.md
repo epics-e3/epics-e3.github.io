@@ -10,7 +10,7 @@ The main space for e3 is [ESS EPICS Environment (e3) on
 Confluence](https://confluence.esss.lu.se/x/cUAAFQ). The e3 team also has a
 [Service Desk](https://jira.esss.lu.se/plugins/servlet/desk/portal/40), and
 there is a [Slack](https://ess-eric.slack.com) channel, `#e3`, used as a
-tech-talk channel.
+tech-talk channel. There is also a room for e3 on [EPICS Chat](https://epics-controls.org/epics-chat/).
 
 If you do not have an ESS intranet account, you can either report bugs and
 request features directly in the relevant repository, or otherwise contact one

@@ -13,6 +13,9 @@ rule 'MD007', :indent => 3
 # Ignore line length rule in code blocks
 rule 'MD013', :code_blocks => false
 
+# Set line length to 120 characters
+rule 'MD013', :line_length => 120
+
 # Allow repeated header names in different locations
 rule 'MD024', :allow_different_nesting => true
 

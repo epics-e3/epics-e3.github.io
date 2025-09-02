@@ -17,17 +17,6 @@ Segmentation fault when the IOC shell starts:
 
 Run the IOC using `gdb` to try to identify the source of the problem.
 
-Since EPICS base 7.0.6.1, *require* 4.0.0, all e3 environments are built by
-default with a debug architecture.[^adddebugarch]
-
-Execute the following commands.
-
-```console
-[iocuser@host:~]$ source /epics/base-7.0.6.1/require/4.0.0/bin/setE3Env.bash
-[iocuser@host:~]$ export EPICS_HOST_ARCH=linux-x86_64-debug
-[iocuser@host:~]$ iocsh -dg st.cmd
-```
-
 The IOC will still segmentation fault, and will return you to the `(gdb)`
 prompt, meaning that you are now in the `gdb` environment, and can start to
 investigate the cause of the problem.
@@ -121,10 +110,3 @@ A debugging session is active.
 
 Quit anyway? (y or n) y
 ```
-
-[^adddebugarch]: To add the `linux-x86_64-debug` architecture to a local build
-    of e3, add the following line to `e3-base/configure/CONFIG_BASE`:
-
-    ```makefile
-    E3_CROSS_COMPILER_TARGET_ARCHS+=linux-x86_64-debug
-    ```

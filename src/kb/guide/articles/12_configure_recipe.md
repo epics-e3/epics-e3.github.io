@@ -10,9 +10,6 @@ To create a conda recipe, you should use
 If you used the cookiecutter [e3-recipe](https://gitlab.esss.lu.se/ics-cookiecutter/cookiecutter-e3-recipe),
 it will create the file `{module_name}.Makefile` on src directory.
 
-This file is very similar to module [Makefile](6_configure_wrapper.md#the-module-makefile)
-created for an e3 wrapper.
-
 ## The `recipe/` directory Makefile
 
 Also created automatically by cookiecutter, there are two files in the recipe directory:

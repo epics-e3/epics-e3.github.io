@@ -39,7 +39,7 @@ Also created automatically by cookiecutter, there are two files in the recipe di
 
   At the top of the `meta.yaml` file there are some macro definitions.
 
-  ``` yaml
+  ``` jinja
   {% set version = "0.1.18" %}
   {% set name = "julabof25hl" %}
   ```

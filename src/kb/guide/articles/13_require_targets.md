@@ -46,6 +46,3 @@ information about the module.
 * `make debug`: Runs through the build process, but instead displays data that
   is collected and used throughout the build process (e.g. exactly which files
   are compiled)
-
-[^runiocsh]: In order to use this, you first need to have installed
-  [run-iocsh](https://gitlab.esss.lu.se/ics-infrastructure/run-iocsh).

@@ -6,7 +6,7 @@ we follow conda-forge’s global pinning file and use their repodata for depende
 resolution. ESS site-specific packages (typically EPICS modules) are hosted on an
 internal conda channel in our Artifactory.
 
-## Quick start
+## Quickstart
 
 ```console
 $ # Configure conda to use ESS packages (after installing conda/miniforge)

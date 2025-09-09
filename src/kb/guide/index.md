@@ -12,7 +12,6 @@ page's git repository.[^1]
  :caption: Table of Content
  :maxdepth: 1
  :glob:
-articles/1_*
 articles/2_*
 articles/4_*
 articles/5_*

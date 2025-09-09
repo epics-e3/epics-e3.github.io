@@ -12,13 +12,6 @@
 * `SUBS` - Substitutions files to inflate the template file to db-file and
   install in the `$(module_DB)` path
 * `SCRIPTS` - Script files that are installed in `$(module_DIR)`
-* `BINS` - Programs to install in `$(module_DIR)/bin/$(T_A)`
-* `VENDOR_LIBS` - Vendor libraries that are installed in
-  `$(module_DIR)/lib/$(T_A)/vendor`
-
-## What architectures to build
-
-* `EXCLUDE_ARCHS` - Architectures to skip
 
 ## Module dependencies
 

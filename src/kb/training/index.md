@@ -18,16 +18,6 @@ able to follow along regardless.
 :caption: Table of Contents
 :maxdepth: 1
 :glob:
-workbook/3_*
-workbook/4_*
-workbook/5_*
-workbook/6_*
-workbook/7_*
-workbook/8_*
-workbook/9_*
-workbook/10_*
-workbook/11_*
 workbook/12_*
 workbook/13_*
-workbook/99_*
 ```

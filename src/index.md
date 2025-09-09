@@ -46,11 +46,3 @@ design/4*
 kb/training/index.md
 kb/guide/index.md
 ```
-
-```{toctree}
-:maxdepth: 2
-:caption: References
-:glob:
-references/1*
-references/2*
-```

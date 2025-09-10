@@ -4,7 +4,7 @@
 
 The e3 build process is a complicated bit of work. To recap, the overview is as follows:
 
-1. In the e3-wrapper directory: we collect some information and decide what
+1. In the build directory: we collect some information and decide what
    build process we will perform (from `RULES_E3`), calling `make` in the module
    directory with information passed as in `CONFIG_E3_MAKEFILE`. `EPICSVERSION`
    is determined by the path `EPICS_BASE`.
@@ -62,9 +62,9 @@ obtained its value, or why certain actions have been performed.
 
 ## The `make` process for e3
 
-### Stage 1: The e3-wrapper
+### Stage 1: The source directory
 
-We start in the e3-wrapper directory, and run (for example) `make build`. The
+We start in the source directory, and run (for example) `make build`. The
 first thing that happens is that we load the makefiles from the configure
 directory; these in turn load `CONFIG_MODULE` and `RELEASE` which specify
 dependencies and for which version of EPICS base and *require* we are building,

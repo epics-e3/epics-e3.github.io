@@ -12,13 +12,9 @@ page's git repository.[^1]
  :caption: Table of Content
  :maxdepth: 1
  :glob:
-articles/4_*
 articles/5_*
-articles/6_*
 articles/7_*
 articles/8_*
-articles/11_*
-articles/12_*
 articles/13_*
 articles/14_*
  ```

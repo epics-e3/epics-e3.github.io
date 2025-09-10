@@ -17,7 +17,6 @@ articles/5_*
 articles/6_*
 articles/7_*
 articles/8_*
-articles/9_*
 articles/11_*
 articles/12_*
 articles/13_*

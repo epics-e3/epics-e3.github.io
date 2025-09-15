@@ -44,7 +44,7 @@ and experience in return!
 
 ## Working with community modules
 
-As stated in {ref}`wrappers`, one of the key design features of e3 is the idea
+One of the key design features of e3 is the idea
 of using a _wrapper_ to allow for the import of EPICS modules into an e3
 environment. In particular, it allows for Site-specific modifications, patches,
 and configuration in a manner that allows for ease of re-use within multiple

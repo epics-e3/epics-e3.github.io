@@ -19,5 +19,4 @@ able to follow along regardless.
 :maxdepth: 1
 :glob:
 workbook/12_*
-workbook/13_*
 ```

@@ -15,12 +15,9 @@
 
 ## Module dependencies
 
-* `<module>_VERSION` - Which version of a dependent module to link or compile
-  against
 * `REQUIRED` - Specifies any non source-based dependencies
 
 ## Other macros
 
 * `KEEP_HEADER_SUBDIRS` - Preserves the tree structure of the given header
   directories
-* `FETCH_BUILD_NUMBER` - Lets you find the correct revision number for a module

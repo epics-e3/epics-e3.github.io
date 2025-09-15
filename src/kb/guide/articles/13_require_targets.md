@@ -3,7 +3,7 @@
 In this article, we will give a brief
 description and overview of some of the targets that are available in e3.
 
-To begin with, if you are in an e3 wrapper directory, you can see some of the
+To begin with, if you are in a source directory, you can see some of the
 main targets available by typing `make help`
 
 ```console

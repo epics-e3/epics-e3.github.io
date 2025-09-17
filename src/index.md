@@ -64,7 +64,14 @@ user/2*
 
 ```{toctree}
 :maxdepth: 2
+:caption: Developer Documentation
+:glob:
+developer/1*
+developer/2*
+```
+
+```{toctree}
+:maxdepth: 2
 :caption: Knowledge-base
-kb/training/index.md
 kb/guide/index.md
 ```

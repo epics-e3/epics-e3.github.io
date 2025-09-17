@@ -76,5 +76,6 @@ $ tree
 :::{seealso}
 
 - Back: [Environments](1-environments.md)
+- Next: [Building modules](../developer/1-conda-build.md)
 
 :::

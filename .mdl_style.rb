@@ -25,6 +25,9 @@ rule 'MD029', :style => :ordered
 # Allow leading $ sign in console commands
 exclude_rule 'MD014'
 
+# Allow trailing punctuation in headers
+exclude_rule 'MD026'
+
 # Allow html tag syntax (i.e. <tag>) in docs. Not used as tags in our case, but
 # to show command line options.
 exclude_rule 'MD033'

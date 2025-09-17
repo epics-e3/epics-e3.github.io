@@ -11,7 +11,7 @@ rule 'MD004', :style => :consistent
 rule 'MD007', :indent => 3
 
 # Ignore line length rule in code blocks
-rule 'MD013', :code_blocks => false
+rule 'MD013', :ignore_code_blocks => true
 
 # Set line length to 120 characters
 rule 'MD013', :line_length => 120

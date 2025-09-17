@@ -54,47 +54,6 @@ html_theme = "furo"
 
 # Theme options are theme-specific
 html_theme_options = {
-    "light_css_variables": {
-        "color-brand-primary": "#2980B9",
-        "color-brand-content": "#2980B9",
-        "color-admonition-title--note": "#2980B9",
-        "color-admonition-title--tip": "#2980B9",
-        "color-admonition-title--important": "#2980B9",
-        "color-admonition-title--caution": "#E67E22",
-        "color-admonition-title--warning": "#E74C3C",
-        "font-stack": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
-        "font-stack--monospace": "'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace",
-        "font-size--small": "0.875rem",
-        "font-size--small--2": "0.8125rem",
-        "font-size--small--3": "0.75rem",
-        "font-size--small--4": "0.6875rem",
-        "font-size--normal": "1rem",
-        "font-size--large": "1.125rem",
-        "font-size--large--2": "1.25rem",
-        "font-size--large--3": "1.5rem",
-        "font-size--large--4": "1.875rem",
-        "font-size--large--5": "2.25rem",
-        "font-size--large--6": "3rem",
-        "line-height": "1.6",
-        "line-height--heading": "1.2",
-        "font-weight--normal": "400",
-        "font-weight--bold": "600",
-        "font-weight--heading": "600",
-    },
-    "dark_css_variables": {
-        "color-brand-primary": "#3498DB",
-        "color-brand-content": "#3498DB",
-        "color-admonition-title--note": "#3498DB",
-        "color-admonition-title--tip": "#3498DB",
-        "color-admonition-title--important": "#3498DB",
-        "color-admonition-title--caution": "#F39C12",
-        "color-admonition-title--warning": "#E74C3C",
-        "font-stack": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
-        "font-stack--monospace": "'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace",
-        "font-weight--normal": "400",
-        "font-weight--bold": "600",
-        "font-weight--heading": "600",
-    },
     "navigation_with_keys": True,
     "top_of_page_button": "edit",
     "source_repository": "https://gitlab.esss.lu.se/e3/e3.pages.esss.lu.se",
@@ -116,7 +75,12 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = []
+html_static_path = ["_static"]
+
+# Custom CSS files
+html_css_files = [
+    "custom.css",
+]
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -124,7 +88,7 @@ html_sidebars = {}
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-# html_logo = None
+html_logo = "_static/e3-cyan-transparent-logotype.svg"
 
 # The name of an image file (relative to this directory) to use as a favicon
 # of the docs. This file should be a Windows icon file (.ico) being 16x16 or

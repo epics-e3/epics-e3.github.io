@@ -1,4 +1,4 @@
-# Article: e3 Cheatsheet
+# `require`'s build interface
 
 ## What to build and install
 

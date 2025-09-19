@@ -9,7 +9,7 @@ import os
 
 
 project = "ESS EPICS Environment (e3)"
-copyright = "2022, European Spallation Source ERIC"
+copyright = "2025, European Spallation Source ERIC"
 author = "European Spallation Source ERIC"
 
 # The full version, including alpha/beta/rc tags

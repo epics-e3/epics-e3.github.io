@@ -50,6 +50,7 @@ developer/1*
 developer/2*
 developer/3*
 developer/4*
+developer/99*
 ```
 
 ```{toctree}
@@ -60,7 +61,6 @@ developer/4*
 kb/1*
 kb/2*
 kb/3*
-kb/4*
 ```
 
 ```{toctree}

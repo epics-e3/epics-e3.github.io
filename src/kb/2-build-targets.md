@@ -1,4 +1,4 @@
-# Article: *require* targets
+# `require`s build targets
 
 In this article, we will give a brief
 description and overview of some of the targets that are available in e3.

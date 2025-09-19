@@ -72,6 +72,17 @@ developer/2*
 
 ```{toctree}
 :maxdepth: 2
-:caption: Knowledge-base
-kb/guide/index.md
+:caption: Knowledge Base
+:glob:
+kb/1*
+kb/2*
+kb/3*
+kb/4*
+```
+
+```{toctree}
+:maxdepth: 2
+:caption: Maintainer Documentation
+:glob:
+maintainer/1*
 ```

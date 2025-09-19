@@ -27,24 +27,29 @@ client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate syst
 :hidden:
 :maxdepth: 2
 :caption: Getting Started
-getting-started/1-getting-started
-getting-started/2-e3-ioc
+:glob:
+getting-started/1*
+getting-started/2*
 ```
 
 ```{toctree}
 :hidden:
 :maxdepth: 2
 :caption: User Documentation
-user/1-environments
-user/2-iocs-and-modules
+:glob:
+user/1*
+user/2*
 ```
 
 ```{toctree}
 :hidden:
 :maxdepth: 2
 :caption: Developer Documentation
-developer/1-conda-build
-developer/2-recipes
+:glob:
+developer/1*
+developer/2*
+developer/3*
+developer/4*
 ```
 
 ```{toctree}

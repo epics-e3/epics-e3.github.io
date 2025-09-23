@@ -124,8 +124,6 @@ SCRIPTS += iocsh/iocStats.iocsh
 TEMPLATES += $(wildcard template/*.db)
 TEMPLATES += $(wildcard template/*.template)
 
-USR_DBFLAGS += -I . -I ..
-USR_DBFLAGS += -I$(EPICS_BASE)/db
 USR_DBFLAGS += -I$(where_am_I)/template
 
 SUBS += $(wildcard template/*.substitutions)

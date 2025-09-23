@@ -13,10 +13,6 @@
   install in the `$(module_DB)` path
 * `SCRIPTS` - Script files that are installed in `$(module_DIR)`
 
-## Module dependencies
-
-* `REQUIRED` - Specifies any non source-based dependencies
-
 ## Other macros
 
 * `KEEP_HEADER_SUBDIRS` - Preserves the tree structure of the given header

@@ -20,7 +20,6 @@ flags to the compiler and/or linker - using environment variables. The ones avai
 - `SUBS` - Substitutions files to inflate the template file to db-file and
   install in the `$(module_DB)` path
 - `SCRIPTS` - Script files that are installed in `$(module_DIR)`
-- `REQUIRED` - Specifies any non source-based dependencies
 - `KEEP_HEADER_SUBDIRS` - Preserves the tree structure of the given header
   directories
 

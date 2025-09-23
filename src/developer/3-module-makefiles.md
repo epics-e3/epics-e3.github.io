@@ -11,17 +11,12 @@ Include `driver.makefile` from `require` and declare what to build and install -
 flags to the compiler and/or linker - using environment variables. The ones available from require are:
 
 - `SOURCES` - Source files to compile into the shared library
-- `DBDS` - Database definition (`.dbd`) files to include in `$(module).dbd`
-- `HEADERS` - Header files that should be installed with the module
-- `TEMPLATES` - Database or template files that should be installed in the
-  `$(module_DB)` path
-- `TMPS` - Templates files to inflate to db-file and install in in the
-  `$(module_DB)` path
-- `SUBS` - Substitutions files to inflate the template file to db-file and
-  install in the `$(module_DB)` path
-- `SCRIPTS` - Script files that are installed in `$(module_DIR)`
-- `KEEP_HEADER_SUBDIRS` - Preserves the tree structure of the given header
-  directories
+- `DBDS` - Database definition files to include
+- `HEADERS` - Header files that should be installed
+- `TEMPLATES` - Database or template files that should be installed
+- `TMPS` - Templates files to inflate to db-file and install
+- `SUBS` - Substitutions files to inflate the template file to db-file and install
+- `SCRIPTS` - Script files that should be installed
 
 :::{tip}
 Quick reference for common variables is available here:
@@ -134,7 +129,7 @@ SUBS += $(wildcard template/*.substitutions)
 To build, we will need to pass some additional variables to require:
 
 ```console
-(iocstats-build) $ make -f e3.makefile MODULE=iocstats LIBVERSION=dev build
+(iocstats-build) $ make -f e3.makefile MODULE=iocstats build
 ```
 
 :::{dropdown} Show build log
@@ -192,8 +187,7 @@ make[1]: Leaving directory '/home/johndoe/iocStats'
 :::
 
 :::{note}
-We have to define `MODULE` and `LIBVERSION` for require to know the name and version, respectively, of the
-module in question.
+We have to define `MODULE` for require to know the name of the module in question.
 :::
 
 This compiles the sources against the EPICS base in your environment.
@@ -201,7 +195,7 @@ This compiles the sources against the EPICS base in your environment.
 To install the module into the e3 layout, we would then just run the install command:
 
 ```console
-(iocstats-build) $ make -f e3.makefile MODULE=iocstats LIBVERSION=dev install
+(iocstats-build) $ make -f e3.makefile MODULE=iocstats install
 ```
 
 :::{note}

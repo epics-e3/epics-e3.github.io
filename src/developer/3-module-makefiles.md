@@ -30,11 +30,11 @@ base's build documentation: [Application Developer's Guide: Build Facility](http
 A very small makefile can be as simple as:
 
 ```make
-# This block is default, and should be included in all e3 makefiles
-where_am_I := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+# This row is default, and must be included in all e3 makefiles
 include $(E3_REQUIRE_TOOLS)/driver.makefile
 
 # Install database files and a "snippet" (.iocsh file)
+# The $(where_am_I) variable is provided by require and will point to the module's root directory
 TEMPLATES += $(wildcard $(where_am_I)/template/*.db)
 SCRIPTS   += $(where_am_I)/iocsh/example.iocsh
 ```
@@ -81,7 +81,6 @@ Create a makefile - we will name it `e3.makefile` since there already is a file 
 
 ```make
 # e3.makefile
-where_am_I := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 include $(E3_REQUIRE_TOOLS)/driver.makefile
 
 USR_CPPFLAGS += -DUSE_TYPED_RSET

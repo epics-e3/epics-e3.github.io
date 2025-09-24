@@ -12,8 +12,11 @@
 * `SUBS` - Substitutions files to inflate the template file to db-file and
   install in the `$(module_DB)` path
 * `SCRIPTS` - Script files that are installed in `$(module_DIR)`
+* `BINS` - Executables that should be installed and be on `$(PATH)`
 
 ## Other macros
 
 * `KEEP_HEADER_SUBDIRS` - Preserves the tree structure of the given header
   directories
+
+See also [Application Developer's Guide: Build Facility](https://docs.epics-controls.org/en/latest/build-system/specifications.html).

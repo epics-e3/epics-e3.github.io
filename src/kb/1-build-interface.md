@@ -16,7 +16,7 @@
 
 ## What to link against
 
-* `LIB_SYS_LIBS` - EPICS support libraries to link against
+* `USR_LIBS` - EPICS support libraries to link against
 
 ## Other macros
 

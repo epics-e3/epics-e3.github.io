@@ -14,9 +14,14 @@
 * `SCRIPTS` - Script files that are installed in `$(module_DIR)`
 * `BINS` - Executables that should be installed and be on `$(PATH)`
 
+## What to link against
+
+* `LIB_SYS_LIBS` - EPICS support libraries to link against
+
 ## Other macros
 
 * `KEEP_HEADER_SUBDIRS` - Preserves the tree structure of the given header
   directories
 
 See also [Application Developer's Guide: Build Facility](https://docs.epics-controls.org/en/latest/build-system/specifications.html).
+Note that especially `USR_*FLAGS` may be needed, depending on your build needs.

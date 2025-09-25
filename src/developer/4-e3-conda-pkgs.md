@@ -99,6 +99,14 @@ code is beyond the scope of this tutorial. Refer to the EPICS documentation
 links provided earlier for detailed development guidance.
 ::::
 
+Once you have a version you are satisfied, which has been reviewed and merged into the default branch,
+you should apply a git tag with the version information for this. Generally, the first version you publish/release
+should be `1.0.0`.
+
+:::{tip}
+We encourage use of Semantic Versioning: [https://semver.org/](https://semver.org).
+:::
+
 ## Step 2: Package the module
 
 Now we'll create a separate repository for the conda recipe. This separation
@@ -145,14 +153,6 @@ Create `src/Makefile` following the guidance in
 example and extend based on your module's needs.
 
 ### 2.4 Create the conda recipe
-
-Tag the source repository:
-
-```console
-$ cd ../exampleModule
-$ git tag v1.0.0
-$ git push origin v1.0.0
-```
 
 Create `recipe/meta.yaml` with basic structure. For comprehensive details on
 meta.yaml sections and options, see

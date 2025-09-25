@@ -140,6 +140,15 @@ for commands. See their docs for more information at:
 
 :::
 
+## Learn EPICS
+
+- EPICS Introduction (official docs): [Getting started with EPICS](https://docs.epics-controls.org/en/latest/getting-started/EPICS_Intro.html)
+
+## Community and support
+
+- EPICS chat: [epics-controls.org/epics-chat](https://epics-controls.org/epics-chat/)
+- EPICS mailing lists (tech-talk and others): [resources-and-support/mailing-lists](https://epics-controls.org/resources-and-support/mailing-lists/)
+
 [^casing]: conda package names are lowercase only.
 
 ---

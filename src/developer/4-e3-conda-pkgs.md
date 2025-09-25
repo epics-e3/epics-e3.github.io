@@ -341,6 +341,5 @@ For production use, consider adding comprehensive tests and documentation.
 :::{seealso}
 
 - Back: [Module build configurations](3-module-makefiles.md)
-- Next: [Community collaboration](99-community-collab.md)
 
 :::

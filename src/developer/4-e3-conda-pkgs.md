@@ -8,7 +8,7 @@ packaging an EPICS module for e3. We'll create a simple example module called
 
 The tutorial covers:
 
-1. **Creating an EPICS module** using `makeBaseApp` and/or `makeSupport`
+1. **Creating an EPICS module** using `makeBaseApp` and `makeSupport`
 2. **Setting up the recipe repository** to package the module
 3. **Creating the build script** for conda-build integration
 4. **Integrating with e3** using makefiles and recipes from previous chapters
@@ -59,11 +59,12 @@ $ makeBaseApp.pl -t example exampleModule
 $ makeBaseApp.pl -i -t example exampleModule
 ```
 
-This creates the standard EPICS application structure with `configure/`, `exampleModuleApp/`, and other directories.
+This creates the standard EPICS application structure with `configure/`, `exampleModuleApp/`, `iocBoot/`, and more.
 
-::::{note}
-`makeBaseApp` scaffolds an IOC application; installable module artifacts are provided via the e3 makefile in Step 4.
-::::
+:::{note}
+The EPICS base utility `makeBaseApp` scaffolds an IOC application; installable module artifacts are provided
+via the e3 makefile in [2.3 Create the e3 makefile](#23-create-the-e3-makefile).
+:::
 
 ### 1.3 Create device support (optional)
 
@@ -93,11 +94,11 @@ $ tree -L 2
 └── Makefile
 ```
 
-::::{note}
+:::{note}
 The actual implementation of device support, database files, and application
 code is beyond the scope of this tutorial. Refer to the EPICS documentation
 links provided earlier for detailed development guidance.
-::::
+:::
 
 Once you have a version you are satisfied, which has been reviewed and merged into the default branch,
 you should apply a git tag with the version information for this. Generally, the first version you publish/release
@@ -154,9 +155,9 @@ example and extend based on your module's needs.
 
 ### 2.4 Create the conda recipe
 
-Create `recipe/meta.yaml` with basic structure. For comprehensive details on
-meta.yaml sections and options, see
-[Module build recipes](2-recipes.md).
+Create `recipe/meta.yaml` with a minimal structure.
+
+For background and all available fields, see conda-build’s documentation: [Defining metadata (meta.yaml)](https://docs.conda.io/projects/conda-build/en/stable/resources/define-metadata.html).
 
 ```yaml
 {% set name = "exampleModule" %}
@@ -179,6 +180,8 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - {{ compiler('c') }}    # If you are are using .c sources
+    - {{ stdlib('c') }}      # If you are using C standard library modules
     - make
     - perl
   host:
@@ -202,38 +205,32 @@ Add any needed site-specific files (IOC shell snippets, templates, patches) to
 the `src/` directory as described in
 [Module build recipes](2-recipes.md).
 
-::::{tip}
+:::{tip}
 Compute the checksum from the exact tarball URL you use:
 
 ```console
 $ curl -L "https://gitlab.esss.lu.se/epics-modules/{{ name }}/-/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz" | shasum -a 256
 ```
 
-::::
+:::
 
-::::{caution}
-Always specify the correct license. This is crucial for legal compliance and
-package distribution.
-:::::
+:::{important}
+Always specify the correct license. This is crucial for legal compliance and package distribution.
+:::
 
 #### ESS recipe best practices
 
-- Prefer `source: url` tarballs with a `sha256`; use tags for traceability. Add
-  `path: ../src` only for site-specific overlays.
+- Prefer `source: url` tarballs with a `sha256`; use tags for traceability.
 - Keep requirements minimal and in the correct layer:
    - build: compilers, `make`, `perl`
    - host: `epics-base`, `require`, and module-specific dependencies
-- Avoid version pins inside the recipe; rely on global pinning files (see
-  [Pinning and variants]).
-- Use `run_exports` only when producing libraries consumed by others, and choose
-  an appropriate pin width (`x.x`/`x.x.x`) based on ABI stability.
+- Avoid version pins inside the recipe; rely on global pinning files (see [Pinning and variants]).
+- Use `run_exports` only when producing libraries consumed by others to ensure ABI stability.
 - Always include `license` and `license_file` under `about`.
-- Do not hardcode system paths in `build.sh` or Makefiles; use `${PREFIX}`/
-  `$(PREFIX)`.
-- Don’t vendor other packages or ship static libraries.
-- Increment `build: number` when changing the recipe without changing upstream
-  version.
-- Tests: keep `run-iocsh` and consider `test -f` checks for key installed files.
+- Do **not** hardcode system paths in `build.sh` or Makefiles; use `$(PREFIX)`.
+- Don’t bundle vendor libraries with your package - create separate conda packages for these.
+- Increment build number when changing the recipe without changing upstream version.
+- Tests: Utilise `run-iocsh` and consider `test -f` checks for key installed files.
 
 [Pinning and variants]: 1-conda-build.md#pinning-and-variants
 
@@ -271,12 +268,13 @@ $ docker run --rm -v $(pwd):/workspace \
 
 ```console
 $ conda install --use-local examplemodule
-$ run-iocsh -r examplemodule
+$ iocsh -r examplemodule
 ```
 
+:::{tip}
 You can also inspect installed files with `ls` or `tree` under your prefix.
-Prefer declaring required files via your makefile/recipe rather than checking
-them ad-hoc.
+Prefer declaring required files via your recipe rather than checking them ad-hoc.
+:::
 
 #### Debugging builds
 
@@ -288,13 +286,13 @@ $ conda debug recipe
 
 This reproduces the build environment, allowing you to run build steps manually.
 
-:::::{tip}
-Recipe development is iterative: Creating conda recipes often involves trial
+:::{tip}
+**Recipe development is iterative:** Creating conda recipes often involves trial
 and error, especially when adapting existing modules. Don't expect the first
 attempt to work perfectly - iterate based on build logs and error messages.
-:::::
+:::
 
-### 2.7 Repository structure and CI
+### 2.7 Repository structure overview
 
 Your final repository structure should look like:
 
@@ -312,7 +310,9 @@ exampleModule-recipe/
     └── patches/          # Source patches (if needed)
 ```
 
+:::{important}
 Only include directories and files that you actually use.
+:::
 
 ::::{note}
 For ESS-hosted recipes, include the standard CI configuration to build and release packages:

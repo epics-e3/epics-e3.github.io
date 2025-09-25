@@ -31,10 +31,11 @@ We recommend storing modules in the ESS GitLab
 submitting them to the
 [EPICS modules database](https://epics-controls.org/resources-and-support/modules/)
 for community awareness.
+:::
 
-**For existing modules**: If you already have an existing EPICS module that you
-want to package, you can skip to
-[Step 2: Package the module (recipe)](#step-2-package-the-module-recipe).
+:::{tip}
+If you already have an existing EPICS module that you want to package, you can skip to
+[Step 2: Package the module](#step-2-package-the-module).
 :::
 
 ## Step 1: Create the EPICS module
@@ -98,7 +99,7 @@ code is beyond the scope of this tutorial. Refer to the EPICS documentation
 links provided earlier for detailed development guidance.
 ::::
 
-## Step 2: Package the module (recipe)
+## Step 2: Package the module
 
 Now we'll create a separate repository for the conda recipe. This separation
 allows for independent versioning, cleaner CI/CD, community contributions, and
@@ -215,7 +216,7 @@ Always specify the correct license. This is crucial for legal compliance and
 package distribution.
 :::::
 
-### 2.5 ESS recipe best practices
+#### ESS recipe best practices
 
 - Prefer `source: url` tarballs with a `sha256`; use tags for traceability. Add
   `path: ../src` only for site-specific overlays.

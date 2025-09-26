@@ -261,7 +261,7 @@ For production-like testing, use the ESS conda-build Docker image:
 ```console
 $ docker run --rm -v $(pwd):/workspace \
   registry.esss.lu.se/ics-docker/conda-build:latest \
-  conda-build recipe
+  conda-build /workspace/recipe
 ```
 
 #### Test the package

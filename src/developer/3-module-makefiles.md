@@ -8,9 +8,9 @@ by your conda environment). We will not (yet) use conda's build tools.
 :::{note}
 This guide assumes familiarity with makefiles and build systems. If you need a refresher:
 
-- [GNU Make Manual](https://www.gnu.org/software/make/manual/) - comprehensive reference
-- [Make Tutorial](https://makefiletutorial.com/) - practical introduction
-- [EPICS Build System](https://docs.epics-controls.org/en/latest/build-system/specifications.html) - EPICS-specific
+- [GNU Make manual](https://www.gnu.org/software/make/manual/) - comprehensive reference
+- [Make tutorial](https://makefiletutorial.com/) - practical introduction
+- [EPICS build system](https://docs.epics-controls.org/en/latest/build-system/specifications.html) - EPICS-specific
   build concepts
 
 :::

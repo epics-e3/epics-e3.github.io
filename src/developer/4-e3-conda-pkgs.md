@@ -23,8 +23,8 @@ This tutorial integrates concepts from:
 
 For detailed EPICS module development guidance, refer to:
 
-- [Creating an IOC Application](https://docs.epics-controls.org/en/latest/getting-started/creating-ioc.html)
-- [EPICS Application Developer's Guide](https://docs.epics-controls.org/en/latest/AppDevGuide/index.html)
+- [Creating an IOC application](https://docs.epics-controls.org/en/latest/getting-started/creating-ioc.html)
+- [EPICS application developer's guide](https://docs.epics-controls.org/en/latest/AppDevGuide/index.html)
 
 We recommend storing modules in the ESS GitLab
 [epics-modules](https://gitlab.esss.lu.se/epics-modules) namespace and
@@ -105,7 +105,7 @@ you should apply a git tag with the version information for this. Generally, the
 should be `1.0.0`.
 
 :::{tip}
-We encourage use of Semantic Versioning: [https://semver.org/](https://semver.org).
+We encourage use of [semantic versioning](https://semver.org/).
 :::
 
 ## Step 2: Package the module

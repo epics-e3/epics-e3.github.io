@@ -15,16 +15,16 @@ e3 is a design concept and toolkit that:
 e3 assumes familiarity with several key technologies. Before getting started, you should be comfortable with:
 
 - **EPICS** - The Experimental Physics and Industrial Control System
-   - [EPICS Documentation](https://docs.epics-controls.org/)
-   - [Getting Started with EPICS](https://docs.epics-controls.org/en/latest/getting-started/EPICS_Intro.html)
+   - [docs.epics-controls.org](https://docs.epics-controls.org/)
+   - [Getting started guide](https://docs.epics-controls.org/en/latest/getting-started/EPICS_Intro.html)
 - **Git** - Version control system used for module management
-   - [Git Documentation](https://git-scm.com/doc)
-   - [Git Tutorial](https://git-scm.com/docs/gittutorial)
+   - [git-scm.com/doc](https://git-scm.com/doc)
+   - [Tutorial](https://git-scm.com/docs/gittutorial)
 - **Linux/Unix** - Command line and system administration basics
-   - [Linux Command Line Basics](https://ubuntu.com/tutorials/command-line-for-beginners)
+   - [Command line tutorial](https://ubuntu.com/tutorials/command-line-for-beginners)
 - **Make and build systems** - Understanding makefiles and build processes
-   - [GNU Make Manual](https://www.gnu.org/software/make/manual/)
-   - [Make Tutorial](https://makefiletutorial.com/)
+   - [GNU Make manual](https://www.gnu.org/software/make/manual/)
+   - [Make tutorial](https://makefiletutorial.com/)
 
 :::{tip}
 If you're new to any of these technologies, we recommend reviewing the linked documentation before proceeding with e3.
@@ -45,11 +45,11 @@ client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate syst
 
 ## EPICS resources
 
-- Website: https://epics-controls.org/
-- Documentation: https://docs.epics-controls.org/
+- Website: [epics-controls.org](https://epics-controls.org/)
+- Documentation: [docs.epics-controls.org](https://docs.epics-controls.org/)
 
 ::::{tip}
-For questions, see [EPICS Chat](https://epics-controls.org/epics-chat/) and [EPICS Tech-Talk](https://epics-controls.org/resources-and-support/mailing-lists/).
+For questions, see [EPICS chat](https://epics-controls.org/epics-chat/) and [tech-talk mailing lists](https://epics-controls.org/resources-and-support/mailing-lists/).
 ::::
 
 ```{toctree}

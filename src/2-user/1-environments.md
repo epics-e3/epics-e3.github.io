@@ -1,14 +1,9 @@
 # Environments
 
-:::{note}
-As EPICS and e3 primarily are developed on and for Linux and heavily utilises git,
-you are expected to be familiar with these already.
-:::
-
 ## Installing and configuring `conda`
 
 Before you can create any e3 environments, you will need a working---and properly
-configured---conda environment. See [Getting Started](../getting-started/1-getting-started.md).
+configured---conda environment. See [Getting Started](../1-getting-started/1-getting-started.md).
 
 ## Creating e3 environments
 
@@ -23,11 +18,15 @@ Let's create one containing [*StreamDevice*](https://paulscherrerinstitute.githu
 $ conda create -n e3-and-stream epics-base require stream
 ```
 
-If you only need the pvAccess executables (e.g. `pvget`, `pvput`)[^conda-forge-base]:
+If you only need the pvAccess executables (e.g. `pvget`, `pvput`):
 
 ```console
 $ conda create --name=epics epics-base
 ```
+
+:::{note}
+This creates a basic EPICS environment (not technically e3) using conda-forge's EPICS base package.
+:::
 
 If you have more specific needs, you can pin versions, e.g.:
 
@@ -126,16 +125,4 @@ You can test any of these modules by running, for example,
 :::{tip}
 The `e3-and-stream` environment will contain `asyn` ([*asyn*](https://github.com/epics-modules/asyn))
 as that is a dependency of `stream`.
-:::
-
-[^conda-forge-base]: This is technically not e3 - we will only be installing default
-EPICS base from conda-forge.
-
----
-
-:::{seealso}
-
-- Back: [An e3 IOC](../getting-started/2-e3-ioc.md)
-- Next: [IOCs and modules](2-iocs-and-modules.md)
-
 :::

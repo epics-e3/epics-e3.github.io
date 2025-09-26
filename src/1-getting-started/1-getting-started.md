@@ -2,7 +2,7 @@
 
 The ESS EPICS environment (e3) uses [conda](https://docs.conda.io/en/latest/) for
 environment and package management and explicitly builds on [conda-forge](https://conda-forge.org/):
-we follow conda-forge’s global pinning file and use their repodata for dependency
+we follow conda-forge's global pinning file and use their repodata for dependency
 resolution. ESS site-specific packages (typically EPICS modules) are hosted on an
 internal conda channel in our Artifactory.
 
@@ -27,7 +27,11 @@ $ iocsh
 Install from conda-forge: [https://conda-forge.org/download/](https://conda-forge.org/download/)
 
 :::{tip}
-If you prefer `mamba`, you can substitute `mamba` for `conda` in the commands below.
+New to conda? See the [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
+for basic concepts.
+
+If you prefer `mamba` (a faster drop-in replacement), you can substitute `mamba` for `conda` in the commands below.
+See [mamba documentation](https://mamba.readthedocs.io/) for details.
 :::
 
 ## Configuring conda
@@ -78,6 +82,16 @@ $ conda create --name=e3 epics-base require
 This tells conda to create an environment named `e3` with EPICS base, require,
 and all dependencies.
 
+You can verify the environment was created successfully:
+
+```console
+$ conda info --envs
+# conda environments:
+#
+base                  * /home/johndoe/miniforge3
+e3                      /home/johndoe/miniforge3/envs/e3
+```
+
 ## Using conda environments
 
 Once you have created an environment, activate it with:
@@ -111,7 +125,7 @@ my-special-e3-env      /home/johndoe/miniforge3/envs/my-special-e3-env
 ## Installing an e3 module
 
 Install e3 modules like any other conda package. To add the [iocStats](https://github.com/epics-modules/iocStats)
-module, install its e3 conda package `iocstats`:[^casing]
+module, install its e3 conda package `iocstats` (conda package names are lowercase only):
 
 ::::{tab-set}
 ::: {tab-item} Activated environment
@@ -140,21 +154,11 @@ for commands. See their docs for more information at:
 
 :::
 
-## Learn EPICS
-
-- EPICS Introduction (official docs): [Getting started with EPICS](https://docs.epics-controls.org/en/latest/getting-started/EPICS_Intro.html)
-
-## Community and support
-
-- EPICS chat: [epics-controls.org/epics-chat](https://epics-controls.org/epics-chat/)
-- EPICS mailing lists (tech-talk and others): [resources-and-support/mailing-lists](https://epics-controls.org/resources-and-support/mailing-lists/)
-
-[^casing]: conda package names are lowercase only.
-
----
-
 :::{seealso}
+**Next steps:**
 
-- Next: [An e3 IOC](2-e3-ioc.md)
+- Learn to create IOC startup scripts in [An e3 IOC](2-e3-ioc.md)
+- Explore advanced environment management in [Environments](../2-user/1-environments.md)
+- For developers: start with [Building modules](../3-developer/1-conda-build.md)
 
 :::

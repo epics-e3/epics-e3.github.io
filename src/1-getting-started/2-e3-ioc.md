@@ -2,8 +2,8 @@
 
 Two core ideas in e3 are:
 
-1. dynamically loading libraries, and
-2. wrapping community modules rather than forking them.
+- **Dynamically loading libraries** - no IOC application build step required
+- **Wrapping community modules** rather than forking them
 
 e3 has no IOC application build step. Each IOC runs `iocsh`, and startup scripts
 use `require` to load libraries and set up data-file search paths.
@@ -70,13 +70,4 @@ afterInit("seq device_control")
 The require module produces a few PVs, for example to expose which modules are
 loaded. To set the correct PV names, the environment variable `$IOCNAME` must be
 set before starting your IOC.
-:::
-
----
-
-:::{seealso}
-
-- Back: [Getting started with e3](1-getting-started.md)
-- Next: [Environments](../user/1-environments.md)
-
 :::

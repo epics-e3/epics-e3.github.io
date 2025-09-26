@@ -5,6 +5,16 @@ makefiles. You will learn which variables to set, what they do, and how
 to build and install a module locally using `make` (with dependencies provided
 by your conda environment). We will not (yet) use conda's build tools.
 
+:::{note}
+This guide assumes familiarity with makefiles and build systems. If you need a refresher:
+
+- [GNU Make manual](https://www.gnu.org/software/make/manual/) - comprehensive reference
+- [Make tutorial](https://makefiletutorial.com/) - practical introduction
+- [EPICS build system](https://docs.epics-controls.org/en/latest/build-system/specifications.html) - EPICS-specific
+  build concepts
+
+:::
+
 ## `require`'s build interface
 
 Include `driver.makefile` from `require` and declare what to build and install - as well as pass
@@ -20,7 +30,7 @@ flags to the compiler and/or linker - using environment variables. The ones avai
 
 :::{tip}
 Quick reference for common variables is available here:
-[`require`'s build interface](../kb/1-build-interface.md)
+[`require`'s build interface](../4-kb/1-build-interface.md). For build targets, see [`require`'s build targets](../4-kb/2-build-targets.md).
 :::
 
 The variables above handle most module build needs, but `require` inherits EPICS base's complete build system.
@@ -276,12 +286,3 @@ localhost-364538 >
 
 If everything is wired correctly, the module libraries and database definitions
 are available, and all data files (database files, snippets, etc.) can be loaded.
-
----
-
-:::{seealso}
-
-- Back: [Module build recipes](2-recipes.md)
-- Next: [Module creation](4-e3-conda-pkgs.md)
-
-:::

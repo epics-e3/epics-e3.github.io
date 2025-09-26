@@ -2,6 +2,11 @@
 
 # `require`'s build process
 
+:::{note}
+This document describes the internal build process in detail and may contain information specific to older versions
+of the build system. While the core concepts remain relevant, some implementation details may have changed.
+:::
+
 The e3 build process is a complicated bit of work. To recap, the overview is as follows:
 
 1. In the build directory: we collect some information and decide what
@@ -90,7 +95,7 @@ passed to this recursive call of `make`.
 
 ### Stage 2: Defining `T_A`
 
-In e3, we only build for a single verion of EPICS base at a time. This is defined
+In e3, we only build for a single version of EPICS base at a time. This is defined
 in `driver.makefile` as
 
 ```makefile
@@ -195,7 +200,7 @@ USR_LIBOBJS += ${LIBOBJS} $(foreach x,${VAR_EXTENSIONS},${LIBOBJS_$x})
 export USR_LIBOBJS
 ```
 
-which tells us that we can have `SOURCES_x86_64` (or another other part of
+which tells us that we can have `SOURCES_x86_64` (or any other part of
 `VAR_EXTENSIONS`) to selectively compile code based on architecture and
 version.
 
@@ -429,4 +434,4 @@ files.
 is because the architecture filters are defined *after* the inclusion of
 `driver.makefile`. As such, we take advantage of GNU make's ability to do
 a deferred secondary expansion of target dependencies to ensure that we perform
-the correct filtering on archtectures.
+the correct filtering on architectures.

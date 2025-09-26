@@ -68,8 +68,8 @@ For questions, see [EPICS chat](https://epics-controls.org/epics-chat/) and [tec
 :maxdepth: 2
 :caption: Getting Started
 :glob:
-getting-started/1*
-getting-started/2*
+1-getting-started/1*
+1-getting-started/2*
 ```
 
 ```{toctree}
@@ -77,8 +77,8 @@ getting-started/2*
 :maxdepth: 2
 :caption: User Documentation
 :glob:
-user/1*
-user/2*
+2-user/1*
+2-user/2*
 ```
 
 ```{toctree}
@@ -86,10 +86,10 @@ user/2*
 :maxdepth: 2
 :caption: Developer Documentation
 :glob:
-developer/1*
-developer/2*
-developer/3*
-developer/4*
+3-developer/1*
+3-developer/2*
+3-developer/3*
+3-developer/4*
 ```
 
 ```{toctree}
@@ -97,9 +97,9 @@ developer/4*
 :maxdepth: 2
 :caption: Knowledge Base
 :glob:
-kb/1*
-kb/2*
-kb/3*
+4-kb/1*
+4-kb/2*
+4-kb/3*
 ```
 
 ```{toctree}
@@ -107,5 +107,5 @@ kb/3*
 :maxdepth: 2
 :caption: Maintainer Documentation
 :glob:
-maintainer/1*
+5-maintainer/1*
 ```

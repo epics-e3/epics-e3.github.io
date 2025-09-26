@@ -27,8 +27,8 @@ a specific module.
 :::{seealso}
 **Related topics:**
 
-- [Module build configurations](../developer/3-module-makefiles.md) - Setting up makefiles
+- [Module build configurations](../3-developer/3-module-makefiles.md) - Setting up makefiles
 - [`require`'s build interface](1-build-interface.md) - Available build variables
-- [Building modules](../developer/1-conda-build.md) - Using conda-build
+- [Building modules](../3-developer/1-conda-build.md) - Using conda-build
 
 :::

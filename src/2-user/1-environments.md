@@ -3,7 +3,7 @@
 ## Installing and configuring `conda`
 
 Before you can create any e3 environments, you will need a working---and properly
-configured---conda environment. See [Getting Started](../getting-started/1-getting-started.md).
+configured---conda environment. See [Getting Started](../1-getting-started/1-getting-started.md).
 
 ## Creating e3 environments
 

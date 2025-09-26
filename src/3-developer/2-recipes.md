@@ -74,7 +74,7 @@ These assets are typically installed by the module's makefile(s) or the recipe's
 into the module layout expected by `require`.
 
 :::{note}
-This approach of "module wrappers" is explained in detail in [IOCs and modules](../user/2-iocs-and-modules.md#module-wrappers).
+This approach of "module wrappers" is explained in detail in [IOCs and modules](../2-user/2-iocs-and-modules.md#module-wrappers).
 The build configuration is covered in [Module build configurations](3-module-makefiles.md).
 :::
 

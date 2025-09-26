@@ -17,8 +17,8 @@ An e3 IOC is broadly defined by just a startup script, that:
 Shared libraries---and usually also data files like database files---are obtained
 from EPICS modules.
 
-As mentioned in [An e3 IOC](../getting-started/2-e3-ioc.md), an e3 IOC is started
-using the `iocsh` script and dynamically loads any additional modules using the [`require`](../getting-started/2-e3-ioc.md#creating-a-startup-script)
+As mentioned in [An e3 IOC](../1-getting-started/2-e3-ioc.md), an e3 IOC is started
+using the `iocsh` script and dynamically loads any additional modules using the [`require`](../1-getting-started/2-e3-ioc.md#creating-a-startup-script)
 command.
 
 ## An e3 module

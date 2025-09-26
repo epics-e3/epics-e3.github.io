@@ -158,7 +158,7 @@ for commands. See their docs for more information at:
 **Next steps:**
 
 - Learn to create IOC startup scripts in [An e3 IOC](2-e3-ioc.md)
-- Explore advanced environment management in [Environments](../user/1-environments.md)
-- For developers: start with [Building modules](../developer/1-conda-build.md)
+- Explore advanced environment management in [Environments](../2-user/1-environments.md)
+- For developers: start with [Building modules](../3-developer/1-conda-build.md)
 
 :::

@@ -18,11 +18,15 @@ Let's create one containing [*StreamDevice*](https://paulscherrerinstitute.githu
 $ conda create -n e3-and-stream epics-base require stream
 ```
 
-If you only need the pvAccess executables (e.g. `pvget`, `pvput`)[^conda-forge-base]:
+If you only need the pvAccess executables (e.g. `pvget`, `pvput`):
 
 ```console
 $ conda create --name=epics epics-base
 ```
+
+:::{note}
+This creates a basic EPICS environment (not technically e3) using conda-forge's EPICS base package.
+:::
 
 If you have more specific needs, you can pin versions, e.g.:
 
@@ -123,5 +127,3 @@ The `e3-and-stream` environment will contain `asyn` ([*asyn*](https://github.com
 as that is a dependency of `stream`.
 :::
 
-[^conda-forge-base]: This is technically not e3 - we will only be installing default
-EPICS base from conda-forge.

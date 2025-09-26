@@ -120,7 +120,7 @@ my-special-e3-env      /home/johndoe/miniforge3/envs/my-special-e3-env
 ## Installing an e3 module
 
 Install e3 modules like any other conda package. To add the [iocStats](https://github.com/epics-modules/iocStats)
-module, install its e3 conda package `iocstats`:[^casing]
+module, install its e3 conda package `iocstats` (conda package names are lowercase only):
 
 ::::{tab-set}
 ::: {tab-item} Activated environment
@@ -149,7 +149,6 @@ for commands. See their docs for more information at:
 
 :::
 
-[^casing]: conda package names are lowercase only.
 
 :::{seealso}
 **Next steps:**

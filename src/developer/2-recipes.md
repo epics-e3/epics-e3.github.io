@@ -73,6 +73,11 @@ ESS recipes often bundle site-specific content alongside upstream modules:
 These assets are typically installed by the module's makefile(s) or the recipe’s `build.sh`
 into the module layout expected by `require`.
 
+### Upstream collaboration
+
+- Prefer contributing generally useful fixes to upstream modules (merge/pull requests) rather than carrying long-lived patches.
+- Keep site-specific changes in `src/patches/` (small, focused) and document them clearly in the commit where you add them.
+
 ---
 
 :::{seealso}

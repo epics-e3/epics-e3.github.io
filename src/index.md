@@ -23,6 +23,15 @@ e3 focuses on EPICS environments and module management. IOC management tools (sy
 client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate systems.
 :::
 
+## EPICS resources
+
+- Website: https://epics-controls.org/
+- Documentation: https://docs.epics-controls.org/
+
+::::{tip}
+For questions, see [EPICS Chat](https://epics-controls.org/epics-chat/) and [EPICS Tech-Talk](https://epics-controls.org/resources-and-support/mailing-lists/).
+::::
+
 ```{toctree}
 :hidden:
 :maxdepth: 2
@@ -50,7 +59,6 @@ developer/1*
 developer/2*
 developer/3*
 developer/4*
-developer/99*
 ```
 
 ```{toctree}

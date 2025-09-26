@@ -1,5 +1,16 @@
 # ESS EPICS Environment (e3)
 
+:::{important}
+**Major Update: e3 is now powered by conda!**
+
+These are the **new documentation pages** for the redesigned ESS EPICS Environment (e3). We have made a major technical
+and architectural switch to a conda-based approach for better package management and reproducibility.
+
+**Looking for the previous e3 documentation?** The original build-tools based documentation can still be found at
+[http://e3.pages.esss.lu.se/e3-build-tools](http://e3.pages.esss.lu.se/e3-build-tools/) (note that secure HTTP
+currently does not work).
+:::
+
 Welcome to the documentation for ESS EPICS Environment (e3) - a toolkit designed to simplify EPICS development and
 deployment at the European Spallation Source.
 

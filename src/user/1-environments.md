@@ -125,12 +125,3 @@ as that is a dependency of `stream`.
 
 [^conda-forge-base]: This is technically not e3 - we will only be installing default
 EPICS base from conda-forge.
-
----
-
-:::{seealso}
-
-- Back: [An e3 IOC](../getting-started/2-e3-ioc.md)
-- Next: [IOCs and modules](2-iocs-and-modules.md)
-
-:::

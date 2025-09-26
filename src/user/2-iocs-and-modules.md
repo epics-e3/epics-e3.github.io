@@ -18,7 +18,7 @@ Shared libraries---and usually also data files like database files---are obtaine
 from EPICS modules.
 
 As mentioned in [An e3 IOC](../getting-started/2-e3-ioc.md), an e3 IOC is started
-using the `iocsh` script and dynamically loads any additional modules using the `require`
+using the `iocsh` script and dynamically loads any additional modules using the [`require`](../getting-started/2-e3-ioc.md#creating-a-startup-script)
 command.
 
 ## An e3 module
@@ -70,12 +70,3 @@ $ tree
         ├── ess.substitutions
         └── some.template
 ```
-
----
-
-:::{seealso}
-
-- Back: [Environments](1-environments.md)
-- Next: [Building modules](../developer/1-conda-build.md)
-
-:::

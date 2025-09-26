@@ -71,12 +71,3 @@ The require module produces a few PVs, for example to expose which modules are
 loaded. To set the correct PV names, the environment variable `$IOCNAME` must be
 set before starting your IOC.
 :::
-
----
-
-:::{seealso}
-
-- Back: [Getting started with e3](1-getting-started.md)
-- Next: [Environments](../user/1-environments.md)
-
-:::

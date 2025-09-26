@@ -151,10 +151,11 @@ for commands. See their docs for more information at:
 
 [^casing]: conda package names are lowercase only.
 
----
-
 :::{seealso}
+**Next steps:**
 
-- Next: [An e3 IOC](2-e3-ioc.md)
+- Learn to create IOC startup scripts in [An e3 IOC](2-e3-ioc.md)
+- Explore advanced environment management in [Environments](../user/1-environments.md)
+- For developers: start with [Building modules](../developer/1-conda-build.md)
 
 :::

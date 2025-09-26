@@ -337,10 +337,10 @@ This tutorial showed the complete end-to-end workflow integrating concepts from 
 
 For production use, consider adding comprehensive tests and documentation.
 
----
-
 :::{seealso}
+**Related topics:**
 
-- Back: [Module build configurations](3-module-makefiles.md)
+- Need help with debugging? See [Debugging e3](../kb/3-debug.md)
+- Quick reference for build variables: [`require`'s build interface](../kb/1-build-interface.md)
 
 :::

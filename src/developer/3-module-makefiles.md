@@ -30,7 +30,7 @@ flags to the compiler and/or linker - using environment variables. The ones avai
 
 :::{tip}
 Quick reference for common variables is available here:
-[`require`'s build interface](../kb/1-build-interface.md)
+[`require`'s build interface](../kb/1-build-interface.md). For build targets, see [`require`'s build targets](../kb/2-build-targets.md).
 :::
 
 The variables above handle most module build needs, but `require` inherits EPICS base's complete build system.
@@ -286,12 +286,3 @@ localhost-364538 >
 
 If everything is wired correctly, the module libraries and database definitions
 are available, and all data files (database files, snippets, etc.) can be loaded.
-
----
-
-:::{seealso}
-
-- Back: [Module build recipes](2-recipes.md)
-- Next: [Module creation](4-e3-conda-pkgs.md)
-
-:::

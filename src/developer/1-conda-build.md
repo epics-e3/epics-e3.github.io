@@ -93,12 +93,3 @@ from upstream.
 - Conda forge: [Maintainer documentation](https://conda-forge.org/docs/maintainer/)
 
 :::
-
----
-
-:::{seealso}
-
-- Back: [IOCs and modules](../user/2-iocs-and-modules.md)
-- Next: [Module build recipes](2-recipes.md)
-
-:::

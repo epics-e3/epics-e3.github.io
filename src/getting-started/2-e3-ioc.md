@@ -2,8 +2,8 @@
 
 Two core ideas in e3 are:
 
-1. dynamically loading libraries, and
-2. wrapping community modules rather than forking them.
+- **Dynamically loading libraries** - no IOC application build step required
+- **Wrapping community modules** rather than forking them
 
 e3 has no IOC application build step. Each IOC runs `iocsh`, and startup scripts
 use `require` to load libraries and set up data-file search paths.

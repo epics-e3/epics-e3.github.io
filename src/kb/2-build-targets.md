@@ -1,13 +1,14 @@
 # `require`s build targets
 
-In this article, we will give a brief
-description and overview of some of the targets that are available in e3.
+This page provides a comprehensive reference for the make targets available when building EPICS modules in e3.
+These targets are provided by the `require` build system.
 
-To begin with, if you are in a source directory, you can see some of the
-main targets available by typing `make help`
+## Getting help
+
+From any module source directory, you can see the available targets:
 
 ```console
-[iocuser@host:e3-iocStats]$ make help
+$ make help
 ---------------------------------------
 Available targets
 ---------------------------------------
@@ -18,31 +19,16 @@ debug           Displays information about the build process
 clean           Deletes temporary build files
 ```
 
-The targets fall into several categories.
+:::{tip}
+Additional targets may be available depending on your module configuration. Use `make help` to see all targets for
+a specific module.
+:::
 
-## Main targets
+:::{seealso}
+**Related topics:**
 
-These are the targets that are used in most cases when building, debugging,
-testing, and deploying a module. They are related to the EPICS targets of the
-same names, but with some differences.
+- [Module build configurations](../developer/3-module-makefiles.md) - Setting up makefiles
+- [`require`'s build interface](1-build-interface.md) - Available build variables
+- [Building modules](../developer/1-conda-build.md) - Using conda-build
 
-* `make build`: This will build the module. This will compile all of the files
-  specified in the variable `SOURCES` from the module makefile, as well as
-  generate a number of necessary files for the installation process.
-* `make install`: This will install the compiled and generated files into the
-  target location described above. This will also perform any template and
-  substitution file expansion.
-
-A few variations on this are the following.
-
-* `make clean`: Deletes all of the temporary files.
-* `make all`: Initialises, patches, and then rebuilds the module.
-
-## Additional targets
-
-These are targets that are useful to help diagnose issues, debug, or display
-information about the module.
-
-* `make debug`: Runs through the build process, but instead displays data that
-  is collected and used throughout the build process (e.g. exactly which files
-  are compiled)
+:::

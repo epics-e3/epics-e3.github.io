@@ -10,7 +10,7 @@ internal conda channel in our Artifactory.
 
 ```console
 $ # Configure conda to use ESS packages (after installing conda/miniforge)
-$ conda config --prepend channels ess-internal-conda
+$ conda config --prepend channels ess-conda-local
 $ conda config --set channel_alias https://artifactory.esss.lu.se/artifactory/api/conda
 $ conda config --set channel_priority strict
 $
@@ -35,7 +35,7 @@ If you prefer `mamba`, you can substitute `mamba` for `conda` in the commands be
 Configure your machine to find packages in the ESS conda channel:
 
 ```console
-$ conda config --prepend channels ess-internal-conda
+$ conda config --prepend channels ess-conda-local
 $ conda config --set channel_alias https://artifactory.esss.lu.se/artifactory/api/conda
 $ conda config --set channel_priority strict
 ```
@@ -46,7 +46,7 @@ like:
 
 ```yaml
 channels:
-  - ess-internal-conda
+  - ess-conda-local
   - conda-forge
 channel_alias: https://artifactory.esss.lu.se/artifactory/api/conda
 channel_priority: strict

@@ -87,6 +87,16 @@ $ conda create --name=e3 epics-base require
 This tells conda to create an environment named `e3` with EPICS base, require,
 and all dependencies.
 
+You can verify the environment was created successfully:
+
+```console
+$ conda info --envs
+# conda environments:
+#
+base                  * /home/johndoe/miniforge3
+e3                      /home/johndoe/miniforge3/envs/e3
+```
+
 ## Using conda environments
 
 Once you have created an environment, activate it with:
@@ -148,7 +158,6 @@ for commands. See their docs for more information at:
 - Conda forge: [User documentation](https://conda-forge.org/docs/user/)
 
 :::
-
 
 :::{seealso}
 **Next steps:**

@@ -5,9 +5,12 @@ conda-forge’s global pinnings and layering ESS site constraints on top. This
 page covers setting up a dedicated build environment, building a package
 locally, and using the pinning file.
 
-:::{note}
-You must first have `conda` (or `mamba`) installed and configured per
+:::{important}
+This guide assumes you are comfortable with git, Linux command line, and basic build systems.
+You must also have `conda` (or `mamba`) installed and configured per
 [Getting started with e3](../getting-started/1-getting-started.md).
+
+If you need to review these prerequisites, see the [main documentation page](../index.md#prerequisites) for external resources.
 :::
 
 ## Setting up a build environment

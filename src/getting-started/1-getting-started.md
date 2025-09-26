@@ -6,11 +6,6 @@ we follow conda-forge's global pinning file and use their repodata for dependenc
 resolution. ESS site-specific packages (typically EPICS modules) are hosted on an
 internal conda channel in our Artifactory.
 
-:::{important}
-This guide assumes you are familiar with EPICS, git, Linux command line, and basic build systems.
-If you need to review these prerequisites, see the [main documentation page](../index.md#prerequisites) for external resources.
-:::
-
 ## Quickstart
 
 ```console

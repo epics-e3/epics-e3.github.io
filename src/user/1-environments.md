@@ -1,10 +1,5 @@
 # Environments
 
-:::{note}
-As EPICS and e3 primarily are developed on and for Linux and heavily utilises git,
-you are expected to be familiar with these already.
-:::
-
 ## Installing and configuring `conda`
 
 Before you can create any e3 environments, you will need a working---and properly

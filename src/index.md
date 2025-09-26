@@ -10,6 +10,26 @@ e3 is a design concept and toolkit that:
 - **Simplifies development** by abstracting away low-level EPICS complexities
 - **Manages dependencies** automatically across EPICS modules
 
+## Prerequisites
+
+e3 assumes familiarity with several key technologies. Before getting started, you should be comfortable with:
+
+- **EPICS** - The Experimental Physics and Industrial Control System
+   - [EPICS Documentation](https://docs.epics-controls.org/)
+   - [Getting Started with EPICS](https://docs.epics-controls.org/en/latest/getting-started/EPICS_Intro.html)
+- **Git** - Version control system used for module management
+   - [Git Documentation](https://git-scm.com/doc)
+   - [Git Tutorial](https://git-scm.com/docs/gittutorial)
+- **Linux/Unix** - Command line and system administration basics
+   - [Linux Command Line Basics](https://ubuntu.com/tutorials/command-line-for-beginners)
+- **Make and build systems** - Understanding makefiles and build processes
+   - [GNU Make Manual](https://www.gnu.org/software/make/manual/)
+   - [Make Tutorial](https://makefiletutorial.com/)
+
+:::{tip}
+If you're new to any of these technologies, we recommend reviewing the linked documentation before proceeding with e3.
+:::
+
 ## Background
 
 e3 evolved from ESS's previous EPICS environments (CODAC, EEE) and is based on PSI's EPICS environment. It uses a

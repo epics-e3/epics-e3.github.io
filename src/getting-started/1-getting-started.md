@@ -2,9 +2,14 @@
 
 The ESS EPICS environment (e3) uses [conda](https://docs.conda.io/en/latest/) for
 environment and package management and explicitly builds on [conda-forge](https://conda-forge.org/):
-we follow conda-forge’s global pinning file and use their repodata for dependency
+we follow conda-forge's global pinning file and use their repodata for dependency
 resolution. ESS site-specific packages (typically EPICS modules) are hosted on an
 internal conda channel in our Artifactory.
+
+:::{important}
+This guide assumes you are familiar with EPICS, git, Linux command line, and basic build systems.
+If you need to review these prerequisites, see the [main documentation page](../index.md#prerequisites) for external resources.
+:::
 
 ## Quickstart
 
@@ -27,7 +32,11 @@ $ iocsh
 Install from conda-forge: [https://conda-forge.org/download/](https://conda-forge.org/download/)
 
 :::{tip}
-If you prefer `mamba`, you can substitute `mamba` for `conda` in the commands below.
+New to conda? See the [conda documentation](https://docs.conda.io/en/latest/miniconda.html) for installation guidance
+and the [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html) for basic concepts.
+
+If you prefer `mamba` (a faster drop-in replacement), you can substitute `mamba` for `conda` in the commands below.
+See [mamba documentation](https://mamba.readthedocs.io/) for details.
 :::
 
 ## Configuring conda
@@ -139,15 +148,6 @@ for commands. See their docs for more information at:
 - Conda forge: [User documentation](https://conda-forge.org/docs/user/)
 
 :::
-
-## Learn EPICS
-
-- EPICS Introduction (official docs): [Getting started with EPICS](https://docs.epics-controls.org/en/latest/getting-started/EPICS_Intro.html)
-
-## Community and support
-
-- EPICS chat: [epics-controls.org/epics-chat](https://epics-controls.org/epics-chat/)
-- EPICS mailing lists (tech-talk and others): [resources-and-support/mailing-lists](https://epics-controls.org/resources-and-support/mailing-lists/)
 
 [^casing]: conda package names are lowercase only.
 

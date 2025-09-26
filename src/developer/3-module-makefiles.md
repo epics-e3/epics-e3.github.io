@@ -5,6 +5,16 @@ makefiles. You will learn which variables to set, what they do, and how
 to build and install a module locally using `make` (with dependencies provided
 by your conda environment). We will not (yet) use conda's build tools.
 
+:::{note}
+This guide assumes familiarity with makefiles and build systems. If you need a refresher:
+
+- [GNU Make Manual](https://www.gnu.org/software/make/manual/) - comprehensive reference
+- [Make Tutorial](https://makefiletutorial.com/) - practical introduction
+- [EPICS Build System](https://docs.epics-controls.org/en/latest/build-system/specifications.html) - EPICS-specific
+  build concepts
+
+:::
+
 ## `require`'s build interface
 
 Include `driver.makefile` from `require` and declare what to build and install - as well as pass

@@ -93,7 +93,7 @@ html_logo = "_static/e3-cyan-transparent-logotype.svg"
 # The name of an image file (relative to this directory) to use as a favicon
 # of the docs. This file should be a Windows icon file (.ico) being 16x16 or
 # 32x32 pixels large.
-# html_favicon = None
+html_favicon = "_static/e3 cyan symbol transparent@128.png"
 
 html_show_sourcelink = True
 html_show_sphinx = True

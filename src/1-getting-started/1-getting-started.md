@@ -30,7 +30,7 @@ Install from conda-forge: [https://conda-forge.org/download/](https://conda-forg
 New to conda? See the [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
 for basic concepts.
 
-If you prefer `mamba` (a faster drop-in replacement), you can substitute `mamba` for `conda` in the commands below.
+If you prefer mamba (a faster drop-in replacement), you can use `mamba` instead of `conda` in the commands below.
 See [mamba documentation](https://mamba.readthedocs.io/) for details.
 :::
 

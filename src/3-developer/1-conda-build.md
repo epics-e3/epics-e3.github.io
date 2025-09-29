@@ -35,14 +35,23 @@ $ conda activate conda-build
 
 ## Building a conda package - an example with iocStats
 
+We would typically be able to build a conda package just by doing:
+
 ```console
 (base) $ git clone https://gitlab.esss.lu.se/e3/recipes/iocstats-recipe
 (base) $ cd iocstats-recipe
 (base) $ conda build recipe
 ```
 
-Running the above commands will resolve build (and host) requirements and download
-these, before it builds iocStats itself.
+Where running the above commands would resolve build (and host) requirements and download these, before it builds iocStats
+itself. However, our e3 environment is built on top of conda-forge, which uses modern conventions. In particular,
+iocstats' conda recipe contains a dependency macro `stdlib('c')` (read more [here](https://conda-forge.org/news/2024/03/24/stdlib-migration/))
+which first must be processed. This leads us to the next topic: pinning files.
+
+:::{note}
+If you still would like to run the steps above, it should still build on most platforms if you remove or comment
+out the line containing `stdlib('c')` in `./recipe/meta.yaml`.
+:::
 
 ## Pinning and variants
 
@@ -69,6 +78,10 @@ upstream pins, download them when you build:
 (base) $ curl -fsSL -o /tmp/e3_pins.yaml \
   https://gitlab.esss.lu.se/e3/recipes/e3-pinning/-/raw/main/conda_build_config.yaml
 ```
+
+:::{caution}
+Up-to-date pinning files are essential to avoid build failures and dependency conflicts.
+:::
 
 Thus, if we wanted to re-build the earlier iocstats example with conda-forge
 and ESS pinning applied:

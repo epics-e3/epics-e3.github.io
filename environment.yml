@@ -9,3 +9,5 @@ dependencies:
   - sphinx-design
   - sphinx-copybutton
   - furo
+  - pre-commit
+  - ruby>=3.0

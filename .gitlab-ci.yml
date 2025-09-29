@@ -7,7 +7,7 @@ include:
   - project: "ics-infrastructure/gitlab-ci-yml"
     file: "PreCommit.gitlab-ci.yml"
 
-stages: [check, deploy]
+stages: [check, build, deploy]
 
 run-pre-commit:
   script:
@@ -22,14 +22,21 @@ run markdown lint:
   script:
     - mdl --config .mdlrc .
 
-pages:
-  stage: deploy
+build:
+  stage: build
   image: registry.esss.lu.se/ics-docker/sphinx
   script:
     - sphinx-build -M html src build
+  artifacts:
+    paths:
+      - build
+
+pages:
+  stage: deploy
+  script:
     - mv build/html public
   artifacts:
     paths:
       - public
-  only:
-    - master
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

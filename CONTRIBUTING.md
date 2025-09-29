@@ -1,16 +1,16 @@
 # Contributing
 
-Improvements to this portal are appreciated, especially if you notice
-information or commands being incorrect or out-of-date.
+Improvements to this documentation are appreciated, especially if you notice information or commands being incorrect or out-of-date.
 
-Contributions via merge request only.
+## How to contribute
 
-If you want advice on intended changes, contact one of the maintainers.
+The usual way is via merge request - fork the repo, make your changes, test with `make html`, and submit a merge request.
 
-## General structure
+If you don't have a GitLab account, you can also email git patches (`git format-patch main`) to the maintainers.
 
-- All content should be usable also by external ESS users, with no access to ESS
-  infrastructure
-- All content should be formatted to facilitate ease of reading
-- All content should be kept up-to-date, or else highlighted with annotations
-  (warnings, notices, etc.)
+For bigger changes, it's worth checking with maintainers first.
+
+## Content guidelines
+
+- All content should work for external ESS users without access to internal infrastructure
+- Keep things readable and up-to-date

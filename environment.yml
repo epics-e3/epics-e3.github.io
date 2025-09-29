@@ -1,0 +1,13 @@
+name: e3-docs-dev
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - make
+  - sphinx
+  - myst-parser
+  - sphinx-design
+  - sphinx-copybutton
+  - furo
+  - pre-commit
+  - ruby>=3.0

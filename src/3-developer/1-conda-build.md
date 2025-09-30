@@ -44,7 +44,7 @@ We would typically be able to build a conda package just by doing:
 ```
 
 Where running the above commands would resolve build (and host) requirements and download these, before it builds iocStats
-itself. However, our e3 environment is built on top of conda-forge, which uses modern conventions. In particular,
+itself. However, our e3 environment is built on top of conda-forge, which uses explicit dependency declarations. In particular,
 iocstats' conda recipe contains a dependency macro `stdlib('c')` (read more [here](https://conda-forge.org/news/2024/03/24/stdlib-migration/))
 which first must be processed. This leads us to the next topic: pinning files.
 

@@ -99,7 +99,6 @@ For questions, see [EPICS chat](https://epics-controls.org/epics-chat/) and [tec
 :glob:
 4-kb/1*
 4-kb/2*
-4-kb/3*
 ```
 
 ```{toctree}

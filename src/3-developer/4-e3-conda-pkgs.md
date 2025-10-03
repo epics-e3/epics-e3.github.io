@@ -340,7 +340,6 @@ For production use, consider adding comprehensive tests and documentation.
 :::{seealso}
 **Related topics:**
 
-- Need help with debugging? See [Debugging e3](../4-kb/3-debug.md)
 - Quick reference for build variables: [`require`'s build interface](../4-kb/1-build-interface.md)
 
 :::

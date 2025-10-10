@@ -181,7 +181,7 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}    # If you are are using .c sources
-    - {{ stdlib('c') }}      # If you are using C standard library modules
+    - {{ stdlib('c') }}
     - make
     - perl
   host:

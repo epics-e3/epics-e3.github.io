@@ -58,9 +58,10 @@ out the line containing `stdlib('c')` in `./recipe/meta.yaml`.
 Pinning aligns dependency versions across packages to ensure ABI compatibility
 and consistent solver outcomes.
 
-- We follow conda-forge’s global pins for compilers and core libraries.
-- We layer ESS-specific pins via the e3 pinning repository (main branch):
-  [`https://gitlab.esss.lu.se/e3/recipes/e3-pinning/`](https://gitlab.esss.lu.se/e3/recipes/e3-pinning/)
+- We follow conda-forge's global pins for compilers and core libraries
+  ([conda-forge-pinning-feedstock](https://github.com/conda-forge/conda-forge-pinning-feedstock))
+- We layer ESS-specific pins via the e3 pinning repository
+  ([e3-pinning](https://gitlab.esss.lu.se/e3/recipes/e3-pinning/))
 
 :::{note}
 We pin dependencies to ensure ABI (Application Binary Interface) compatibility; this

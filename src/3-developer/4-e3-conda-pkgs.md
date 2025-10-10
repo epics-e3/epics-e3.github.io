@@ -225,7 +225,8 @@ Always specify the correct license. This is crucial for legal compliance and pac
 - Keep requirements minimal and in the correct layer:
    - build: compilers, `make`, `perl`
    - host: `epics-base`, `require`, and module-specific dependencies
-- Avoid version pins inside the recipe; rely on global pinning files (see [Pinning and variants]).
+- Avoid version pins inside the recipe; rely on global pinning files where e3-pinning overrides conda-forge
+  (see [Pinning and variants]).
 - Use `run_exports` only when producing libraries consumed by others to ensure ABI stability.
 - Always include `license` and `license_file` under `about`.
 - Do **not** hardcode system paths in `build.sh` or Makefiles; use `$(PREFIX)`.

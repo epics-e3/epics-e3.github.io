@@ -161,14 +161,14 @@ For background and all available fields, see conda-build’s documentation: [Def
 
 ```yaml
 {% set name = "exampleModule" %}
-{% set version = "1-0-0" %}
+{% set version = "1.0.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  - url: https://gitlab.esss.lu.se/epics-modules/{{ name }}/-/archive/v{{ version }}/{{ name }}-v{{ version | replace('-', '.') }}.tar.gz
+  - url: https://gitlab.esss.lu.se/epics-modules/{{ name }}/-/archive/v{{ version }}/{{ name }}-v{{ version | replace('.', '-') }}.tar.gz
     sha256: <checksum>
   - path: ../src
 
@@ -221,6 +221,7 @@ Always specify the correct license. This is crucial for legal compliance and pac
 #### ESS recipe best practices
 
 - Prefer `source: url` tarballs with a `sha256`; use tags for traceability.
+- Have `version` be bound to upstream version and using jinja2 for separator conversion
 - Keep requirements minimal and in the correct layer:
    - build: compilers, `make`, `perl`
    - host: `epics-base`, `require`, and module-specific dependencies

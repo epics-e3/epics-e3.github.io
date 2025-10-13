@@ -243,7 +243,8 @@ Always specify the correct license. This is crucial for legal compliance and pac
 - Do **not** hardcode system paths in `build.sh` or Makefiles; use `$(PREFIX)`.
 - Don’t bundle vendor libraries with your package - create separate conda packages for these.
 - Increment build number when changing the recipe without changing upstream version.
-- Tests: Utilise `run-iocsh` and consider `test -f` checks for key installed files.
+- Tests: Prefer `run-iocsh -r <module>` over `test -f *.so`; it dynamically loads the library.
+  Add `test -f` checks for other key installed files as needed.
 
 [Pinning and variants]: 1-conda-build.md#pinning-and-variants
 

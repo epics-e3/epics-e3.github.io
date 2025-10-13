@@ -168,7 +168,7 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://gitlab.esss.lu.se/epics-modules/{{ name }}/-/archive/v{{ version }}/{{ name }}-v{{ version | replace('.', '-') }}.tar.gz
+  - url: https://gitlab.esss.lu.se/epics-modules/{{ name }}/-/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz
     sha256: <checksum>
   - path: ../src
 
@@ -200,6 +200,17 @@ about:
   license_file: LICENSE
   summary: "EPICS example module"
 ```
+
+:::{tip}
+Use jinja2 filters when upstream version format differs from the URL or tag format:
+
+```yaml
+{% set version = "1.2" %}
+source:
+  url: .../-/archive/v{{ version | replace('.', '-') }}/...tar.gz
+```
+
+:::
 
 Add any needed site-specific files (IOC shell snippets, templates, patches) to
 the `src/` directory as described in

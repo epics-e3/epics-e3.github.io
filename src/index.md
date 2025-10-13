@@ -98,10 +98,11 @@ For questions, see [EPICS chat](https://epics-controls.org/epics-chat/) and [tec
 ```{toctree}
 :hidden:
 :maxdepth: 2
-:caption: Knowledge Base
+:caption: API Reference
 :glob:
-4-kb/1*
-4-kb/2*
+4-api-reference/1*
+4-api-reference/2*
+4-api-reference/3*
 ```
 
 ```{toctree}

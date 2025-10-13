@@ -365,6 +365,6 @@ For production use, consider adding comprehensive tests and documentation.
 :::{seealso}
 **Related topics:**
 
-- Quick reference for build variables: [`require`'s build interface](../4-kb/1-build-interface.md)
+- Quick reference for build variables: [`require`'s build interface](../4-api-reference/1-require-build-interface.md)
 
 :::

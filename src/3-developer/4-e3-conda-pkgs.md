@@ -212,6 +212,17 @@ source:
 
 :::
 
+:::{note}
+**Advanced testing:**
+
+The `test:` section can also include integration tests (pytest with run-iocsh/p4p) or C/C++ unit tests.
+Simulated devices (e.g., using [lewis](https://github.com/ISISComputingGroup/lewis)) can be used for testing hardware behavior.
+
+For an example with pytest integration tests, see [displayform-recipe](https://gitlab.esss.lu.se/e3/recipes/displayform-recipe).
+
+See also: [pytest](https://docs.pytest.org/), [run-iocsh](http://e3.pages.esss.lu.se/run-iocsh/), [p4p](https://mdavidsaver.github.io/p4p/)
+:::
+
 Add any needed site-specific files (IOC shell snippets, templates, patches) to
 the `src/` directory as described in
 [Module build recipes](2-recipes.md).

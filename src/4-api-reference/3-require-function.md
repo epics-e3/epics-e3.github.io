@@ -23,7 +23,6 @@ When `require` is called, it:
 1. Loads the module's shared library (`.so` file)
 2. Loads the module's database definition file (`.dbd`)
 3. Sets up environment variables pointing to the module's data files (`<module>_DIR`, `<module>_DB`)
-4. Creates module information PVs
 
 ## Examples
 

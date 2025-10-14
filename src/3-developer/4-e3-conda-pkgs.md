@@ -181,7 +181,7 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}    # If you are are using .c sources
-    - {{ stdlib('c') }}      # If you are using C standard library modules
+    - {{ stdlib('c') }}
     - make
     - perl
   host:
@@ -200,6 +200,28 @@ about:
   license_file: LICENSE
   summary: "EPICS example module"
 ```
+
+:::{tip}
+Use jinja2 filters when upstream version format differs from the URL or tag format:
+
+```yaml
+{% set version = "1.2" %}
+source:
+  url: .../-/archive/v{{ version | replace('.', '-') }}/...tar.gz
+```
+
+:::
+
+:::{note}
+**Advanced testing:**
+
+The `test:` section can also include integration tests (pytest with run-iocsh/p4p) or C/C++ unit tests.
+Simulated devices (e.g., using [lewis](https://github.com/ISISComputingGroup/lewis)) can be used for testing hardware behavior.
+
+For an example with pytest integration tests, see [displayform-recipe](https://gitlab.esss.lu.se/e3/recipes/displayform-recipe).
+
+See also: [pytest](https://docs.pytest.org/), [run-iocsh](http://e3.pages.esss.lu.se/run-iocsh/), [p4p](https://mdavidsaver.github.io/p4p/)
+:::
 
 Add any needed site-specific files (IOC shell snippets, templates, patches) to
 the `src/` directory as described in
@@ -221,16 +243,19 @@ Always specify the correct license. This is crucial for legal compliance and pac
 #### ESS recipe best practices
 
 - Prefer `source: url` tarballs with a `sha256`; use tags for traceability.
+- Have `version` be bound to upstream version and using jinja2 for separator conversion
 - Keep requirements minimal and in the correct layer:
    - build: compilers, `make`, `perl`
    - host: `epics-base`, `require`, and module-specific dependencies
-- Avoid version pins inside the recipe; rely on global pinning files (see [Pinning and variants]).
+- Avoid version pins inside the recipe; rely on global pinning files where e3-pinning overrides conda-forge
+  (see [Pinning and variants]).
 - Use `run_exports` only when producing libraries consumed by others to ensure ABI stability.
 - Always include `license` and `license_file` under `about`.
 - Do **not** hardcode system paths in `build.sh` or Makefiles; use `$(PREFIX)`.
 - Don’t bundle vendor libraries with your package - create separate conda packages for these.
 - Increment build number when changing the recipe without changing upstream version.
-- Tests: Utilise `run-iocsh` and consider `test -f` checks for key installed files.
+- Tests: Prefer `run-iocsh -r <module>` over `test -f *.so`; it dynamically loads the library.
+  Add `test -f` checks for other key installed files as needed.
 
 [Pinning and variants]: 1-conda-build.md#pinning-and-variants
 
@@ -340,6 +365,6 @@ For production use, consider adding comprehensive tests and documentation.
 :::{seealso}
 **Related topics:**
 
-- Quick reference for build variables: [`require`'s build interface](../4-kb/1-build-interface.md)
+- Quick reference for build variables: [`require`'s build interface](../4-api-reference/1-require-build-interface.md)
 
 :::

@@ -2,6 +2,8 @@
 
 Source for e3 documentation hosted on GitLab pages: http://e3.pages.esss.lu.se
 
+**N.B.!** Secure HTTP (https) is not supported at this point in time.
+
 The documentation is built using
 [Sphinx](http://www.sphinx-doc.org/en/master/index.html) and
 [MyST](https://myst-parser.readthedocs.io/en/latest/index.html), stylized with

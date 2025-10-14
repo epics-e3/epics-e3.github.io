@@ -9,6 +9,9 @@ and architectural switch to a conda-based approach for better package management
 **Looking for the previous e3 documentation?** The original build-tools based documentation can still be found at
 [http://e3.pages.esss.lu.se/e3-build-tools](http://e3.pages.esss.lu.se/e3-build-tools/) (note that secure HTTP
 currently does not work).
+
+Please beware that we currently are in the midst of the transition, and that some examples here in this documentation
+might not yet work without alterations.
 :::
 
 Welcome to the documentation for ESS EPICS Environment (e3) - a toolkit designed to simplify EPICS development and
@@ -95,10 +98,11 @@ For questions, see [EPICS chat](https://epics-controls.org/epics-chat/) and [tec
 ```{toctree}
 :hidden:
 :maxdepth: 2
-:caption: Knowledge Base
+:caption: API Reference
 :glob:
-4-kb/1*
-4-kb/2*
+4-api-reference/1*
+4-api-reference/2*
+4-api-reference/3*
 ```
 
 ```{toctree}

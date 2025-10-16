@@ -62,7 +62,8 @@ client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate syst
 - Documentation: [docs.epics-controls.org](https://docs.epics-controls.org/)
 
 ::::{tip}
-For questions, see [EPICS chat](https://epics-controls.org/epics-chat/) and [tech-talk mailing lists](https://epics-controls.org/resources-and-support/mailing-lists/).
+For questions, see [EPICS chat](https://epics-controls.org/epics-chat/) (which includes a room for e3!) and
+[tech-talk mailing lists](https://epics-controls.org/resources-and-support/mailing-lists/).
 ::::
 
 ```{toctree}

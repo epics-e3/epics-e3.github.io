@@ -37,21 +37,23 @@ A recipe lives in `recipe/` and consists of `meta.yaml` and a build script.
 - `meta.yaml` defines name, version, source, requirements, test, and metadata.
 - `build.sh` contains the build/install steps for Linux.
 
-At a high level, `meta.yaml` includes:
-
-- `package`: name and version
-- `source`: where to get the upstream source
-- `build`: number, script, and optional features
-- `requirements`: split into `build`, `host`, `run`
-- `test`: requirements, commands, and test files
-- `about` and `extra`: metadata
+`meta.yaml` serves as both the package manifest (name, version, license, documentation) and (partial) build definition,
+specifying what to build, where to get the source, how to compile it, what it depends on, and how to test it.
+The file uses a structured format to declare package metadata and build requirements that conda-build processes.
 
 :::{tip}
+Understanding conda requirements:
 
-- `build` requirements are for the build tools (e.g. cmake, make, pkg-config).
-- `host` requirements are the libraries the package is compiled against.
-- `run` requirements are needed at runtime by consumers of the package.
+- `build` requirements are tools needed during compilation (e.g. cmake, make, pkg-config)
+- `host` requirements are libraries the package compiles against
+- `run` requirements are needed at runtime by users of the package
 
+:::
+
+:::{seealso}
+Complete recipes with all `meta.yaml` fields filled out are demonstrated in [Module creation](4-e3-conda-pkgs.md),
+which walks through the entire packaging workflow. For comprehensive meta.yaml reference, see conda-build's
+[Defining metadata](https://docs.conda.io/projects/conda-build/en/stable/resources/define-metadata.html).
 :::
 
 ## Variants and pinning (overview)

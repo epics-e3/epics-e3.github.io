@@ -220,7 +220,7 @@ Simulated devices (e.g., using [lewis](https://github.com/ISISComputingGroup/lew
 
 For an example with pytest integration tests, see [displayform-recipe](https://gitlab.esss.lu.se/e3/recipes/displayform-recipe).
 
-See also: [pytest](https://docs.pytest.org/), [run-iocsh](http://e3.pages.esss.lu.se/run-iocsh/), [p4p](https://mdavidsaver.github.io/p4p/)
+See also: [pytest](https://docs.pytest.org/), [run-iocsh](https://e3.pages.ess.eu/run-iocsh/), [p4p](https://mdavidsaver.github.io/p4p/)
 :::
 
 Add any needed site-specific files (IOC shell snippets, templates, patches) to

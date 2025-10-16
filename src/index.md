@@ -7,8 +7,7 @@ These are the **new documentation pages** for the redesigned ESS EPICS Environme
 and architectural switch to a conda-based approach for better package management and reproducibility.
 
 **Looking for the previous e3 documentation?** The original build-tools based documentation can still be found at
-[http://e3.pages.esss.lu.se/e3-build-tools](http://e3.pages.esss.lu.se/e3-build-tools/) (note that secure HTTP
-currently does not work).
+[https://e3.pages.ess.eu/e3-build-tools](https://e3.pages.ess.eu/e3-build-tools/).
 
 Please beware that we currently are in the midst of the transition, and that some examples here in this documentation
 might not yet work without alterations.

@@ -1,8 +1,8 @@
 # e3 documentation
 
-Source for e3 documentation hosted on GitLab pages: http://e3.pages.esss.lu.se
+Source for e3 documentation hosted on GitLab pages: https://e3.pages.ess.eu
 
-**N.B.!** Secure HTTP (https) is not supported at this point in time.
+The URL relies on this project's path, see https://docs.gitlab.com/user/project/pages/getting_started_part_one/#gitlab-pages-default-domain-names.
 
 The documentation is built using
 [Sphinx](http://www.sphinx-doc.org/en/master/index.html) and

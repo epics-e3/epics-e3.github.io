@@ -202,12 +202,14 @@ about:
 ```
 
 :::{tip}
-Use jinja2 filters when upstream version format differs from the URL or tag format:
+Use jinja2 filters when upstream version format differs from the URL or tag format. This can be useful when upstream
+uses a different version format like `R1-2` or `v1-2-3-4`. For example:
 
 ```yaml
 {% set version = "1.2" %}
+
 source:
-  url: .../-/archive/v{{ version | replace('.', '-') }}/...tar.gz
+  url: .../-/archive/R{{ version | replace('.', '-') }}/...tar.gz
 ```
 
 :::

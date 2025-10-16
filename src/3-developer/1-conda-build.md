@@ -13,6 +13,16 @@ You must also have `conda` (or `mamba`) installed and configured per
 If you need to review these prerequisites, see the [main documentation page](../index.md#prerequisites) for external resources.
 :::
 
+:::{note}
+**About this guide's structure:**
+
+This developer documentation follows a learn-by-doing approach. We start with conda-build
+to set up working build environments (managing all dependencies automatically), then overview
+recipe structure conceptually, before diving into makefile implementation details, and finally conda recipe
+formulation. This flow ensures you have functional tooling before encountering the complexity of manual
+builds and packaging.
+:::
+
 ## Setting up a build environment
 
 All you strictly need to be able to build EPICS modules---or any other conda

@@ -101,7 +101,7 @@ html_show_copyright = True
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
-    "e3": ("http://e3.pages.esss.lu.se/", None),
+    "e3": ("https://e3.pages.ess.eu/", None),
     "epics": ("https://docs.epics-controls.org/en/latest/", None),
 }
 

@@ -202,12 +202,14 @@ about:
 ```
 
 :::{tip}
-Use jinja2 filters when upstream version format differs from the URL or tag format:
+Use jinja2 filters when upstream version format differs from the URL or tag format. This can be useful when upstream
+uses a different version format like `R1-2` or `v1-2-3-4`. For example:
 
 ```yaml
 {% set version = "1.2" %}
+
 source:
-  url: .../-/archive/v{{ version | replace('.', '-') }}/...tar.gz
+  url: .../-/archive/R{{ version | replace('.', '-') }}/...tar.gz
 ```
 
 :::
@@ -220,7 +222,7 @@ Simulated devices (e.g., using [lewis](https://github.com/ISISComputingGroup/lew
 
 For an example with pytest integration tests, see [displayform-recipe](https://gitlab.esss.lu.se/e3/recipes/displayform-recipe).
 
-See also: [pytest](https://docs.pytest.org/), [run-iocsh](http://e3.pages.esss.lu.se/run-iocsh/), [p4p](https://mdavidsaver.github.io/p4p/)
+See also: [pytest](https://docs.pytest.org/), [run-iocsh](https://e3.pages.ess.eu/run-iocsh/), [p4p](https://mdavidsaver.github.io/p4p/)
 :::
 
 Add any needed site-specific files (IOC shell snippets, templates, patches) to
@@ -258,6 +260,24 @@ Always specify the correct license. This is crucial for legal compliance and pac
   Add `test -f` checks for other key installed files as needed.
 
 [Pinning and variants]: 1-conda-build.md#pinning-and-variants
+
+#### Contributing to conda-forge
+
+If you're packaging libraries, SDKs, or tools that could benefit users beyond the EPICS community, consider
+contributing them to [conda-forge](https://conda-forge.org/) rather than keeping them in organization-specific channels.
+
+:::{tip}
+Good candidates for conda-forge contributions include:
+
+- Vendor SDKs and hardware drivers with broad applicability
+- General-purpose scientific libraries
+- Development tools and utilities
+
+EPICS modules themselves stay in e3-specific channels due to their specialized nature.
+:::
+
+See conda-forge's [Contributing packages](https://conda-forge.org/docs/maintainer/adding_pkgs/) guide for
+details on the submission process.
 
 ### 2.6 Build and test
 

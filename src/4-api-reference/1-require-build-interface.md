@@ -4,6 +4,9 @@ This page documents the build-time interface provided by `require` for building 
 
 ## Build variables
 
+- `MODULE` - Name of the module from the perspective of `require`
+- `LIBVERSION` - Version of the module from the perspective of `require`
+
 ### What to build and install
 
 - `SOURCES` - Source files to compile into the shared library

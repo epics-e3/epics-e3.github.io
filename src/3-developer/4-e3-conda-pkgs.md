@@ -261,6 +261,24 @@ Always specify the correct license. This is crucial for legal compliance and pac
 
 [Pinning and variants]: 1-conda-build.md#pinning-and-variants
 
+#### Contributing to conda-forge
+
+If you're packaging libraries, SDKs, or tools that could benefit users beyond the EPICS community, consider
+contributing them to [conda-forge](https://conda-forge.org/) rather than keeping them in organization-specific channels.
+
+:::{tip}
+Good candidates for conda-forge contributions include:
+
+- Vendor SDKs and hardware drivers with broad applicability
+- General-purpose scientific libraries
+- Development tools and utilities
+
+EPICS modules themselves stay in e3-specific channels due to their specialized nature.
+:::
+
+See conda-forge's [Contributing packages](https://conda-forge.org/docs/maintainer/adding_pkgs/) guide for
+details on the submission process.
+
 ### 2.6 Build and test
 
 #### Local build

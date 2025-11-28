@@ -47,11 +47,14 @@ $ make help
 ---------------------------------------
 Available targets
 ---------------------------------------
+all             Build and install current module
 install         Install module to $(E3_MODULES_INSTALL_LOCATION)
 uninstall       Uninstall the current module
 build           Build current module
 debug           Displays information about the build process
 clean           Deletes temporary build files
+help            Show this help message
+---------------------------------------
 ```
 
 :::{tip}

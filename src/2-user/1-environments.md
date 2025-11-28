@@ -70,21 +70,21 @@ You can now test that this worked by starting an IOC:
 \   --./'-'  |    |  |'  '-'  ''  '--'\    .-'  `)|  | |  |\   --.|  ||  |
  `----'`----'     `--' `-----'  `-----'    `----' `--' `--' `----'`--'`--'
 
-Starting e3 IOC shell version 5.1.1
-WARNING: Environment variable IOCNAME is not set.
-DEBUG: PID for iocsh 274446
+Starting e3 IOC shell version 6.0.0
+DEBUG: PID for iocsh 16709
 DEBUG: Script path is /home/johndoe/miniconda3/envs/e3-and-stream/bin/iocsh
 DEBUG: Executed from /home/johndoe
-DEBUG: Temporary startup script at /tmp/tmp5670yziy
-DEBUG: Running command `/home/johndoe/miniconda3/envs/e3-and-stream/epics/bin/linux-x86_64/softIocPVX -D /home/johndoe/miniconda3/envs/e3-and-stream/epics/dbd/softIocPVX.dbd /tmp/tmp5670yziy`
-epicsEnvSet REQUIRE_IOC "TEST:johndoe-274446"
-epicsEnvSet IOCSH_TOP "/home/johndoe"
-epicsEnvSet IOCSH_PS1 "localhost-274446 > "
+DEBUG: Temporary startup script at /var/folders/0r/h6b_p_h10yj328dtzyg660fw0000gn/T/tmp_pgpzcfh
+DEBUG: Running command `softIocPVX -D /home/johndoe/miniconda3/envs/e3-and-stream/pvxs/dbd/softIocPVX.dbd /var/folders/0r/h6b_p_h10yj328dtzyg660fw0000gn/T/tmp_pgpzcfh`
+INFO: PVXS QSRV2 is loaded, permitted, and ENABLED.
+epicsEnvSet REQUIRE_IOC "test"
+epicsEnvSet IOCNAME "test"
+epicsEnvSet IOCSH_TOP "/home/johndoe
+epicsEnvSet IOCSH_PS1 "test > "
 errlogInit2 2048 2047
-dlload /home/johndoe/miniconda3/envs/e3-and-stream/modules/require/5.1.1/lib/linux-x86_64/librequire.so
-dbLoadDatabase /home/johndoe/miniconda3/envs/e3-and-stream/modules/require/5.1.1/dbd/require.dbd
-require_registerRecordDeviceDriver
-Loading module info records for require
+dlload /home/johndoe/miniconda3/envs/e3-and-stream/lib/librequire.so
+Loading dbd file /home/johndoe/miniconda3/envs/e3-and-stream/epics-modules/require/dbd/require.dbd.
+Loading module info records for require.
 iocInit
 Starting iocInit
 ############################################################################
@@ -93,7 +93,7 @@ Starting iocInit
 ## Rev. Date build date/time:
 ############################################################################
 iocRun: All initialization complete
-localhost-274446 >
+test >
 ```
 
 :::{tip}

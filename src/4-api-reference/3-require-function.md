@@ -35,9 +35,10 @@ require iocstats
 dbLoadRecords("${iocstats_DB}/iocAdminSoft.db", "IOC=$(IOCNAME)")
 ```
 
-## Module information PVs
+## Environment information PVs
 
-`require` creates PVs that expose information about loaded modules, e.g. `$(IOCNAME):LoadedModules`.
+`require` creates debugging PVs that expose information about its components, or loaded modules: `$(IOCNAME):Require-Version`,
+`$(IOCNAME):Require-RtComponents`, `$(IOCNAME):Require-LoadedModules` (the latter two are Q-groups).
 
 :::{tip}
 Set the IOC name using the `--iocname` flag:

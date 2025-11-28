@@ -23,17 +23,36 @@ The IOC shell is an interactive command environment where you can:
 Run `iocsh --help` for the complete list of options and their usage.
 :::
 
-Key options include:
+```console
+usage: IOC shell for e3 [-h] [-V] [-r MODULE] [-c COMMAND] [-d DATABASE]
+                        [--debugger [{gdb,lldb,valgrind}]]
+                        [--debugger-args DEBUGGER_ARGS] [--debug] [-i]
+                        [--iocname IOCNAME]
+                        [file]
 
-- `-r, --require MODULE` - Load module(s) using `require`
-- `-c, --command COMMAND` - Execute IOC shell command(s)
-- `-d, --database FILE` - Load database file(s)
-- `--iocname NAME` - Set the IOC name
-- `-i, --no-init` - Skip automatic `iocInit` call
-- `--debug` - Enable debug output
-- `--debugger [gdb|lldb|valgrind]` - Run under debugger
-- `-V, --version` - Print version and exit
-- `-h, --help` - Show help message
+ESS EPICS environment (e3) wrapper for softIocPVA
+
+positional arguments:
+  file                  Path to startup script
+
+options:
+  -h, --help            show this help message and exit
+  -V, --version         Print version and exit
+  -r, --require MODULE  Load module(s), optionally with version using the
+                        syntax `module,version`
+  -c, --command COMMAND
+                        Execute command(s)
+  -d, --database DATABASE
+                        Load database file(s) (`dbLoadRecords`)
+  --debugger [{gdb,lldb,valgrind}]
+                        Run with selected debugger. To pass arguments, use
+                        --debuger-args "args"
+  --debugger-args DEBUGGER_ARGS
+                        Arguments to pass to debugger
+  --debug
+  -i, --no-init
+  --iocname IOCNAME     IOC name (generates fallback if not set)
+```
 
 ## Examples
 

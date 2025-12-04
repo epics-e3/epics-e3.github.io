@@ -14,15 +14,15 @@ To exemplify this, we will create several separate environments.
 
 Let's create one containing [*StreamDevice*](https://paulscherrerinstitute.github.io/StreamDevice/):
 
-```console
+:::{code-block} console
 $ conda create -n e3-and-stream epics-base require stream
-```
+:::
 
 If you only need the pvAccess executables (e.g. `pvget`, `pvput`):
 
-```console
+:::{code-block} console
 $ conda create --name=epics epics-base
-```
+:::
 
 :::{note}
 This creates a basic EPICS environment (not technically e3) using conda-forge's EPICS base package.
@@ -30,38 +30,38 @@ This creates a basic EPICS environment (not technically e3) using conda-forge's 
 
 If you have more specific needs, you can pin versions, e.g.:
 
-```console
+:::{code-block} console
 $ conda create --name=my-special-e3-env epics-base=7.0.8.1 require asyn sequencer
-```
+:::
 
 You can also create an environment from an `environment.yml` file (a standard
 conda environment specification in YAML):
 
-```yaml
+:::{code-block} yaml
 dependencies:
   - epics-base=7.0.9
   - require>5
   - modbus
   - s7plc
-```
+:::
 
 Then create the environment with:
 
-```console
+:::{code-block} console
 $ conda env create --file=environment.yml
-```
+:::
 
 ### Using your e3 environments
 
 Activate the environment you just created that contains stream:
 
-```console
+:::{code-block} console
 $ conda activate e3-and-stream
-```
+:::
 
 You can now test that this worked by starting an IOC:
 
-```console
+:::{code-block} console
 (e3-and-stream) $ iocsh
 
        ,----.     ,--. ,-----.  ,-----.           ,--.            ,--.,--.
@@ -94,7 +94,7 @@ Starting iocInit
 ############################################################################
 iocRun: All initialization complete
 test >
-```
+:::
 
 :::{tip}
 Exit the IOC by typing `exit` at the console, or by pressing `^ d` (<Ctrl> + d).
@@ -102,7 +102,7 @@ Exit the IOC by typing `exit` at the console, or by pressing `^ d` (<Ctrl> + d).
 
 You can see which packages are installed in the environment by running:
 
-```console
+:::{code-block} console
 $ conda list
 # packages in environment at /home/johndoe/miniconda3/envs/e3-and-stream:
 #
@@ -114,13 +114,13 @@ require                   5.1.1                h6f9ad6c_0    ess-conda-local
 ...
 stream                    2.8.25               hc22a8e2_0    ess-conda-local
 ...
-```
+:::
 
 You can test any of these modules by running, for example,
 
-```console
+:::{code-block} console
 (e3-and-stream) $ iocsh -r asyn  # -r is shorthand for the `require` call
-```
+:::
 
 :::{tip}
 The `e3-and-stream` environment will contain `asyn` ([*asyn*](https://github.com/epics-modules/asyn))

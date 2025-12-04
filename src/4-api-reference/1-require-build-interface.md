@@ -42,7 +42,7 @@ These targets are provided by the `require` build system.
 
 From any module source directory, you can see the available targets:
 
-```console
+:::{code-block} console
 $ make help
 ---------------------------------------
 Available targets
@@ -55,7 +55,7 @@ debug           Displays information about the build process
 clean           Deletes temporary build files
 help            Show this help message
 ---------------------------------------
-```
+:::
 
 :::{tip}
 Additional targets may be available depending on your module configuration. Use `make help` to see all targets for

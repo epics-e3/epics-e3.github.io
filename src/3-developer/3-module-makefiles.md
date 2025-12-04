@@ -39,7 +39,7 @@ base's build documentation: [Application Developer's Guide: Build Facility](http
 
 A very small makefile can be as simple as:
 
-```make
+:::{code-block} make
 # This row is default, and must be included in all e3 makefiles
 include $(E3_REQUIRE_TOOLS)/driver.makefile
 
@@ -47,7 +47,7 @@ include $(E3_REQUIRE_TOOLS)/driver.makefile
 # The $(where_am_I) variable is provided by require and will point to the module's root directory
 TEMPLATES += $(wildcard $(where_am_I)/template/*.db)
 SCRIPTS   += $(where_am_I)/iocsh/example.iocsh
-```
+:::
 
 ## Example: Building iocStats with `make`
 
@@ -56,10 +56,10 @@ makefile that tells `require` how to build and install the module.
 
 ### 1) Acquire iocStats' source code
 
-```console
+:::{code-block} console
 $ git clone https://github.com/epics-modules/iocStats.git
 $ cd iocStats
-```
+:::
 
 :::{note}
 If we wanted to acquire additional files, or perform "pre-build" actions (patching, etc.),
@@ -70,9 +70,9 @@ we would do so at this stage.
 
 Create a conda environment that contains `epics-base`, `require`, and a compiler:
 
-```console
+:::{code-block} console
 $ conda create -n iocstats-build epics-base require gcc gxx
-```
+:::
 
 :::{caution}
 Which compiler to use will depend a bit on your platform, but `gcc` (and `gxx`) will work for Linux.
@@ -80,16 +80,16 @@ Which compiler to use will depend a bit on your platform, but `gcc` (and `gxx`) 
 
 Activate the environment:
 
-```console
+:::{code-block} console
 $ conda activate iocstats-build
-```
+:::
 
 ### 3) Set up an e3 makefile
 
 Create a makefile - we will name it `e3.makefile` since there already is a file named
 `Makefile` in iocStats' repository root.
 
-```make
+:::{code-block} make
 # e3.makefile
 include $(E3_REQUIRE_TOOLS)/driver.makefile
 
@@ -129,15 +129,15 @@ TEMPLATES += $(wildcard template/*.template)
 USR_DBFLAGS += -I$(where_am_I)/template
 
 SUBS += $(wildcard template/*.substitutions)
-```
+:::
 
 ### 4) Build and install
 
 To build, we will need to pass some additional variables to require:
 
-```console
+:::{code-block} console
 (iocstats-build) $ make -f e3.makefile MODULE=iocstats build
-```
+:::
 
 :::{dropdown} Show build log
 :icon: code
@@ -199,9 +199,9 @@ This compiles the sources against the EPICS base in your environment.
 
 To install the module into the e3 layout, we would then just run the install command:
 
-```console
+:::{code-block} console
 (iocstats-build) $ make -f e3.makefile MODULE=iocstats install
-```
+:::
 
 :::{dropdown} Show install log
 :icon: code
@@ -240,9 +240,9 @@ will see in later chapters that when we diverge from invoking `make` directly, t
 
 With the module installed, you can start an IOC shell and load the module:
 
-```console
+:::{code-block} console
 (iocstats-build) $ iocsh -r iocstats
-```
+:::
 
 :::{dropdown} Show IOC log
 :icon: code

@@ -52,7 +52,7 @@ needed for the module to work together with require.
 
 The file structure of a recipe project will typically look like this:
 
-```console
+:::{code-block} console
 $ tree
 .
 ├── LICENSE
@@ -69,4 +69,4 @@ $ tree
     └── template                # template, substitution, and database files
         ├── ess.substitutions
         └── some.template
-```
+:::

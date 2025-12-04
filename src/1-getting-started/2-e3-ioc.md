@@ -12,10 +12,10 @@ with `iocstats` installed as shown in [Getting started](1-getting-started.md).
 
 A minimal startup script:
 
-```shell
+:::{code-block} shell
 # st.cmd
 require iocstats  # or `require(iocstats)` if you prefer
-```
+:::
 
 :::{caution}
 The last line of the file must end in a newline or that line will not be executed.
@@ -23,9 +23,9 @@ The last line of the file must end in a newline or that line will not be execute
 
 Run it with:
 
-```console
+:::{code-block} console
 (e3) $ iocsh st.cmd
-```
+:::
 
 :::{dropdown} Show IOC output
 :icon: code
@@ -80,7 +80,7 @@ TEST:johndoe-730796 >
 
 A more realistic startup script might look like:
 
-```shell
+:::{code-block} shell
 # st.cmd
 require device
 require sequencer
@@ -92,4 +92,4 @@ iocshLoad("${device_DIR}init.iocsh", "PREFIX=$(P)-$(R):")
 dbLoadRecords("${device_DIR}device.template", "PREFIX=$(P)-$(R):")
 
 afterInit("seq device_control")
-```
+:::

@@ -44,20 +44,20 @@ We'll create a simple example module called `exampleModule` using EPICS base too
 
 ### 1.1 Set up the module directory
 
-```console
+:::{code-block} console
 $ mkdir exampleModule
 $ cd exampleModule
 $ git init
-```
+:::
 
 ### 1.2 Create the application structure
 
 Create the basic EPICS application structure, e.g. using `makeBaseApp`;
 
-```console
+:::{code-block} console
 $ makeBaseApp.pl -t example exampleModule
 $ makeBaseApp.pl -i -t example exampleModule
-```
+:::
 
 This creates the standard EPICS application structure with `configure/`, `exampleModuleApp/`, `iocBoot/`, and more.
 
@@ -70,9 +70,9 @@ via the e3 makefile in [2.3 Create the e3 makefile](#23-create-the-e3-makefile).
 
 If your module needs device support, use `makeSupport`:
 
-```console
+:::{code-block} console
 $ makeSupport.pl -t devGpib exampleModule
-```
+:::
 
 This creates device support files in `exampleModuleSup/` directory, including:
 
@@ -83,7 +83,7 @@ This creates device support files in `exampleModuleSup/` directory, including:
 
 Your module now has a typical EPICS structure:
 
-```console
+:::{code-block} console
 $ tree -L 2
 .
 ├── configure/
@@ -92,7 +92,7 @@ $ tree -L 2
 ├── db/
 ├── iocBoot/
 └── Makefile
-```
+:::
 
 :::{note}
 The actual implementation of device support, database files, and application
@@ -116,12 +116,12 @@ site-specific customizations separate from upstream.
 
 ### 2.1 Create recipe repository structure
 
-```console
+:::{code-block} console
 $ mkdir exampleModule-recipe
 $ cd exampleModule-recipe
 $ mkdir -p recipe src
 $ git init
-```
+:::
 
 For detailed information about recipe repository structure and organization
 principles, see [Module build recipes](2-recipes.md).
@@ -130,22 +130,22 @@ principles, see [Module build recipes](2-recipes.md).
 
 Create a `build.sh` script for consistent building:
 
-```bash
+:::{code-block} bash
 #!/bin/bash
 LIBVERSION=${PKG_VERSION}
 
 make clean
 make MODULE=${PKG_NAME} LIBVERSION=${LIBVERSION}
 make MODULE=${PKG_NAME} LIBVERSION=${LIBVERSION} install
-```
+:::
 
 Place this script in `recipe/build.sh` - conda-build will automatically execute it during the build process.
 
 Make it executable:
 
-```console
+:::{code-block} console
 $ chmod +x build.sh
-```
+:::
 
 ### 2.3 Create the e3 makefile
 
@@ -159,7 +159,7 @@ Create `recipe/meta.yaml` with a minimal structure.
 
 For background and all available fields, see conda-build’s documentation: [Defining metadata (meta.yaml)](https://docs.conda.io/projects/conda-build/en/stable/resources/define-metadata.html).
 
-```yaml
+:::{code-block} yaml
 {% set name = "exampleModule" %}
 {% set version = "1.0.0" %}
 
@@ -199,18 +199,18 @@ about:
   license: BSD-3-Clause
   license_file: LICENSE
   summary: "EPICS example module"
-```
+:::
 
 :::{tip}
 Use jinja2 filters when upstream version format differs from the URL or tag format. This can be useful when upstream
 uses a different version format like `R1-2` or `v1-2-3-4`. For example:
 
-```yaml
+:::{code-block} yaml
 {% set version = "1.2" %}
 
 source:
   url: .../-/archive/R{{ version | replace('.', '-') }}/...tar.gz
-```
+:::
 
 :::
 
@@ -232,9 +232,9 @@ the `src/` directory as described in
 :::{tip}
 Compute the checksum from the exact tarball URL you use:
 
-```console
+:::{code-block} console
 $ curl -L "https://gitlab.esss.lu.se/epics-modules/{{ name }}/-/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz" | shasum -a 256
-```
+:::
 
 :::
 
@@ -285,11 +285,11 @@ details on the submission process.
 
 Create a clean build environment and run a local build:
 
-```console
+:::{code-block} console
 $ conda create -n conda-build conda-build conda-verify
 $ conda activate conda-build
 $ conda build recipe
-```
+:::
 
 Artifacts are written under your `conda-bld` folder. You can install the fresh
 build for local testing using `--use-local` (see below).
@@ -303,18 +303,18 @@ described in [Pinning and variants](1-conda-build.md#pinning-and-variants).
 
 For production-like testing, use the ESS conda-build Docker image:
 
-```console
+:::{code-block} console
 $ docker run --rm -v $(pwd):/workspace \
   registry.esss.lu.se/ics-docker/conda-build:latest \
   conda-build /workspace/recipe
-```
+:::
 
 #### Test the package
 
-```console
+:::{code-block} console
 $ conda install --use-local examplemodule
 $ iocsh -r examplemodule
-```
+:::
 
 :::{tip}
 You can also inspect installed files with `ls` or `tree` under your prefix.
@@ -325,9 +325,9 @@ Prefer declaring required files via your recipe rather than checking them ad-hoc
 
 If builds fail, open an interactive debug environment to investigate:
 
-```console
+:::{code-block} console
 $ conda debug recipe
-```
+:::
 
 This reproduces the build environment, allowing you to run build steps manually.
 
@@ -341,7 +341,7 @@ attempt to work perfectly - iterate based on build logs and error messages.
 
 Your final repository structure should look like:
 
-```console
+:::{code-block} console
 $ tree
 exampleModule-recipe/
 ├── LICENSE
@@ -354,7 +354,7 @@ exampleModule-recipe/
     ├── iocsh/            # IOC shell snippets (if needed)
     ├── template/         # Database templates (if needed)
     └── patches/          # Source patches (if needed)
-```
+:::
 
 :::{important}
 Only include directories and files that you actually use.
@@ -363,11 +363,11 @@ Only include directories and files that you actually use.
 ::::{note}
 For ESS-hosted recipes, include the standard CI configuration to build and release packages:
 
-```yaml
+:::{code-block} yaml
 include:
   - project: 'ics-infrastructure/gitlab-ci-yml'
     file: 'E3CondaBuild.gitlab-ci.yml'
-```
+:::
 
 ::::
 

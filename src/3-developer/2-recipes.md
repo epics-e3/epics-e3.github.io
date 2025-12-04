@@ -9,7 +9,7 @@ A typical repository contains a `recipe/` directory with the conda recipe, and a
 `src/` directory for site-specific files (patches, IOC shell snippets, databases,
 examples):
 
-```console
+:::{code-block} console
 $ tree
 .
 ├── LICENSE
@@ -22,7 +22,7 @@ $ tree
     ├── template/         # db/templates/substitutions
     ├── patches/          # source patches (if needed)
     └── cmds/             # example/test startup scripts
-```
+:::
 
 :::{note}
 Keep variant pinning files outside the repository and pass them with

@@ -23,7 +23,7 @@ The IOC shell is an interactive command environment where you can:
 Run `iocsh --help` for the complete list of options and their usage.
 :::
 
-```console
+:::{code-block} console
 $ iocsh --help
 usage: IOC shell for e3 [-h] [-V] [-r MODULE] [-c COMMAND] [-d DATABASE]
                         [--debugger [{gdb,lldb,valgrind}]]
@@ -53,39 +53,39 @@ options:
   --debug
   -i, --no-init
   --iocname IOCNAME     IOC name (generates fallback if not set)
-```
+:::
 
 ## Examples
 
 ### Start interactive shell
 
-```console
+:::{code-block} console
 $ iocsh
-```
+:::
 
 ### Run a startup script
 
-```console
+:::{code-block} console
 $ iocsh st.cmd
-```
+:::
 
 ### Load modules from command line
 
-```console
+:::{code-block} console
 $ iocsh -r iocstats -r asyn
-```
+:::
 
 ### Quick testing with commands
 
-```console
+:::{code-block} console
 $ iocsh -r iocstats -c 'dbpr "*", 1'
-```
+:::
 
 ### Run under debugger
 
-```console
+:::{code-block} console
 $ iocsh --debugger gdb st.cmd
-```
+:::
 
 ## Implementation details
 

@@ -64,25 +64,25 @@ e3 focuses on EPICS environments and module management. IOC management tools (sy
 client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate systems.
 :::
 
-```{toctree}
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: Getting Started
 :glob:
 1-getting-started/1*
 1-getting-started/2*
-```
+:::
 
-```{toctree}
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: User Documentation
 :glob:
 2-user/1*
 2-user/2*
-```
+:::
 
-```{toctree}
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: Developer Documentation
@@ -91,9 +91,9 @@ client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate syst
 3-developer/2*
 3-developer/3*
 3-developer/4*
-```
+:::
 
-```{toctree}
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: API Reference
@@ -101,12 +101,12 @@ client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate syst
 4-api-reference/1*
 4-api-reference/2*
 4-api-reference/3*
-```
+:::
 
-```{toctree}
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: Maintainer Documentation
 :glob:
 5-maintainer/1*
-```
+:::

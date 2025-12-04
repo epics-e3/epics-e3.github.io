@@ -28,18 +28,18 @@ builds and packaging.
 All you strictly need to be able to build EPICS modules---or any other conda
 package---is `conda-build`. You can install this into an environment of your choice:
 
-```console
+:::{code-block} console
 (base) $ conda install conda-build
-```
+:::
 
 :::{tip}
 We recommend using a clean environment for building, to keep build tooling and its
 dependencies isolated.
 
-```console
+:::{code-block} console
 $ conda create --name=conda-build conda-build conda-verify
 $ conda activate conda-build
-```
+:::
 
 :::
 
@@ -47,11 +47,11 @@ $ conda activate conda-build
 
 We would typically be able to build a conda package just by doing:
 
-```console
+:::{code-block} console
 (base) $ git clone https://gitlab.esss.lu.se/e3/recipes/iocstats-recipe
 (base) $ cd iocstats-recipe
 (base) $ conda build recipe
-```
+:::
 
 Where running the above commands would resolve build (and host) requirements and download these, before it builds iocStats
 itself. However, our e3 environment is built on top of conda-forge, which uses explicit dependency declarations. In particular,
@@ -83,12 +83,12 @@ Download variant-config files (preferably outside your recipe) repository and pa
 them on the command line using `-m` (`--variant-config-files`). To always use the latest
 upstream pins, download them when you build:
 
-```console
+:::{code-block} console
 (base) $ curl -fsSL -o /tmp/conda_forge_pins.yaml \
   https://raw.githubusercontent.com/conda-forge/conda-forge-pinning-feedstock/main/recipe/conda_build_config.yaml
 (base) $ curl -fsSL -o /tmp/e3_pins.yaml \
   https://gitlab.esss.lu.se/e3/recipes/e3-pinning/-/raw/main/conda_build_config.yaml
-```
+:::
 
 :::{caution}
 Up-to-date pinning files are essential to avoid build failures and dependency conflicts.
@@ -97,20 +97,20 @@ Up-to-date pinning files are essential to avoid build failures and dependency co
 Thus, if we wanted to re-build the earlier iocstats example with conda-forge
 and ESS pinning applied:
 
-```console
+:::{code-block} console
 (base) $ conda build \
   -m /tmp/conda_forge_pins.yaml \
   -m /tmp/e3_pins.yaml \
   recipe
-```
+:::
 
 Artifacts are written under your build folder (e.g.
 `~/miniforge3/conda-bld/linux-64/<name>-<version>-<build>.tar.bz2`). You can install the
 fresh build if you want to test it out:
 
-```console
+:::{code-block} console
 (conda-build) $ conda install --use-local <package-name>
-```
+:::
 
 :::{tip}
 Just as with other `conda` (or `mamba`) related actions, there is ample documentation available

@@ -5,10 +5,10 @@ and make their libraries, database definitions, and data files available to the 
 
 ## Syntax
 
-```shell
+:::{code-block} shell
 require(module)
 require module
-```
+:::
 
 Both forms are equivalent. The parentheses are optional.
 
@@ -28,12 +28,12 @@ When `require` is called, it:
 
 After requiring a module, you can access its data files through environment variables:
 
-```shell
+:::{code-block} shell
 require iocstats
 
 # Load a database from the iocstats module
 dbLoadRecords("${iocstats_DB}/iocAdminSoft.db", "IOC=$(IOCNAME)")
-```
+:::
 
 ## Environment information PVs
 
@@ -43,9 +43,9 @@ dbLoadRecords("${iocstats_DB}/iocAdminSoft.db", "IOC=$(IOCNAME)")
 :::{tip}
 Set the IOC name using the `--iocname` flag:
 
-```console
+:::{code-block} console
 $ iocsh --iocname MY-IOC-01 st.cmd
-```
+:::
 
 If not specified, an auto-generated name is used.
 :::

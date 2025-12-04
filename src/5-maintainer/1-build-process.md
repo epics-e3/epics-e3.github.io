@@ -428,8 +428,6 @@ files.
    when we were creating `file.d`! As such, we can run the linking command, and
    we obtain our shared library, ready to install.
 
----
-
 [^secondexpansion]: Why do we need the `.SECONDEXPANSION`? The issue at hand
 is because the architecture filters are defined *after* the inclusion of
 `driver.makefile`. As such, we take advantage of GNU make's ability to do

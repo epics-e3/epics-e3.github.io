@@ -144,7 +144,9 @@ To build, we will need to pass some additional variables to require:
 :color: primary
 :animate: fade-in
 
-```console
+:::{code-block} console
+:class: no-copybutton
+
 MAKING EPICS VERSION 7.0.9.0
 mkdir -p O.7.0.9.0_Common
 make -f e3.makefile T_A=linux-x86_64 build
@@ -185,7 +187,7 @@ echo "#include <init.cpp>" >> iocstats_registerRecordDeviceDriver.cpp
 /home/johndoe/miniconda3/envs/iocstats-build/bin/x86_64-conda-linux-gnu-g++ -o libiocstats.so  -shared -fPIC -Wl,-hlibiocstats.so -L/home/johndoe/miniconda3/envs/iocstats-build/lib -Wl,-rpath,/home/johndoe/miniconda3/envs/iocstats-build/lib                  -rdynamic -Wl,--disable-new-dtags -Wl,-rpath,/home/johndoe/miniconda3/envs/iocstats-build/lib -Wl,-rpath-link,/home/johndoe/miniconda3/envs/iocstats-build/lib -L/home/johndoe/miniconda3/envs/iocstats-build/lib -Wl,-rpath-link,/home/johndoe/miniconda3/envs/iocstats-build/epics/lib/linux-x86_64 -m64                   iocstats_registerRecordDeviceDriver.o devIocStatsAnalog.o devIocStatsString.o devIocStatsSub.o devIocStatsTest.o devIocStatsWaveform.o osdCpuUsage.o osdCpuUtilization.o osdFdUsage.o osdMemUsage.o osdBootInfo.o osdClustInfo.o osdIFErrors.o osdSuspTasks.o osdWorkspaceUsage.o osdHostInfo.o osdPIDInfo.o osdSystemInfo.o      -lpthread    -lm -lrt -ldl -lgcc
 make[2]: Leaving directory '/home/johndoe/iocStats/O.7.0.9.0_linux-x86_64'
 make[1]: Leaving directory '/home/johndoe/iocStats'
-```
+:::
 
 :::
 
@@ -206,7 +208,9 @@ To install the module into the e3 layout, we would then just run the install com
 :color: primary
 :animate: fade-in
 
-```console
+:::{code-block} console
+:class: no-copybutton
+
 MAKING EPICS VERSION 7.0.9.0
 make -f e3.makefile T_A=linux-x86_64 install
 make[1]: Entering directory '/home/johndoe/iocStats'
@@ -221,7 +225,7 @@ Installing module library /home/johndoe/miniconda3/envs/iocstats-build/lib/libio
 perl -CSD /home/johndoe/miniconda3/envs/iocstats-build/epics/bin/linux-x86_64/installEpics.pl  -d -m755 libiocstats.so /home/johndoe/miniconda3/envs/iocstats-build/lib
 make[2]: Leaving directory '/home/johndoe/iocStats/O.7.0.9.0_linux-x86_64'
 make[1]: Leaving directory '/home/johndoe/iocStats'
-```
+:::
 
 :::
 
@@ -245,7 +249,9 @@ With the module installed, you can start an IOC shell and load the module:
 :color: primary
 :animate: fade-in
 
-```console
+:::{code-block} console
+:class: no-copybutton
+
 
        ,----.     ,--. ,-----.  ,-----.           ,--.            ,--.,--.
  ,---. '.-.  |    |  |'  .-.  ''  .--./     ,---. |  ,---.  ,---. |  ||  |
@@ -280,7 +286,7 @@ Starting iocInit
 ############################################################################
 iocRun: All initialization complete
 localhost-364538 >
-```
+:::
 
 :::
 

@@ -342,6 +342,7 @@ attempt to work perfectly - iterate based on build logs and error messages.
 Your final repository structure should look like:
 
 ```console
+$ tree
 exampleModule-recipe/
 ├── LICENSE
 ├── README.md

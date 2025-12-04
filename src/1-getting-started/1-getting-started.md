@@ -128,14 +128,14 @@ Install e3 modules like any other conda package. To add the [iocStats](https://g
 module, install its e3 conda package `iocstats` (conda package names are lowercase only):
 
 ::::{tab-set}
-::: {tab-item} Activated environment
+:::{tab-item} Activated environment
 
 ```console
 (e3) $ conda install iocstats
 ```
 
 :::
-::: {tab-item} Outside any environment
+:::{tab-item} Outside any environment
 
 ```console
 $ conda install --name=e3 iocstats

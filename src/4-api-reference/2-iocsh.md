@@ -24,6 +24,7 @@ Run `iocsh --help` for the complete list of options and their usage.
 :::
 
 ```console
+$ iocsh --help
 usage: IOC shell for e3 [-h] [-V] [-r MODULE] [-c COMMAND] [-d DATABASE]
                         [--debugger [{gdb,lldb,valgrind}]]
                         [--debugger-args DEBUGGER_ARGS] [--debug] [-i]

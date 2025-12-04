@@ -146,3 +146,4 @@ suppress_warnings = [
 # Copybutton configuration for prompts in code blocks
 copybutton_prompt_text = r"\(.*?\) \$ |>>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: "
 copybutton_prompt_is_regexp = True
+copybutton_selector = "div:not(.no-copybutton) > div.highlight > pre"

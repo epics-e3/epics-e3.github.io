@@ -32,7 +32,9 @@ Run it with:
 :color: primary
 :animate: fade-in
 
-```console
+:::{code-block} console
+:class: no-copybutton
+
        ,----.     ,--. ,-----.  ,-----.           ,--.            ,--.,--.
  ,---. '.-.  |    |  |'  .-.  ''  .--./     ,---. |  ,---.  ,---. |  ||  |
 | .-. :  .' <     |  ||  | |  ||  |        (  .-' |  .-.  || .-. :|  ||  |
@@ -65,7 +67,7 @@ Starting iocInit
 ############################################################################
 iocRun: All initialization complete
 TEST:johndoe-730796 >
-```
+:::
 
 :::
 

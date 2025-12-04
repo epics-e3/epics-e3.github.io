@@ -20,8 +20,10 @@ deployment at the [European Spallation Source](https://ess.eu).
 
 e3 is a design concept and toolkit that:
 
-- **Simplifies development** by abstracting away low-level EPICS complexities
-- **Manages dependencies** automatically across EPICS modules
+- **Enables dynamic loading** of EPICS modules at runtime without IOC build steps
+- **Wraps upstream modules** with site-specific modifications while avoiding forks
+- **Resolves dependency graphs** automatically via conda package management
+- **Provides isolated environments** to run multiple IOCs with different module sets on the same host
 
 ## Prerequisites
 

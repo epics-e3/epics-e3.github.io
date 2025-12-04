@@ -47,8 +47,8 @@ If you're new to any of these technologies, we recommend reviewing the linked do
 
 ## Background
 
-e3 evolved from ESS's previous EPICS environments (CODAC, EEE) and is based on PSI's EPICS environment. It uses a
-fork of PSI's require module, git, and module wrappers to manage dependencies and site-specific modifications.
+e3 evolved from ESS's previous EPICS environments (CODAC, EEE) and is based on PSI's EPICS environment. It uses the *require*
+module (originally based off of work from PSI), git, and module wrappers to manage dependencies and site-specific modifications.
 
 The toolkit handles complex dependency chains, compiles shared libraries, and manages installations - with much of
 the heavy lifting done by conda.

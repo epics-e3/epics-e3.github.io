@@ -56,16 +56,16 @@ html_theme = "furo"
 html_theme_options = {
     "navigation_with_keys": True,
     "top_of_page_button": "edit",
-    "source_repository": "https://gitlab.esss.lu.se/e3/e3.pages.esss.lu.se",
+    "source_repository": "https://gitlab.esss.lu.se/e3/e3.pages.ess.eu",
     "source_branch": "main",
     "source_directory": "src/",
-    "source_edit_link": "https://gitlab.esss.lu.se/e3/e3.pages.esss.lu.se/-/edit/main/src/{filename}",
-    "source_view_link": "https://gitlab.esss.lu.se/e3/e3.pages.esss.lu.se/-/blob/main/src/{filename}",
+    "source_edit_link": "https://gitlab.esss.lu.se/e3/e3.pages.ess.eu/-/edit/main/src/{filename}",
+    "source_view_link": "https://gitlab.esss.lu.se/e3/e3.pages.ess.eu/-/blob/main/src/{filename}",
     "sidebar_hide_name": False,
     "footer_icons": [
         {
             "name": "GitLab",
-            "url": "https://gitlab.esss.lu.se/e3/e3.pages.esss.lu.se",
+            "url": "https://gitlab.esss.lu.se/e3/e3.pages.ess.eu",
             "html": "",
             "class": "",
         },

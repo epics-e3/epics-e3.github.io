@@ -1,7 +1,7 @@
 # ESS EPICS Environment (e3)
 
 :::{important}
-**Major Update: e3 is now powered by conda!**
+**Major update: e3 is now powered by conda!**
 
 These are the **new documentation pages** for the redesigned ESS EPICS Environment (e3). We have made a major technical
 and architectural switch to a conda-based approach for better package management and reproducibility.

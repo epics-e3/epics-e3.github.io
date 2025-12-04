@@ -252,7 +252,6 @@ With the module installed, you can start an IOC shell and load the module:
 :::{code-block} console
 :class: no-copybutton
 
-
        ,----.     ,--. ,-----.  ,-----.           ,--.            ,--.,--.
  ,---. '.-.  |    |  |'  .-.  ''  .--./     ,---. |  ,---.  ,---. |  ||  |
 | .-. :  .' <     |  ||  | |  ||  |        (  .-' |  .-.  || .-. :|  ||  |

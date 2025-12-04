@@ -14,7 +14,7 @@ might not yet work without alterations.
 :::
 
 Welcome to the documentation for ESS EPICS Environment (e3) - a toolkit designed to simplify EPICS development and
-deployment at the European Spallation Source.
+deployment at the [European Spallation Source](https://ess.eu).
 
 ## What is e3?
 

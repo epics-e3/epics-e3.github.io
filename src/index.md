@@ -25,6 +25,11 @@ e3 is a design concept and toolkit that:
 - **Resolves dependency graphs** automatically via conda package management
 - **Provides isolated environments** to run multiple IOCs with different module sets on the same host
 
+For example, when you install the stream module, conda automatically resolves and installs all its dependencies (such as
+asyn and base) in a virtual environment. You can then switch between different versions of any module simply by changing
+a single line in your IOC configuration, and you can simultaneously run IOCs that require different versions of e.g.
+EPICS base.
+
 ## Prerequisites
 
 e3 assumes familiarity with several key technologies. Before getting started, you should be comfortable with:
@@ -47,26 +52,17 @@ If you're new to any of these technologies, we recommend reviewing the linked do
 
 ## Background
 
-e3 evolved from ESS's previous EPICS environments (CODAC, EEE) and is based on PSI's EPICS environment. It uses the *require*
-module (originally based off of work from PSI), git, and module wrappers to manage dependencies and site-specific modifications.
+e3 evolved from earlier EPICS environments at ESS and draws inspiration from PSI's EPICS environment. At its core, it uses
+the *require* module (originally developed at PSI) combined with conda package management to handle dependencies and
+site-specific modifications.
 
-The toolkit handles complex dependency chains, compiles shared libraries, and manages installations - with much of
-the heavy lifting done by conda.
+The toolkit handles complex dependency chains, compiles shared libraries, and manages installations - with much of the heavy
+lifting done by conda.
 
 :::{note}
 e3 focuses on EPICS environments and module management. IOC management tools (systemd, procServ, conserver) and
 client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate systems.
 :::
-
-## EPICS resources
-
-- Website: [epics-controls.org](https://epics-controls.org/)
-- Documentation: [docs.epics-controls.org](https://docs.epics-controls.org/)
-
-::::{tip}
-For questions, see [EPICS chat](https://epics-controls.org/epics-chat/) (which includes a room for e3!) and
-[tech-talk mailing lists](https://epics-controls.org/resources-and-support/mailing-lists/).
-::::
 
 ```{toctree}
 :hidden:

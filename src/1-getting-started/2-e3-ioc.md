@@ -1,29 +1,13 @@
 # An e3 IOC
 
-Two core ideas in e3 are:
+In e3, there is no IOC application build step. Each IOC runs `iocsh`, and startup scripts
+use `require` to dynamically load libraries and set up data-file search paths at runtime.
 
-- **Dynamically loading libraries** - no IOC application build step required
-- **Wrapping community modules** rather than forking them
-
-e3 has no IOC application build step. Each IOC runs `iocsh`, and startup scripts
-use `require` to load libraries and set up data-file search paths.
-
-You can then start an IOC by running:
-
-```console
-(e3) $ iocsh
-```
-
-:::{important}
-Every IOC starts from `iocsh`. The `require` function brings the right libraries
-and data files into the runtime without rebuilding.
-:::
-
-## Creating a startup script
+## A startup script
 
 :::{tip}
-Prerequisites: activate an environment with EPICS base, require, and any modules
-your script uses. The examples assume iocStats is installed.
+The examples below assume you have activated the e3 environment created in the previous section,
+with `iocstats` installed as shown in [Getting started](1-getting-started.md).
 :::
 
 A minimal startup script:
@@ -35,6 +19,54 @@ require iocstats  # or `require(iocstats)` if you prefer
 
 :::{caution}
 The last line of the file must end in a newline or that line will not be executed.
+:::
+
+Run it with:
+
+```console
+(e3) $ iocsh st.cmd
+```
+
+:::{dropdown} Show IOC output
+:icon: code
+:color: primary
+:animate: fade-in
+
+```console
+       ,----.     ,--. ,-----.  ,-----.           ,--.            ,--.,--.
+ ,---. '.-.  |    |  |'  .-.  ''  .--./     ,---. |  ,---.  ,---. |  ||  |
+| .-. :  .' <     |  ||  | |  ||  |        (  .-' |  .-.  || .-. :|  ||  |
+\   --./'-'  |    |  |'  '-'  ''  '--'\    .-'  `)|  | |  |\   --.|  ||  |
+ `----'`----'     `--' `-----'  `-----'    `----' `--' `--' `----'`--'`--'
+Starting e3 IOC shell version 6.0.0
+DEBUG: PID for iocsh 730796
+DEBUG: Script path is /home/johndoe/.local/share/mamba/envs/e3/bin/iocsh
+DEBUG: Executed from /home/johndoe
+DEBUG: Temporary startup script at /tmp/tmplt13wpcv
+DEBUG: Running command `softIocPVX -D /home/johndoe/.local/share/mamba/envs/e3/pvxs/dbd/softIocPVX.dbd /tmp/tmplt13wpcv`
+INFO: PVXS QSRV2 is loaded, permitted, and ENABLED.
+epicsEnvSet REQUIRE_IOC "TEST:johndoe-730796"
+epicsEnvSet IOCNAME "TEST:johndoe-730796"
+epicsEnvSet IOCSH_TOP "/home/johndoe"
+epicsEnvSet IOCSH_PS1 "TEST:johndoe-730796 > "
+errlogInit2 2048 2047
+dlload /home/johndoe/.local/share/mamba/envs/e3/lib/librequire.so
+Loading dbd file /home/johndoe/.local/share/mamba/envs/e3/epics-modules/require/dbd/require.dbd.
+Loading module info records for require.
+require iocstats
+Loading dbd file /home/johndoe/.local/share/mamba/envs/e3/epics-modules/iocstats/dbd/iocstats.dbd.
+Loading module info records for iocstats.
+iocInit
+Starting iocInit
+############################################################################
+## EPICS R7.0.9
+## Rev. 0000-00-00T00:00+0000
+## Rev. Date build date/time:
+############################################################################
+iocRun: All initialization complete
+TEST:johndoe-730796 >
+```
+
 :::
 
 :::{note}
@@ -59,15 +91,3 @@ dbLoadRecords("${device_DIR}device.template", "PREFIX=$(P)-$(R):")
 
 afterInit("seq device_control")
 ```
-
-## Starting the IOC
-
-```console
-(e3) $ iocsh st.cmd
-```
-
-:::{note}
-The require module produces a few PVs, for example to expose which modules are
-loaded. To set the correct PV names, the environment variable `$IOCNAME` must be
-set before starting your IOC.
-:::

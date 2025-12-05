@@ -68,45 +68,45 @@ client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate syst
 :hidden:
 :maxdepth: 2
 :caption: Getting Started
-:glob:
-1-getting-started/1*
-1-getting-started/2*
+
+getting-started/installation
+getting-started/your-first-ioc
 :::
 
 :::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: User Documentation
-:glob:
-2-user/1*
-2-user/2*
+
+user/environments
+user/iocs-and-modules
 :::
 
 :::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: Developer Documentation
-:glob:
-3-developer/1*
-3-developer/2*
-3-developer/3*
-3-developer/4*
+
+developer/building-modules
+developer/recipes
+developer/makefiles
+developer/packaging-modules
 :::
 
 :::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: API Reference
-:glob:
-4-api-reference/1*
-4-api-reference/2*
-4-api-reference/3*
+
+reference/build-interface
+reference/iocsh
+reference/require
 :::
 
 :::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: Maintainer Documentation
-:glob:
-5-maintainer/1*
+
+maintainer/build-process
 :::

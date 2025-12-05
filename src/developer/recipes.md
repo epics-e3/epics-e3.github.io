@@ -51,7 +51,7 @@ Understanding conda requirements:
 :::
 
 :::{seealso}
-Complete recipes with all `meta.yaml` fields filled out are demonstrated in [Module creation](4-e3-conda-pkgs.md),
+Complete recipes with all `meta.yaml` fields filled out are demonstrated in [Module creation](packaging-modules.md),
 which walks through the entire packaging workflow. For comprehensive meta.yaml reference, see conda-build's
 [Defining metadata](https://docs.conda.io/projects/conda-build/en/stable/resources/define-metadata.html).
 :::
@@ -76,8 +76,8 @@ These assets are typically installed by the module's makefile(s) or the recipe's
 into the module layout expected by `require`.
 
 :::{note}
-This approach of "module wrappers" is explained in detail in [IOCs and modules](../2-user/2-iocs-and-modules.md#module-wrappers).
-The build configuration is covered in [Module build configurations](3-module-makefiles.md).
+This approach of "module wrappers" is explained in detail in [IOCs and modules](../user/iocs-and-modules.md#module-wrappers).
+The build configuration is covered in [Module build configurations](makefiles.md).
 :::
 
 ### Upstream collaboration

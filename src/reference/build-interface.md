@@ -65,7 +65,7 @@ a specific module.
 :::{seealso}
 **Related topics:**
 
-- [Module build configurations](../3-developer/3-module-makefiles.md) - Setting up makefiles
-- [Building modules](../3-developer/1-conda-build.md) - Using conda-build
+- [Module build configurations](../developer/makefiles.md) - Setting up makefiles
+- [Building modules](../developer/building-modules.md) - Using conda-build
 
 :::

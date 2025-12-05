@@ -8,7 +8,7 @@ locally, and using the pinning file.
 :::{important}
 This guide assumes you are comfortable with git, Linux command line, and basic build systems.
 You must also have `conda` (or `mamba`) installed and configured per
-[Getting started with e3](../1-getting-started/1-getting-started.md).
+[Getting started with e3](../getting-started/installation.md).
 
 If you need to review these prerequisites, see the [main documentation page](../index.md#prerequisites) for external resources.
 :::

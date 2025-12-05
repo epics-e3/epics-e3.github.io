@@ -17,9 +17,9 @@ The tutorial covers:
 :::{note}
 This tutorial integrates concepts from:
 
-- [Building modules](1-conda-build.md) - build environment and conda-build usage
-- [Module build recipes](2-recipes.md) - recipe structure and meta.yaml details
-- [Module build configurations](3-module-makefiles.md) - e3 makefile creation
+- [Building modules](building-modules.md) - build environment and conda-build usage
+- [Module build recipes](recipes.md) - recipe structure and meta.yaml details
+- [Module build configurations](makefiles.md) - e3 makefile creation
 
 For detailed EPICS module development guidance, refer to:
 
@@ -124,7 +124,7 @@ $ git init
 :::
 
 For detailed information about recipe repository structure and organization
-principles, see [Module build recipes](2-recipes.md).
+principles, see [Module build recipes](recipes.md).
 
 ### 2.2 Create the build script
 
@@ -150,7 +150,7 @@ $ chmod +x build.sh
 ### 2.3 Create the e3 makefile
 
 Create `src/Makefile` following the guidance in
-[Module build configurations](3-module-makefiles.md). Start with the minimal
+[Module build configurations](makefiles.md). Start with the minimal
 example and extend based on your module's needs.
 
 ### 2.4 Create the conda recipe
@@ -227,7 +227,7 @@ See also: [pytest](https://docs.pytest.org/), [run-iocsh](https://e3.pages.ess.e
 
 Add any needed site-specific files (IOC shell snippets, templates, patches) to
 the `src/` directory as described in
-[Module build recipes](2-recipes.md).
+[Module build recipes](recipes.md).
 
 :::{tip}
 Compute the checksum from the exact tarball URL you use:
@@ -297,7 +297,7 @@ build for local testing using `--use-local` (see below).
 #### Build with pinning files (recommended)
 
 For consistent builds across ESS infrastructure, apply variant pinning as
-described in [Pinning and variants](1-conda-build.md#pinning-and-variants).
+described in [Pinning and variants](building-modules.md#pinning-and-variants).
 
 #### Test build using Docker
 
@@ -386,6 +386,6 @@ For production use, consider adding comprehensive tests and documentation.
 :::{seealso}
 **Related topics:**
 
-- Quick reference for build variables: [`require`'s build interface](../4-api-reference/1-require-build-interface.md)
+- Quick reference for build variables: [`require`'s build interface](../reference/build-interface.md)
 
 :::

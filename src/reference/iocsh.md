@@ -100,8 +100,8 @@ Internally, `iocsh`:
 :::{seealso}
 **Related topics:**
 
-- [An e3 IOC](../1-getting-started/2-e3-ioc.md) - Creating startup scripts
-- [`require` function](3-require-function.md) - Loading modules in scripts
-- [Environments](../2-user/1-environments.md) - Setting up e3 environments
+- [An e3 IOC](../getting-started/your-first-ioc.md) - Creating startup scripts
+- [`require` function](require.md) - Loading modules in scripts
+- [Environments](../user/environments.md) - Setting up e3 environments
 
 :::

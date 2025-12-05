@@ -53,8 +53,8 @@ If not specified, an auto-generated name is used.
 :::{seealso}
 **Related topics:**
 
-- [An e3 IOC](../1-getting-started/2-e3-ioc.md) - Creating startup scripts
-- [IOCs and modules](../2-user/2-iocs-and-modules.md) - Module concepts
-- [`iocsh` executable](2-iocsh.md) - Command-line interface
+- [An e3 IOC](../getting-started/your-first-ioc.md) - Creating startup scripts
+- [IOCs and modules](../user/iocs-and-modules.md) - Module concepts
+- [`iocsh` executable](iocsh.md) - Command-line interface
 
 :::

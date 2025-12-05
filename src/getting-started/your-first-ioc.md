@@ -7,7 +7,7 @@ use `require` to dynamically load libraries and set up data-file search paths at
 
 :::{tip}
 The examples below assume you have activated the e3 environment created in the previous section,
-with `iocstats` installed as shown in [Getting started](1-getting-started.md).
+with `iocstats` installed as shown in [Getting started](installation.md).
 :::
 
 A minimal startup script:

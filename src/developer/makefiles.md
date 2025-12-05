@@ -30,7 +30,7 @@ flags to the compiler and/or linker - using environment variables. The ones avai
 
 :::{tip}
 Quick reference for common variables is available here:
-[`require`'s build interface](../4-api-reference/1-require-build-interface.md)
+[`require`'s build interface](../reference/build-interface.md)
 :::
 
 The variables above handle most module build needs, but `require` inherits EPICS base's complete build system.

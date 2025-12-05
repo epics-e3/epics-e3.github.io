@@ -36,37 +36,52 @@ The databases provided by the module are typically in the form of templates. The
 template includes macro values for the PV name prefix and potentially other
 parameters. These macro values must be defined by the IOC.
 
-### Module wrappers
+### Where modules come from
 
-A key design concept in e3 is the notion of a module wrapper. This is used in
-order to package community modules with site-specific modifications on top. This
-allows us to avoid forking (and diverging) source code, while still allowing for
-the customisations we want.
+Modules are distributed as conda packages. At ESS, many modules come from the
+upstream EPICS community (like *asyn*, *StreamDevice*, *iocStats*), while others
+are developed internally for site-specific needs.
 
-This is done by placing source code patches (for changes that the upstream source
-may not want, or is slow to accept) as well as site-specific data files in our
-internal package.  At ESS, we do this in the conda recipe (git) projects.
+When packaging upstream modules, we may bundle additional site-specific content:
 
-The wrappers---henceforth, *recipes*---are also where we store the build configuration
-needed for the module to work together with require.
+- IOC shell snippets with recommended configurations
+- Additional database templates or substitution files
+- Small patches (for features not released upstream)
 
-The file structure of a recipe project will typically look like this:
+As a user, you don't need to worry about how modules are packaged—just install
+them with conda and use them in your IOCs.
+
+### Discovering available modules
+
+Find all available e3 modules in the ESS channel:
 
 :::{code-block} console
-$ tree
-.
-├── LICENSE
-├── README.md
-├── recipe
-│   ├── build.sh
-│   └── meta.yaml
-└── src
-    ├── cmds                    # example, template, or test startup scripts
-    │   └── example.cmd
-    ├── iocsh                   # snippets
-    │   └── config.iocsh
-    ├── Makefile                # the build configuration
-    └── template                # template, substitution, and database files
-        ├── ess.substitutions
-        └── some.template
+$ conda search "*" --channel ess-conda-local
+:::
+
+See which packages depend on a specific module:
+
+:::{code-block} console
+$ conda repoquery whoneeds require
+:::
+
+Search for modules by name pattern:
+
+:::{code-block} console
+$ conda search "*stream*"
+:::
+
+:::{tip}
+To see what's installed in your current environment, use `conda list` as shown
+in [Environments](environments.md#using-your-e3-environments).
+:::
+
+:::{seealso}
+If you need to create or modify modules, see the developer documentation:
+
+- [Building modules](../developer/building-modules.md) - Setting up build environments
+- [Module build recipes](../developer/recipes.md) - Recipe structure and organization
+- [Module build configurations](../developer/makefiles.md) - Creating e3 makefiles
+- [Module creation](../developer/packaging-modules.md) - Complete workflow example
+
 :::

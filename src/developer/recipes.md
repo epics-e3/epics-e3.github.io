@@ -73,11 +73,12 @@ ESS recipes often bundle site-specific content alongside upstream modules:
 - Databases and templates: installed for use by IOCs
 
 These assets are typically installed by the module's makefile(s) or the recipe's `build.sh`
-into the module layout expected by `require`.
+into the module layout expected by `require`. This approach allows us to package
+community modules with site-specific enhancements while avoiding forks of upstream
+source code.
 
-:::{note}
-This approach of "module wrappers" is explained in detail in [IOCs and modules](../user/iocs-and-modules.md#module-wrappers).
-The build configuration is covered in [Module build configurations](makefiles.md).
+:::{seealso}
+Build configuration details are covered in [Module build configurations](makefiles.md).
 :::
 
 ### Upstream collaboration

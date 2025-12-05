@@ -1,13 +1,14 @@
 # Module build recipes
 
-This chapter introduces how e3 recipe repositories are structured and how a
-minimal conda recipe is organised.
+In the previous chapter, we built iocStats using `conda build recipe`. Now let's
+look inside that `recipe/` directory to understand how recipes are structured and
+what they contain.
 
 ## Recipe repository layout
 
-A typical repository contains a `recipe/` directory with the conda recipe, and a
-`src/` directory for site-specific files (patches, IOC shell snippets, databases,
-examples):
+A typical e3 recipe repository (like the iocstats-recipe we just cloned) contains
+a `recipe/` directory with the conda recipe, and a `src/` directory for site-specific
+files (patches, IOC shell snippets, databases, examples):
 
 :::{code-block} console
 $ tree
@@ -34,12 +35,8 @@ layer site/global pinning externally.
 
 A recipe lives in `recipe/` and consists of `meta.yaml` and a build script.
 
-- `meta.yaml` defines name, version, source, requirements, test, and metadata.
-- `build.sh` contains the build/install steps for Linux.
-
-`meta.yaml` serves as both the package manifest (name, version, license, documentation) and (partial) build definition,
-specifying what to build, where to get the source, how to compile it, what it depends on, and how to test it.
-The file uses a structured format to declare package metadata and build requirements that conda-build processes.
+- `meta.yaml` defines package metadata (name, version, license), source location, requirements, and tests
+- `build.sh` contains the build/install steps for Linux
 
 :::{tip}
 Understanding conda requirements:
@@ -51,8 +48,8 @@ Understanding conda requirements:
 :::
 
 :::{seealso}
-Complete recipes with all `meta.yaml` fields filled out are demonstrated in [Module creation](packaging-modules.md),
-which walks through the entire packaging workflow. For comprehensive meta.yaml reference, see conda-build's
+A complete recipe example is shown in [Module creation](packaging-modules.md),
+which walks through the entire packaging workflow. For comprehensive `meta.yaml` reference, see conda-build's
 [Defining metadata](https://docs.conda.io/projects/conda-build/en/stable/resources/define-metadata.html).
 :::
 
@@ -62,7 +59,7 @@ Variants define which compiler, Python, or ABI versions to build against. Pinnin
 ensures binary compatibility across packages.
 
 - Follow conda-forge pins and layer ESS pins for consistent builds across e3.
-- Provide pins via `--variant-config-files` at build time (see previous chapter).
+- Provide pins via `--variant-config-files` at build time (see [Building modules](building-modules.md#pinning-and-variants)).
 
 ## Site-specific modifications (overview)
 

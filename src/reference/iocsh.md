@@ -19,10 +19,6 @@ The IOC shell is an interactive command environment where you can:
 
 ## Options
 
-:::{note}
-Run `iocsh --help` for the complete list of options and their usage.
-:::
-
 :::{code-block} console
 $ iocsh --help
 usage: IOC shell for e3 [-h] [-V] [-r MODULE] [-c COMMAND] [-d DATABASE]
@@ -87,7 +83,7 @@ $ iocsh -r iocstats -c 'dbpr "*", 1'
 $ iocsh --debugger gdb st.cmd
 :::
 
-## Implementation details
+## How it works
 
 Internally, `iocsh`:
 

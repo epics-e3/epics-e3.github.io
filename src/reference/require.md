@@ -6,15 +6,8 @@ and make their libraries, database definitions, and data files available to the 
 ## Syntax
 
 :::{code-block} shell
-require(module)
 require module
 :::
-
-Both forms are equivalent. The parentheses are optional.
-
-## Arguments
-
-- `module` - Name of the module to load (case-sensitive; module names are lowercase)
 
 ## Behavior
 
@@ -22,11 +15,11 @@ When `require` is called, it:
 
 1. Loads the module's shared library (`.so` file)
 2. Loads the module's database definition file (`.dbd`)
-3. Sets up environment variables pointing to the module's data files (`<module>_DIR`, `<module>_DB`)
+3. Sets up environment variables pointing to the module's data files (`${<module>_DIR}`, `${<module>_DB}`)
 
 ## Examples
 
-After requiring a module, you can access its data files through environment variables:
+You can access a module's data files through its environment variables:
 
 :::{code-block} shell
 require iocstats
@@ -37,10 +30,13 @@ dbLoadRecords("${iocstats_DB}/iocAdminSoft.db", "IOC=$(IOCNAME)")
 
 ## Environment information PVs
 
-`require` creates debugging PVs that expose information about its components, or loaded modules: `$(IOCNAME):Require-Version`,
-`$(IOCNAME):Require-RtComponents`, `$(IOCNAME):Require-LoadedModules` (the latter two are Q-groups).
+`require` creates debugging PVs that expose information about loaded modules and components:
 
-:::{tip}
+- `$(IOCNAME):Require-Version` - require version
+- `$(IOCNAME):Require-RtComponents` - runtime components (Q-group)
+- `$(IOCNAME):Require-LoadedModules` - loaded modules (Q-group)
+
+::::{tip}
 Set the IOC name using the `--iocname` flag:
 
 :::{code-block} console
@@ -48,7 +44,7 @@ $ iocsh --iocname MY-IOC-01 st.cmd
 :::
 
 If not specified, an auto-generated name is used.
-:::
+::::
 
 :::{seealso}
 **Related topics:**

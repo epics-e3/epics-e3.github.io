@@ -84,10 +84,8 @@ them on the command line using `-m` (`--variant-config-files`). To always use th
 upstream pins, download them when you build:
 
 :::{code-block} console
-(base) $ curl -fsSL -o /tmp/conda_forge_pins.yaml \
-  https://raw.githubusercontent.com/conda-forge/conda-forge-pinning-feedstock/main/recipe/conda_build_config.yaml
-(base) $ curl -fsSL -o /tmp/e3_pins.yaml \
-  https://gitlab.esss.lu.se/e3/recipes/e3-pinning/-/raw/main/conda_build_config.yaml
+(base) $ curl -fsSL -o /tmp/conda_forge_pins.yaml https://raw.githubusercontent.com/conda-forge/conda-forge-pinning-feedstock/main/recipe/conda_build_config.yaml
+(base) $ curl -fsSL -o /tmp/e3_pins.yaml https://gitlab.esss.lu.se/e3/recipes/e3-pinning/-/raw/main/conda_build_config.yaml
 :::
 
 :::{caution}
@@ -98,10 +96,7 @@ Thus, if we wanted to re-build the earlier iocStats example with conda-forge
 and ESS pinning applied:
 
 :::{code-block} console
-(base) $ conda build \
-  -m /tmp/conda_forge_pins.yaml \
-  -m /tmp/e3_pins.yaml \
-  recipe
+(base) $ conda build -m /tmp/conda_forge_pins.yaml -m /tmp/e3_pins.yaml recipe
 :::
 
 Artifacts are written to your build folder (e.g.

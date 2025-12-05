@@ -25,8 +25,8 @@ builds and packaging.
 
 ## Setting up a build environment
 
-All you strictly need to be able to build EPICS modules---or any other conda
-package---is `conda-build`. You can install this into an environment of your choice:
+To build EPICS modules (or any conda package), you need `conda-build`. You can
+install this into an environment of your choice:
 
 :::{code-block} console
 (base) $ conda install conda-build
@@ -34,7 +34,7 @@ package---is `conda-build`. You can install this into an environment of your cho
 
 :::{tip}
 We recommend using a clean environment for building, to keep build tooling and its
-dependencies isolated.
+dependencies isolated:
 
 :::{code-block} console
 $ conda create --name=conda-build conda-build conda-verify
@@ -55,8 +55,8 @@ We would typically be able to build a conda package just by doing:
 
 Where running the above commands would resolve build (and host) requirements and download these, before it builds iocStats
 itself. However, our e3 environment is built on top of conda-forge, which uses explicit dependency declarations. In particular,
-iocstats' conda recipe contains a dependency macro `stdlib('c')` (read more [here](https://conda-forge.org/news/2024/03/24/stdlib-migration/))
-which first must be processed. This leads us to the next topic: pinning files.
+iocStats' conda recipe contains a dependency macro `stdlib('c')` (read more [here](https://conda-forge.org/news/2024/03/24/stdlib-migration/))
+which must first be processed. This leads us to the next topic: pinning files.
 
 :::{note}
 If you still would like to run the steps above, it should still build on most platforms if you remove or comment
@@ -79,7 +79,7 @@ means that compiled binaries link and run correctly against their dependency ver
 (headers, symbols, calling conventions). Pinning helps avoid silent breakage.
 :::
 
-Download variant-config files (preferably outside your recipe) repository and pass
+Download variant-config files (preferably outside your recipe repository) and pass
 them on the command line using `-m` (`--variant-config-files`). To always use the latest
 upstream pins, download them when you build:
 
@@ -94,7 +94,7 @@ upstream pins, download them when you build:
 Up-to-date pinning files are essential to avoid build failures and dependency conflicts.
 :::
 
-Thus, if we wanted to re-build the earlier iocstats example with conda-forge
+Thus, if we wanted to re-build the earlier iocStats example with conda-forge
 and ESS pinning applied:
 
 :::{code-block} console
@@ -104,9 +104,9 @@ and ESS pinning applied:
   recipe
 :::
 
-Artifacts are written under your build folder (e.g.
+Artifacts are written to your build folder (e.g.
 `~/miniforge3/conda-bld/linux-64/<name>-<version>-<build>.tar.bz2`). You can install the
-fresh build if you want to test it out:
+fresh build if you want to test it:
 
 :::{code-block} console
 (conda-build) $ conda install --use-local <package-name>

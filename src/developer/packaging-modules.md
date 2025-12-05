@@ -52,7 +52,7 @@ $ git init
 
 ### 1.2 Create the application structure
 
-Create the basic EPICS application structure, e.g. using `makeBaseApp`;
+Create the basic EPICS application structure using `makeBaseApp`:
 
 :::{code-block} console
 $ makeBaseApp.pl -t example exampleModule
@@ -100,9 +100,8 @@ code is beyond the scope of this tutorial. Refer to the EPICS documentation
 links provided earlier for detailed development guidance.
 :::
 
-Once you have a version you are satisfied, which has been reviewed and merged into the default branch,
-you should apply a git tag with the version information for this. Generally, the first version you publish/release
-should be `1.0.0`.
+After your code has been reviewed and merged into the default branch, tag the release with a version number.
+Your first published release should typically be `1.0.0`.
 
 :::{tip}
 We encourage use of [semantic versioning](https://semver.org/).
@@ -128,23 +127,28 @@ principles, see [Module build recipes](recipes.md).
 
 ### 2.2 Create the build script
 
-Create a `build.sh` script for consistent building:
+Create `recipe/build.sh` - this is the standard build script for all e3 modules:
 
 :::{code-block} bash
-#!/bin/bash
-LIBVERSION=${PKG_VERSION}
+:class: no-copybutton
 
+#!/bin/bash
 make clean
-make MODULE=${PKG_NAME} LIBVERSION=${LIBVERSION}
-make MODULE=${PKG_NAME} LIBVERSION=${LIBVERSION} install
+make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION}
+make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION} install
 :::
 
-Place this script in `recipe/build.sh` - conda-build will automatically execute it during the build process.
+conda-build will automatically execute this script during the build process.
+
+:::{tip}
+You can use the [cookiecutter-e3-recipe](https://gitlab.esss.lu.se/ics-cookiecutter/cookiecutter-e3-recipe)
+template to scaffold a recipe repository with the standard structure and files.
+:::
 
 Make it executable:
 
 :::{code-block} console
-$ chmod +x build.sh
+$ chmod +x recipe/build.sh
 :::
 
 ### 2.3 Create the e3 makefile
@@ -180,7 +184,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
-    - {{ compiler('c') }}    # If you are are using .c sources
+    - {{ compiler('c') }}    # If you are using .c sources
     - {{ stdlib('c') }}
     - make
     - perl
@@ -245,7 +249,11 @@ Always specify the correct license. This is crucial for legal compliance and pac
 #### ESS recipe best practices
 
 - Prefer `source: url` tarballs with a `sha256`; use tags for traceability.
-- Have `version` be bound to upstream version and using jinja2 for separator conversion
+- Bind `version` to upstream version, using jinja2 filters for separator conversion
+- Version considerations:
+  - Avoid pre-release versions (rc, dev, alpha, beta) in production environments
+  - Be aware that conda treats `1.1rc1` > `1.0.0` (may be prioritized unexpectedly)
+  - Prefer `>=1.0.0` versions for production deployments when possible
 - Keep requirements minimal and in the correct layer:
    - build: compilers, `make`, `perl`
    - host: `epics-base`, `require`, and module-specific dependencies
@@ -259,7 +267,7 @@ Always specify the correct license. This is crucial for legal compliance and pac
 - Tests: Prefer `run-iocsh -r <module>` over `test -f *.so`; it dynamically loads the library.
   Add `test -f` checks for other key installed files as needed.
 
-[Pinning and variants]: 1-conda-build.md#pinning-and-variants
+[Pinning and variants]: building-modules.md#pinning-and-variants
 
 #### Contributing to conda-forge
 
@@ -279,7 +287,7 @@ EPICS modules themselves stay in e3-specific channels due to their specialized n
 See conda-forge's [Contributing packages](https://conda-forge.org/docs/maintainer/adding_pkgs/) guide for
 details on the submission process.
 
-### 2.6 Build and test
+### 2.5 Build and test
 
 #### Local build
 
@@ -291,7 +299,7 @@ $ conda activate conda-build
 $ conda build recipe
 :::
 
-Artifacts are written under your `conda-bld` folder. You can install the fresh
+Artifacts are written to your `conda-bld` folder. You can install the fresh
 build for local testing using `--use-local` (see below).
 
 #### Build with pinning files (recommended)
@@ -337,7 +345,7 @@ and error, especially when adapting existing modules. Don't expect the first
 attempt to work perfectly - iterate based on build logs and error messages.
 :::
 
-### 2.7 Repository structure overview
+### 2.6 Repository structure overview
 
 Your final repository structure should look like:
 

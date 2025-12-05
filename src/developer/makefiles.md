@@ -1,9 +1,10 @@
 # Module build configurations
 
-This chapter explains the `require` build system interface for e3 module
-makefiles. You will learn which variables to set, what they do, and how
-to build and install a module locally using `make` (with dependencies provided
-by your conda environment). We will not (yet) use conda's build tools.
+In the recipe's `build.sh`, we invoke `make` to compile and install the module.
+Now let's look at what that makefile contains - the e3 build interface that tells
+`require` how to build and install a module. This chapter demonstrates building
+directly with `make` (with dependencies from your conda environment) to understand
+the makefile in isolation, before returning to `conda build` in the next chapter.
 
 :::{note}
 This guide assumes familiarity with makefiles and build systems. If you need a refresher:
@@ -18,15 +19,15 @@ This guide assumes familiarity with makefiles and build systems. If you need a r
 ## `require`'s build interface
 
 Include `driver.makefile` from `require` and declare what to build and install - as well as pass
-flags to the compiler and/or linker - using environment variables. The ones available from require are:
+flags to the compiler and/or linker - using make variables. The most commonly used are:
 
 - `SOURCES` - Source files to compile into the shared library
-- `DBDS` - Database definition files to include
 - `HEADERS` - Header files that should be installed
+- `DBDS` - Database definition files to include
 - `TEMPLATES` - Database or template files that should be installed
-- `TMPS` - Templates files to inflate to db-file and install
-- `SUBS` - Substitutions files to inflate the template file to db-file and install
 - `SCRIPTS` - Script files that should be installed
+
+Additional variables are documented in the [build interface reference](../reference/build-interface.md).
 
 :::{tip}
 Quick reference for common variables is available here:
@@ -195,9 +196,9 @@ make[1]: Leaving directory '/home/johndoe/iocStats'
 We have to define `MODULE` for require to know the name of the module in question.
 :::
 
-This compiles the sources against the EPICS base in your environment.
+This compiles the sources against EPICS base in your environment.
 
-To install the module into the e3 layout, we would then just run the install command:
+To install the module into the e3 layout, run the install command:
 
 :::{code-block} console
 (iocstats-build) $ make -f e3.makefile MODULE=iocstats install
@@ -230,10 +231,9 @@ make[1]: Leaving directory '/home/johndoe/iocStats'
 :::
 
 :::{note}
-We are already leveraging conda features for things like dependency resolution; you will have seen during
-the environment creation step that it pulled down many more packages than just the three we specified, and
-packages like `epics-base` and `require` will also set variables and modify paths that we utilise. But you
-will see in later chapters that when we diverge from invoking `make` directly, things are further simplified.
+We're already leveraging conda for dependency resolution - when creating the environment, it pulled down more
+packages than just the three we specified. Packages like `epics-base` and `require` also set variables and modify
+paths that `require`'s build system uses. The next chapter ties makefiles and recipes together using `conda build`.
 :::
 
 ### 5) Start an IOC and load iocStats
@@ -259,30 +259,11 @@ With the module installed, you can start an IOC shell and load the module:
  `----'`----'     `--' `-----'  `-----'    `----' `--' `--' `----'`--'`--'
 
 Starting e3 IOC shell version 6.0.0rc2
-DEBUG: PID for iocsh 364538
-DEBUG: Script path is /home/johndoe/miniconda3/envs/iocstats-build/bin/iocsh
-DEBUG: Executed from /home/johndoe/iocStats
-DEBUG: Temporary startup script at /tmp/tmp9ilgca6g
-DEBUG: Running command `softIocPVX -D /home/johndoe/miniconda3/envs/iocstats-build/pvxs/dbd/softIocPVX.dbd /tmp/tmp9ilgca6g`
-INFO: PVXS QSRV2 is loaded, permitted, and ENABLED.
-epicsEnvSet REQUIRE_IOC "TEST:johndoe-364538"
-epicsEnvSet IOCSH_TOP "/home/johndoe/iocStats"
-epicsEnvSet IOCSH_PS1 "localhost-364538 > "
-errlogInit2 2048 2047
-dlload /home/johndoe/miniconda3/envs/iocstats-build/lib/librequire.so
-Loading dbd file /home/johndoe/miniconda3/envs/iocstats-build/epics-modules/require/dbd/require.dbd
-Loading module info records for require
+...
 require iocstats
 Loading dbd file /home/johndoe/miniconda3/envs/iocstats-build/epics-modules/iocstats/dbd/iocstats.dbd
 Loading module info records for iocstats
-No template path found for iocstats. Skipping.
-iocInit
-Starting iocInit
-############################################################################
-## EPICS R7.0.9
-## Rev. 2025-09-15T12:50+0000
-## Rev. Date build date/time:
-############################################################################
+...
 iocRun: All initialization complete
 localhost-364538 >
 :::

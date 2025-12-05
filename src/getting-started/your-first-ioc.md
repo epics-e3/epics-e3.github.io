@@ -28,8 +28,8 @@ Run it with:
 :::
 
 :::{dropdown} Show IOC output
-:icon: code
-:color: primary
+:icon: terminal
+:color: info
 :animate: fade-in
 
 :::{code-block} console

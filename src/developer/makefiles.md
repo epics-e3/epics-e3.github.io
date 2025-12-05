@@ -140,8 +140,8 @@ To build, we will need to pass some additional variables to require:
 :::
 
 :::{dropdown} Show build log
-:icon: code
-:color: primary
+:icon: terminal
+:color: info
 :animate: fade-in
 
 :::{code-block} console
@@ -204,8 +204,8 @@ To install the module into the e3 layout, we would then just run the install com
 :::
 
 :::{dropdown} Show install log
-:icon: code
-:color: primary
+:icon: terminal
+:color: info
 :animate: fade-in
 
 :::{code-block} console
@@ -245,8 +245,8 @@ With the module installed, you can start an IOC shell and load the module:
 :::
 
 :::{dropdown} Show IOC log
-:icon: code
-:color: primary
+:icon: terminal
+:color: info
 :animate: fade-in
 
 :::{code-block} console

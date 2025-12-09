@@ -14,7 +14,7 @@ A minimal startup script:
 
 :::{code-block} shell
 # st.cmd
-require iocstats  # or `require(iocstats)` if you prefer
+require iocstats
 :::
 
 :::{caution}

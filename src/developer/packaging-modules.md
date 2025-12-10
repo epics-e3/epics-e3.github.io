@@ -299,6 +299,14 @@ $ conda activate conda-build
 $ conda build recipe
 :::
 
+::::{tip}
+If a freshly published dependency is not being resolved during `conda build`, clear the local index cache and retry:
+
+:::{code-block} console
+$ conda clean --index-cache
+:::
+::::
+
 Artifacts are written to your `conda-bld` folder. You can install the fresh
 build for local testing using `--use-local` (see below).
 

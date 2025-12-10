@@ -300,6 +300,14 @@ $ conda build recipe
 :::
 
 ::::{tip}
+To catch overlinking and long-prefix path issues during local builds, add:
+
+:::{code-block} console
+$ conda build --error-overlinking --no-long-test-prefix recipe
+:::
+::::
+
+::::{tip}
 If a freshly published dependency is not being resolved during `conda build`, clear the local index cache and retry:
 
 :::{code-block} console

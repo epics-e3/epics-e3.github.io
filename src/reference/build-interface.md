@@ -14,7 +14,7 @@ This page documents the build-time interface provided by `require` for building 
 - `HEADERS` - Header files that should be installed with the module
 - `TEMPLATES` - Database or template files that should be installed in the
   `$(module_DB)` path
-- `TMPS` - Templates files to inflate to db-file and install in in the
+- `TMPS` - Template files to inflate to db-file and install in the
   `$(module_DB)` path
 - `SUBS` - Substitutions files to inflate the template file to db-file and
   install in the `$(module_DB)` path
@@ -30,19 +30,15 @@ This page documents the build-time interface provided by `require` for building 
 - `KEEP_HEADER_SUBDIRS` - Preserves the tree structure of the given header
   directories
 
-See also [Application Developer's Guide: Build Facility](https://docs.epics-controls.org/en/latest/build-system/specifications.html).
-Note that especially `USR_*FLAGS` may be needed, depending on your build needs.
+For advanced usage (custom compiler flags, linker options, etc.), see EPICS base's
+[Application Developer's Guide: Build Facility](https://docs.epics-controls.org/en/latest/build-system/specifications.html).
+Variables like `USR_CPPFLAGS`, `USR_CXXFLAGS`, and `USR_LDFLAGS` may be needed depending on your build requirements.
 
 ## Build targets
 
-This section provides a comprehensive reference for the make targets available when building EPICS modules in e3.
-These targets are provided by the `require` build system.
+The `require` build system provides several make targets:
 
-### Getting help
-
-From any module source directory, you can see the available targets:
-
-```console
+:::{code-block} console
 $ make help
 ---------------------------------------
 Available targets
@@ -55,7 +51,7 @@ debug           Displays information about the build process
 clean           Deletes temporary build files
 help            Show this help message
 ---------------------------------------
-```
+:::
 
 :::{tip}
 Additional targets may be available depending on your module configuration. Use `make help` to see all targets for
@@ -65,7 +61,7 @@ a specific module.
 :::{seealso}
 **Related topics:**
 
-- [Module build configurations](../3-developer/3-module-makefiles.md) - Setting up makefiles
-- [Building modules](../3-developer/1-conda-build.md) - Using conda-build
+- [Module build configurations](../developer/makefiles.md) - Setting up makefiles
+- [Building modules](../developer/building-modules.md) - Using conda-build
 
 :::

@@ -19,11 +19,8 @@ The IOC shell is an interactive command environment where you can:
 
 ## Options
 
-:::{note}
-Run `iocsh --help` for the complete list of options and their usage.
-:::
-
-```console
+:::{code-block} console
+$ iocsh --help
 usage: IOC shell for e3 [-h] [-V] [-r MODULE] [-c COMMAND] [-d DATABASE]
                         [--debugger [{gdb,lldb,valgrind}]]
                         [--debugger-args DEBUGGER_ARGS] [--debug] [-i]
@@ -52,41 +49,41 @@ options:
   --debug
   -i, --no-init
   --iocname IOCNAME     IOC name (generates fallback if not set)
-```
+:::
 
 ## Examples
 
 ### Start interactive shell
 
-```console
+:::{code-block} console
 $ iocsh
-```
+:::
 
 ### Run a startup script
 
-```console
+:::{code-block} console
 $ iocsh st.cmd
-```
+:::
 
 ### Load modules from command line
 
-```console
+:::{code-block} console
 $ iocsh -r iocstats -r asyn
-```
+:::
 
 ### Quick testing with commands
 
-```console
+:::{code-block} console
 $ iocsh -r iocstats -c 'dbpr "*", 1'
-```
+:::
 
 ### Run under debugger
 
-```console
+:::{code-block} console
 $ iocsh --debugger gdb st.cmd
-```
+:::
 
-## Implementation details
+## How it works
 
 Internally, `iocsh`:
 
@@ -99,8 +96,8 @@ Internally, `iocsh`:
 :::{seealso}
 **Related topics:**
 
-- [An e3 IOC](../1-getting-started/2-e3-ioc.md) - Creating startup scripts
-- [`require` function](3-require-function.md) - Loading modules in scripts
-- [Environments](../2-user/1-environments.md) - Setting up e3 environments
+- [An e3 IOC](../getting-started/your-first-ioc.md) - Creating startup scripts
+- [`require` function](require.md) - Loading modules in scripts
+- [Environments](../user/environments.md) - Setting up e3 environments
 
 :::

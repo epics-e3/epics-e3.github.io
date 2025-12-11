@@ -1,7 +1,7 @@
 # ESS EPICS Environment (e3)
 
 :::{important}
-**Major Update: e3 is now powered by conda!**
+**Major update: e3 is now powered by conda!**
 
 These are the **new documentation pages** for the redesigned ESS EPICS Environment (e3). We have made a major technical
 and architectural switch to a conda-based approach for better package management and reproducibility.
@@ -14,14 +14,21 @@ might not yet work without alterations.
 :::
 
 Welcome to the documentation for ESS EPICS Environment (e3) - a toolkit designed to simplify EPICS development and
-deployment at the European Spallation Source.
+deployment at the [European Spallation Source](https://ess.eu).
 
 ## What is e3?
 
 e3 is a design concept and toolkit that:
 
-- **Simplifies development** by abstracting away low-level EPICS complexities
-- **Manages dependencies** automatically across EPICS modules
+- **Enables dynamic loading** of EPICS modules at runtime without IOC build steps
+- **Wraps upstream modules** with site-specific modifications while avoiding forks
+- **Resolves dependency graphs** automatically via conda package management
+- **Provides isolated environments** to run multiple IOCs with different module sets on the same host
+
+For example, when you install the stream module, conda automatically resolves and installs all its dependencies (such as
+asyn and base) in a virtual environment. You can then switch between different versions of any module simply by changing
+a single line in your IOC configuration, and you can simultaneously run IOCs that require different versions of e.g.
+EPICS base.
 
 ## Prerequisites
 
@@ -45,70 +52,61 @@ If you're new to any of these technologies, we recommend reviewing the linked do
 
 ## Background
 
-e3 evolved from ESS's previous EPICS environments (CODAC, EEE) and is based on PSI's EPICS environment. It uses a
-fork of PSI's require module, git, and module wrappers to manage dependencies and site-specific modifications.
+e3 evolved from earlier EPICS environments at ESS and draws inspiration from PSI's EPICS environment. At its core, it uses
+the *require* module (originally developed at PSI) combined with conda package management to handle dependencies and
+site-specific modifications.
 
-The toolkit handles complex dependency chains, compiles shared libraries, and manages installations - with much of
-the heavy lifting done by conda.
+The toolkit handles complex dependency chains, compiles shared libraries, and manages installations - with much of the heavy
+lifting done by conda.
 
 :::{note}
 e3 focuses on EPICS environments and module management. IOC management tools (systemd, procServ, conserver) and
 client applications (CS-Studio, DisplayBuilder, ChannelFinder) are separate systems.
 :::
 
-## EPICS resources
-
-- Website: [epics-controls.org](https://epics-controls.org/)
-- Documentation: [docs.epics-controls.org](https://docs.epics-controls.org/)
-
-::::{tip}
-For questions, see [EPICS chat](https://epics-controls.org/epics-chat/) (which includes a room for e3!) and
-[tech-talk mailing lists](https://epics-controls.org/resources-and-support/mailing-lists/).
-::::
-
-```{toctree}
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: Getting Started
-:glob:
-1-getting-started/1*
-1-getting-started/2*
-```
 
-```{toctree}
+getting-started/installation
+getting-started/your-first-ioc
+:::
+
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: User Documentation
-:glob:
-2-user/1*
-2-user/2*
-```
 
-```{toctree}
+user/environments
+user/iocs-and-modules
+:::
+
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: Developer Documentation
-:glob:
-3-developer/1*
-3-developer/2*
-3-developer/3*
-3-developer/4*
-```
 
-```{toctree}
+developer/building-modules
+developer/recipes
+developer/makefiles
+developer/packaging-modules
+:::
+
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: API Reference
-:glob:
-4-api-reference/1*
-4-api-reference/2*
-4-api-reference/3*
-```
 
-```{toctree}
+reference/build-interface
+reference/iocsh
+reference/require
+:::
+
+:::{toctree}
 :hidden:
 :maxdepth: 2
 :caption: Maintainer Documentation
-:glob:
-5-maintainer/1*
-```
+
+maintainer/build-process
+:::

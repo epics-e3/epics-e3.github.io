@@ -8,7 +8,7 @@ internal conda channel in our Artifactory.
 
 ## Quickstart
 
-```console
+:::{code-block} console
 $ # Configure conda to use ESS packages (after installing conda/miniforge)
 $ conda config --prepend channels ess-conda-local
 $ conda config --set channel_alias https://artifactory.esss.lu.se/artifactory/api/conda
@@ -20,7 +20,7 @@ $ conda activate e3
 $
 $ # Start an IOC
 $ iocsh
-```
+:::
 
 ## Installing conda
 
@@ -38,23 +38,23 @@ See [mamba documentation](https://mamba.readthedocs.io/) for details.
 
 Configure your machine to find packages in the ESS conda channel:
 
-```console
+:::{code-block} console
 $ conda config --prepend channels ess-conda-local
 $ conda config --set channel_alias https://artifactory.esss.lu.se/artifactory/api/conda
 $ conda config --set channel_priority strict
-```
+:::
 
 :::{note}
 Your configuration is stored at `~/.condarc`. After the commands above, it will look
 like:
 
-```yaml
+:::{code-block} yaml
 channels:
   - ess-conda-local
   - conda-forge
 channel_alias: https://artifactory.esss.lu.se/artifactory/api/conda
 channel_priority: strict
-```
+:::
 
 :::
 
@@ -75,41 +75,41 @@ Conda manages virtual environments; you control their contents.
 
 To create an environment containing EPICS base and require:
 
-```console
+:::{code-block} console
 $ conda create --name=e3 epics-base require
-```
+:::
 
 This tells conda to create an environment named `e3` with EPICS base, require,
 and all dependencies.
 
 You can verify the environment was created successfully:
 
-```console
+:::{code-block} console
 $ conda info --envs
 # conda environments:
 #
 base                  * /home/johndoe/miniforge3
 e3                      /home/johndoe/miniforge3/envs/e3
-```
+:::
 
 ## Using conda environments
 
 Once you have created an environment, activate it with:
 
-```console
+:::{code-block} console
 $ conda activate e3
-```
+:::
 
 You can deactivate the currently active environment with:
 
-```console
+:::{code-block} console
 (e3) $ conda deactivate
-```
+:::
 
 :::{tip}
 You can see all of your installed environments with:
 
-```console
+:::{code-block} console
 $ conda info --envs
 
 # conda environments:
@@ -118,31 +118,26 @@ base                 * /home/johndoe/miniforge3
 e3                     /home/johndoe/miniforge3/envs/e3
 epics                  /home/johndoe/miniforge3/envs/epics
 my-special-e3-env      /home/johndoe/miniforge3/envs/my-special-e3-env
-```
+:::
 
 :::
 
 ## Installing an e3 module
 
 Install e3 modules like any other conda package. To add the [iocStats](https://github.com/epics-modules/iocStats)
-module, install its e3 conda package `iocstats` (conda package names are lowercase only):
+module, install its e3 conda package `iocstats` (conda package names are lowercase only).
 
-::::{tab-set}
-::: {tab-item} Activated environment
+From within an activated environment:
 
-```console
+:::{code-block} console
 (e3) $ conda install iocstats
-```
-
 :::
-::: {tab-item} Outside any environment
 
-```console
+Or specify the environment explicitly with `--name`:
+
+:::{code-block} console
 $ conda install --name=e3 iocstats
-```
-
 :::
-::::
 
 :::{tip}
 Both Anaconda - the creators of conda - as well as conda forge have ample documentation,
@@ -157,8 +152,8 @@ for commands. See their docs for more information at:
 :::{seealso}
 **Next steps:**
 
-- Learn to create IOC startup scripts in [An e3 IOC](2-e3-ioc.md)
-- Explore advanced environment management in [Environments](../2-user/1-environments.md)
-- For developers: start with [Building modules](../3-developer/1-conda-build.md)
+- Learn to create IOC startup scripts in [An e3 IOC](your-first-ioc.md)
+- Explore advanced environment management in [Environments](../user/environments.md)
+- For developers: start with [Building modules](../developer/building-modules.md)
 
 :::

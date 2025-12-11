@@ -41,23 +41,23 @@ In short, `make` does two things:
 
 These are built up of instructions that look like
 
-```makefile
+:::{code-block} makefile
 VARIABLE = value
 
 target: dependency
     #actions
     echo $(VARIABLE)
-```
+:::
 
 If you ran the command `make target` it would check first that `dependency` is
 up-to-date (i.e. newer than `target`), and if it is, it would run the commands
 below.
 
-```bash
+:::{code-block} bash
 $ make target
 echo value
 value
-```
+:::
 
 The key is in how `make` generates its dependency tree. Unlike many programming
 languages (of which `make` is... not necessarily one?), `make` is decidedly
@@ -80,12 +80,12 @@ We also load `RULES` which similarly loads a number of rules-related configure
 files installed with `require`. The most important one in `RULES_E3` which
 initiates most of the e3 build process. As an example, we have:
 
-```makefile
+:::{code-block} makefile
 ## Build the EPICS Module : $(E3_MODULE_NAME)
 # Build always the Module with the EPICS_MODULES_TAG
 build: conf checkout
     $(QUIET) $(E3_MODULE_MAKE_CMDS) build
-```
+:::
 
 which first makes sure that `conf` and `checkout` are up to date (these copy the
 `$(module).Makefile` into the module directory, and run a `git checkout` command
@@ -98,9 +98,9 @@ passed to this recursive call of `make`.
 In e3, we only build for a single version of EPICS base at a time. This is defined
 in `driver.makefile` as
 
-```makefile
+:::{code-block} makefile
 EPICSVERSION:=$(patsubst base-%,%,$(notdir $(EPICS_LOCATION)))
-```
+:::
 
 which converts, for example, `/opt/epics/base-7.0.6.1` into `7.0.6.1`.
 
@@ -110,11 +110,11 @@ supports `linux-x86_64`, `linux-corei7-poky`, and `linux-ppc64e6500` (as well
 as a debug architecture, `linux-x86_64-debug`). This is also where we include the
 EPICS build rules: see the sequence
 
-```makefile
+:::{code-block} makefile
 EB:=${EPICS_BASE}
 -include ${CONFIG}/CONFIG
 EPICS_BASE:=${EB}
-```
+:::
 
 (The redefinition of `EPICS_BASE` is due to the fact that it is overwritten in
 `CONFIG_SITE` from EPICS base)
@@ -123,11 +123,11 @@ This is also the place where we start collecting information about what to build
 and install. For example, to begin collecting the source files to compile, we
 have the following section:
 
-```makefile
+:::{code-block} makefile
 AUTOSRCS := $(filter-out ~%,$(wildcard *.c *.cc *.cpp *.st *.stt *.gt))
 SRCS = $(if ${SOURCES},$(filter-out -none-,${SOURCES}),${AUTOSRCS})
 export SRCS
-```
+:::
 
 Note in particular the `export SRCS` line: when make is called recursively,
 variables from one run to the next do not persist unless they are `export`ed. It
@@ -142,7 +142,7 @@ you build EPICS base for the first time.
 
 The next stage of the build is triggered by
 
-```makefile
+:::{code-block} makefile
 define target_rule
 $1-%: | $(COMMON_DIR)
     $${MAKE} -f $${USERMAKEFILE} T_A=$$* $1
@@ -152,18 +152,18 @@ $(foreach target,install build debug,$(eval $(call target_rule,$(target))))
 .SECONDEXPANSION:
 
 $(foreach target,install build debug,$(eval $(target):: $$$$(foreach arch,$$$${BUILD_ARCHS},$(target)-$$$${arch})))
-```
+:::
 
 We can simplify this by focusing purely on the build target; in that case
 this essentially reads
 
-```makefile
+:::{code-block} makefile
 build-%: | $(COMMON_DIR)
     ${MAKE} -f ${USERMAKEFILE} T_A=$* build
 
 .SECONDEXPANSION:
 build:: $$(foreach arch,$${BUILD_ARCHS},$(target)-$${arch})
-```
+:::
 
 i.e. `build` depends on `build-T_A_1`, `build-T_A_2`, etc., each of which trigger
 a call to run `make build` again with `T_A` set appropriately.[^secondexpansion]
@@ -183,22 +183,22 @@ files.
 We make a final collection of what objects we should build, and a final
 gathering of information:
 
-```makefile
+:::{code-block} makefile
 # Add sources for specific epics types or architectures.
 ARCH_PARTS = ${T_A} $(subst -, ,${T_A}) ${OS_CLASS}
 VAR_EXTENSIONS = ${EPICSVERSION} ${ARCH_PARTS} ${ARCH_PARTS:%=${EPICSVERSION}_%}
 export VAR_EXTENSIONS
-```
+:::
 
 allows the developer to have architecture-specific files: for example, if
 `T_A = linux-x86_64` then `ARCH_PARTS` will be `linux-x86_64 linux x86_64`:
 If we now consider the next segment, we see
 
-```makefile
+:::{code-block} makefile
 SRCS += $(foreach x, ${VAR_EXTENSIONS}, ${SOURCES_$x})
 USR_LIBOBJS += ${LIBOBJS} $(foreach x,${VAR_EXTENSIONS},${LIBOBJS_$x})
 export USR_LIBOBJS
-```
+:::
 
 which tells us that we can have `SOURCES_x86_64` (or any other part of
 `VAR_EXTENSIONS`) to selectively compile code based on architecture and
@@ -206,10 +206,10 @@ version.
 
 Finally, we run
 
-```makefile
+:::{code-block} makefile
 install build debug:: O.${EPICSVERSION}_Common O.${EPICSVERSION}_${T_A}
     @${MAKE} -C O.${EPICSVERSION}_${T_A} -f ../${USERMAKEFILE} $@
-```
+:::
 
 Note that due to the argument `-C O.${EPICSVERSION}_${T_A}` we switch to that
 directory, using the same `${USERMAKEFILE}` to manage the build process.
@@ -250,11 +250,11 @@ process runs as follows.
 
 1. In stage 2 we start with the following:
 
-   ```makefile
+   :::{code-block} makefile
    HDRS = ${HEADERS} $(addprefix ${COMMON_DIR}/,$(addsuffix Record.h,${RECORDS}))
    HDRS += ${HEADERS_${EPICSVERSION}}
    export HDRS
-   ```
+   :::
 
    which passes these on to the variable `HDRS` (as well as collecting a few
    other headers, including version-specific ones if necessary)
@@ -263,15 +263,15 @@ process runs as follows.
    stage 4 (within the directory `O.${EPICSVERSION}_{T_A}`) we have the
    following line:
 
-   ```makefile
+   :::{code-block} makefile
    SRC_INCLUDES = $(addprefix -I, $(wildcard $(foreach d,$(call uniq, $(filter-out /%,$(dir ${SRCS:%=../%} ${HDRS:%=../%}))), $d $(addprefix $d/, os/${OS_CLASS} $(POSIX_$(POSIX)) os/default))))
-   ```
+   :::
 
    or, simplified:
 
-   ```makefile
+   :::{code-block} makefile
    SRC_INCLUDES = $(addprefix -I, $(wildcard $(call uniq, $(filter-out /%,$(dir ${HDRS:%=../%})))))
-   ```
+   :::
 
    which adds the directory that the header files are located in to the search
    path for include files when compiling.
@@ -279,7 +279,7 @@ process runs as follows.
 3. The next time the headers come up is during the install process, and are
    governed by the following:
 
-   ```makefile
+   :::{code-block} makefile
    vpath %.h $(addprefix ../,$(sort $(dir $(filter-out /%,${HDRS}) ${SRCS}))) $(sort $(dir $(filter /%,${HDRS})))
    # snip
    INSTALL_HDRS = $(addprefix ${INSTALL_INCLUDE}/,$(notdir ${HDRS}))
@@ -287,15 +287,15 @@ process runs as follows.
    INSTALLS += ... ${INSTALL_HDRS} ...
 
    install: ${INSTALLS}
-   ```
+   :::
 
    and the following from EPICS base `RULES_BUILD`:
 
-   ```makefile
+   :::{code-block} makefile
    $(INSTALL_INCLUDE)/%: %
         $(ECHO) "Installing generic include file $@"
         @$(INSTALL) -d -m $(INSTALL_PERMISSIONS) $< $(@D)
-   ```
+   :::
 
    which says that any target within the directory `$(INSTALL_INCLUDE)` has the
    target as a dependency, i.e. `$(INSTALL_INCLUDE)/header.h` depends on
@@ -329,10 +329,10 @@ files.
 2. In the EPICS base configure file `CONFIG_COMMON`, we have the following two
    directives:
 
-   ```makefile
+   :::{code-block} makefile
    SRC_FILES = $(LIB_SRCS) $(LIBSRCS) $(SRCS) $(USR_SRCS) $(PROD_SRCS) $(TARGET_SRCS)
    HDEPENDS_FILES = $(addsuffix $(DEP),$(notdir $(basename $(SRC_FILES))))
-   ```
+   :::
 
    which converts `$(APPSRC)/file.c` into `file.d` in the variable
    `HDEPENDS_FILES`.
@@ -340,27 +340,27 @@ files.
 3. Next in stage 4, we include `RULES` from EPICS base which includes
    `RULES_BUILD`. This includes the following:
 
-   ```makefile
+   :::{code-block} makefile
    -include $(HDEPENDS_FILES)
-   ```
+   :::
 
    which seems quite innocuous, but it is a surprisingly important line: `make`,
    when trying to include a file, will first see if it exists, and if it does
    not, then it will see if it can generate that file. In this case, we have the
    rule
 
-   ```makefile
+   :::{code-block} makefile
    %$(DEP):%.c
        @$(RM) $@
        $(HDEPENDS.c) $<
-   ```
+   :::
 
    which provides a rule to create `file.d` from `file.c`: this runs (once
    again, from `CONFIG_COMMON`):
 
-   ```makefile
+   :::{code-block} makefile
    HDEPENDS_COMP.c   = $(COMPILE.c) $(HDEPENDS_COMPFLAGS) $(HDEPENDS_ARCHFLAGS)
-   ```
+   :::
 
    i.e. it compiles the source file with a special flag that produces not only
    `file.o`, but a dependency file `file.d`.
@@ -371,11 +371,11 @@ files.
 4. We now need to connect the source files to the final shared library. The
    first step is the following from `driver.makefile`:
 
-   ```makefile
+   :::{code-block} makefile
    LIBRARY_OBJS = $(strip ${LIBOBJS} $(foreach l,${USR_LIBOBJS},$(addprefix ../,$(filter-out /%,$l))$(filter /%,$l)))
 
    LIBOBJS += $(addsuffix $(OBJ),$(notdir $(basename $(filter-out %.$(OBJ) %$(LIB_SUFFIX),$(sort ${SRCS})))))
-   ```
+   :::
 
    which adds `file.o` to `LIBRARY_OBJS`.
 
@@ -384,26 +384,26 @@ files.
    `lib${PRJ}.so`. In particular, we obtain from `RULES_BUILD` the dependency
    and build rules:
 
-   ```makefile
+   :::{code-block} makefile
    $(LOADABLE_SHRLIBNAME): $(LIBRARY_OBJS) $(LIBRARY_RESS) $(SHRLIB_DEPLIBS)
 
    $(LOADABLE_SHRLIBNAME): $(LOADABLE_SHRLIB_PREFIX)%$(LOADABLE_SHRLIB_SUFFIX):
        @$(RM) $@
        $(LINK.shrlib)
        $(MT_DLL_COMMAND)
-   ```
+   :::
 
    where the linking command is provided in `CONFIG.Common.UnixCommon`:
 
-   ```makefile
+   :::{code-block} makefile
    LINK.shrlib = $(CCC) -o $@ $(TARGET_LIB_LDFLAGS) $(SHRLIBDIR_LDFLAGS) $(LDFLAGS)
    LINK.shrlib += $(LIB_LDFLAGS) $(LIBRARY_LD_OBJS) $(LIBRARY_LD_RESS) $(SHRLIB_LDLIBS)
-   ```
+   :::
 
 6. Last but not least, we need to connect this to the target `build`. In
    `RULES_BUILD` we find:
 
-   ```makefile
+   :::{code-block} makefile
    LIBTARGETS += $(LIBNAME) $(INSTALL_LIBS) $(TESTLIBNAME) \
        $(SHRLIBNAME) $(INSTALL_SHRLIBS) $(TESTSHRLIBNAME) \
        $(DLLSTUB_LIBNAME) $(INSTALL_DLLSTUB_LIBS) $(TESTDLLSTUB_LIBNAME) \
@@ -412,23 +412,21 @@ files.
    # snip snip
    build: $(OBJSNAME) $(LIBTARGETS) $(PRODTARGETS) $(TESTPRODTARGETS) \
        $(TARGETS) $(TESTSCRIPTS) $(INSTALL_LIB_INSTALLS)
-   ```
+   :::
 
    and in particular, that `build` depends on `$(LOADABLE_SHRLIBNAME)`.
 
 7. Putting this all together, we have the following chain of dependencies:
 
-   ```none
+   :::{code-block} none
    build -> $(LOADABLE_SHRLIBNAME) -> $(LIBRARY_OBJS)
-   ```
+   :::
 
    where that last target includes `file.o`.
 
 8. The magic now comes from the fact that we have already built this file back
    when we were creating `file.d`! As such, we can run the linking command, and
    we obtain our shared library, ready to install.
-
----
 
 [^secondexpansion]: Why do we need the `.SECONDEXPANSION`? The issue at hand
 is because the architecture filters are defined *after* the inclusion of

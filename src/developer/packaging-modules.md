@@ -372,12 +372,12 @@ exampleModule-recipe/
 ├── README.md
 ├── recipe/
 │   ├── meta.yaml
-│   └── build.sh
+│   ├── build.sh
+│   └── patch/            # Source patches (if needed)
 └── src/
     ├── Makefile
     ├── iocsh/            # IOC shell snippets (if needed)
-    ├── template/         # Database templates (if needed)
-    └── patches/          # Source patches (if needed)
+    └── template/         # Database templates (if needed)
 :::
 
 :::{important}

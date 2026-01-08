@@ -6,11 +6,9 @@
 These are the **new documentation pages** for the redesigned ESS EPICS Environment (e3). We have made a major technical
 and architectural switch to a conda-based approach for better package management and reproducibility.
 
-**Looking for the previous e3 documentation?** The original build-tools based documentation can still be found at
+**Looking for the previous e3 documentation?** The original documentation for the legacy distribution tooling
+(which installed on shared NFS-mounted disks) can still be found at
 [https://e3.pages.ess.eu/e3-build-tools](https://e3.pages.ess.eu/e3-build-tools/).
-
-Please beware that we currently are in the midst of the transition, and that some examples here in this documentation
-might not yet work without alterations.
 :::
 
 Welcome to the documentation for ESS EPICS Environment (e3) - a toolkit designed to simplify EPICS development and

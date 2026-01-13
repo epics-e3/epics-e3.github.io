@@ -8,7 +8,7 @@ what they contain.
 
 A typical e3 recipe repository (like the iocstats-recipe we just cloned) contains
 a `recipe/` directory with the conda recipe, and a `src/` directory for site-specific
-files (patches, IOC shell snippets, databases, examples):
+files (IOC shell snippets, databases, examples):
 
 :::{code-block} console
 $ tree
@@ -17,11 +17,11 @@ $ tree
 ├── README.md
 ├── recipe
 │   ├── meta.yaml
-│   └── build.sh
+│   ├── build.sh
+│   └── patch/            # source patches (if needed)
 └── src
     ├── iocsh/            # startup snippets
     ├── template/         # db/templates/substitutions
-    ├── patches/          # source patches (if needed)
     └── cmds/             # example/test startup scripts
 :::
 
@@ -81,4 +81,4 @@ Build configuration details are covered in [Module build configurations](makefil
 ### Upstream collaboration
 
 - Prefer contributing generally useful fixes to upstream modules (merge/pull requests) rather than carrying long-lived patches.
-- Keep site-specific changes in `src/patches/` (small, focused) and document them clearly in the commit where you add them.
+- Keep patches in `recipe/patch/` (small, focused) and document them clearly in the commit where you add them.

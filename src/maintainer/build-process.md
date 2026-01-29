@@ -7,18 +7,30 @@ This document describes the internal build process in detail and may contain inf
 of the build system. While the core concepts remain relevant, some implementation details may have changed.
 :::
 
-The e3 build process is a complicated bit of work. To recap, the overview is as follows:
+The e3 build process is a complicated bit of work. Note that this is in addition
+to the conda build process (see [Building modules](../developer/building-modules.md)). We will
+assume that you are comfortable with that process and are interested in learning
+about the internals of the e3-specific build process.
 
-1. In the build directory: we collect some information and decide what
-   build process we will perform (from `RULES_E3`), calling `make` in the module
-   directory with information passed as in `CONFIG_E3_MAKEFILE`. `EPICSVERSION`
-   is determined by the path `EPICS_BASE`.
-2. In the module directory: Target architecture `${T_A}` has not been defined,
-   so determine the architectures to build for.
-3. In the module directory: Perform a final collection of the relevant files,
+Note that _in general_ the build scripts for e3 modules will contain something like
+
+:::{code-block} bash
+make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION}
+make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION} install
+:::
+
+Recall that this is run in the source directory after all sources have been
+unpacked and patched.
+
+1. In the source directory: Target architecture `${T_A}` has not been defined,
+   so determine the architecture we are building.
+
+   Note that while we only build a single architecture at a time, we need to
+   determine `${T_A}` as understood by the EPICS build system.
+2. In the source directory: Perform a collection of the relevant files and
    create the directories `O.${EPICSVERSION}_Common` and
    `O.${EPICSVERSION}_${T_A}`.
-4. In the directories `O.*`: Build/Install all of the required shared libraries
+3. In the directories `O.*`: Build/Install all of the required shared libraries
    and other files for the given version of EPICS base and target architecture.
 
 We will go over each of these steps in more detail, as well as go over an

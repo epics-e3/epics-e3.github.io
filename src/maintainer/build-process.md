@@ -19,6 +19,13 @@ make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION}
 make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION} install
 :::
 
+and, as stated in the section on [Module build configurations](../developer/makefiles.md),
+the recipe's included Makefile must begin with
+
+:::{code-block} makefile
+include $(E3_REQUIRE_TOOLS)/driver.makefile
+:::
+
 Recall that this is run in the source directory after all sources have been
 unpacked and patched.
 
@@ -79,48 +86,33 @@ obtained its value, or why certain actions have been performed.
 
 ## The `make` process for e3
 
+### Overview
+
+We start in the source directory and run
+:::{code-block} bash
+make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION} target
+:::
+
+:::{note}
+Note that `MODULE` must be provided for many of the build targets, as this is
+used to provide the build system with the location of the target build.
+:::
+
+Regardless of the target, the build process runs several successive passes in
+order to collect all of the necessary information. These are:
+
+1. Collect initial information and determine target architecture
+2. Determine architecture-specific information (e.g. sources, configuration)
+3. Perform the appropriate build/install/whatever task
+
 ### Stage 1: The source directory
 
-We start in the source directory, and run (for example) `make build`. The
-first thing that happens is that we load the makefiles from the configure
-directory; these in turn load `CONFIG_MODULE` and `RELEASE` which specify
-dependencies and for which version of EPICS base and *require* we are building,
-as well as `CONFIG` from the *require* module (located in
-`configure/modules/CONFIG` in this repository).
+On the first pass in the source directory we collect architecture-independent
+information. This includes (most) source files, header files, scripts, and
+snippets. We also determine which architectures to build for depending, of
+course, on the module-specific configuration (e.g. `EXCLUDE_ARCHS`).
 
-We also load `RULES` which similarly loads a number of rules-related configure
-files installed with `require`. The most important one in `RULES_E3` which
-initiates most of the e3 build process. As an example, we have:
-
-:::{code-block} makefile
-## Build the EPICS Module : $(E3_MODULE_NAME)
-# Build always the Module with the EPICS_MODULES_TAG
-build: conf checkout
-    $(QUIET) $(E3_MODULE_MAKE_CMDS) build
-:::
-
-which first makes sure that `conf` and `checkout` are up to date (these copy the
-`$(module).Makefile` into the module directory, and run a `git checkout` command
-to make sure that the module is up-to-date). Note that `$(E3_MODULE_MAKE_CMDS)`
-is defined in `CONFIG_E3_MAKEFILE` which specifies which arguments should be
-passed to this recursive call of `make`.
-
-### Stage 2: Defining `T_A`
-
-In e3, we only build for a single version of EPICS base at a time. This is defined
-in `driver.makefile` as
-
-:::{code-block} makefile
-EPICSVERSION:=$(patsubst base-%,%,$(notdir $(EPICS_LOCATION)))
-:::
-
-which converts, for example, `/opt/epics/base-7.0.6.1` into `7.0.6.1`.
-
-We begin by determining the target architectures to build for. In this case,
-we may build for more than one architecture at a time; at the moment, ESS
-supports `linux-x86_64`, `linux-corei7-poky`, and `linux-ppc64e6500` (as well
-as a debug architecture, `linux-x86_64-debug`). This is also where we include the
-EPICS build rules: see the sequence
+We also load all of the configuration from EPICS base at this point:
 
 :::{code-block} makefile
 EB:=${EPICS_BASE}
@@ -131,15 +123,15 @@ EPICS_BASE:=${EB}
 (The redefinition of `EPICS_BASE` is due to the fact that it is overwritten in
 `CONFIG_SITE` from EPICS base)
 
-This is also the place where we start collecting information about what to build
-and install. For example, to begin collecting the source files to compile, we
-have the following section:
+The sources and other files are handled roughly as
 
 :::{code-block} makefile
-AUTOSRCS := $(filter-out ~%,$(wildcard *.c *.cc *.cpp *.st *.stt *.gt))
-SRCS = $(if ${SOURCES},$(filter-out -none-,${SOURCES}),${AUTOSRCS})
+SRCS = ${SOURCES}
 export SRCS
 :::
+
+which takes the variable `SOURCES` from the module build configuration and passes
+it on to future rounds of the build process.
 
 Note in particular the `export SRCS` line: when make is called recursively,
 variables from one run to the next do not persist unless they are `export`ed. It
@@ -148,26 +140,23 @@ expanded: this happens right before the next iteration of recursive `make` is
 called, so even if `SOURCES` will only be defined later (as is the case with the
 e3 build process), it will `export` correctly.
 
-The cross-compiler target architectures `CROSS_COMPILER_TARGET_ARCHS` are
-defined in `$(EPICS_LOCATION)/configure/CONFIG_SITE`, which is generated when
-you build EPICS base for the first time.
-
-The next stage of the build is triggered by
+Once we have that sorted, we recursively call `make` and move onto the next
+round. This next stage is triggered by
 
 :::{code-block} makefile
 define target_rule
-$1-%: | $(COMMON_DIR)
-    $${MAKE} -f $${USERMAKEFILE} T_A=$$* $1
+$1-%:
+	$${MAKE} -f $${USERMAKEFILE} T_A=$$* $1
 endef
-$(foreach target,install build debug,$(eval $(call target_rule,$(target))))
+$(foreach target,$(RECURSE_TARGETS),$(eval $(call target_rule,$(target))))
 
 .SECONDEXPANSION:
 
-$(foreach target,install build debug,$(eval $(target):: $$$$(foreach arch,$$$${BUILD_ARCHS},$(target)-$$$${arch})))
+$(foreach target,$(RECURSE_TARGETS),$(eval $(target): $$$$(foreach arch,$$$${BUILD_ARCHS},$(target)-$$$${arch})))
 :::
 
-We can simplify this by focusing purely on the build target; in that case
-this essentially reads
+We can simplify this by focusing purely on the build target (one of the
+`RECURSE_TARGETS`); in that case this essentially reads
 
 :::{code-block} makefile
 build-%: | $(COMMON_DIR)

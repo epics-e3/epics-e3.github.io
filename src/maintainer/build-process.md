@@ -169,9 +169,9 @@ build:: $$(foreach arch,$${BUILD_ARCHS},$(target)-$${arch})
 i.e. `build` depends on `build-T_A_1`, `build-T_A_2`, etc., each of which trigger
 a call to run `make build` again with `T_A` set appropriately.[^secondexpansion]
 
-### Stage 3: Preparing to build `T_A`
+### Stage 2: Preparing to build `T_A`
 
-For this stage of the build process, we are still in the module directory; the
+For this stage of the build process, we are still in the source directory; the
 next stages will be done in the directories `O.$(EPICSVERSION)_Common` or
 `O.$(EPICSVERSION)_$(T_A)`, respectively. These directories will also be created
 at this point, and are the destination of all intermediate and final output
@@ -208,8 +208,8 @@ version.
 Finally, we run
 
 :::{code-block} makefile
-install build debug:: O.${EPICSVERSION}_Common O.${EPICSVERSION}_${T_A}
-    @${MAKE} -C O.${EPICSVERSION}_${T_A} -f ../${USERMAKEFILE} $@
+$(RECURSE_TARGETS): O.${EPICSVERSION}_${T_A}
+	@${MAKE} -C O.${EPICSVERSION}_${T_A} -f ../${USERMAKEFILE} $@
 :::
 
 Note that due to the argument `-C O.${EPICSVERSION}_${T_A}` we switch to that

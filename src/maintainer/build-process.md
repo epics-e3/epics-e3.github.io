@@ -215,7 +215,7 @@ $(RECURSE_TARGETS): O.${EPICSVERSION}_${T_A}
 Note that due to the argument `-C O.${EPICSVERSION}_${T_A}` we switch to that
 directory, using the same `${USERMAKEFILE}` to manage the build process.
 
-### Stage 4: Building `T_A`
+### Stage 3: Building `T_A`
 
 We have now collected the majority of the information that we need to build our
 module. We will do a little more organisation and preparation, and then the
@@ -232,27 +232,28 @@ file.c` in your `$(module).Makefile`.
 FIXME (alo): leaving it here just in case, simonrose
 -->
 
-## Examples of the `make` process
+#### Examples of the `make` process
 
 We will provide a few examples of how `make` processes the data and produces the
 desired result. The first is installing a header file, and the second is
 actually compiling a source file.
 
-### Installing a header file
+##### Installing a header file
 
 Before we go on to the more complicated case of compiling source files, let us
 go over the simpler step of having header files be installed so that other
 modules may include them. As an example, there are many `.h` files that are
 installed with *asyn* and are used by lots of other modules.
 
-The simplest way of including a header file is to add the line `HEADERS +=
-header.h` into your `$(module).Makefile`. Having done this, the build/install
-process runs as follows.
+Header files are (this is only slightly a lie) installed by adding the line
+`HEADERS += header.h` to your `Makefile`. This is then handled by the `install`
+target in your makefile. This process then runs as follows.
 
-1. In stage 2 we start with the following:
+1. In stage 1 we start with the following:
 
    :::{code-block} makefile
-   HDRS = ${HEADERS} $(addprefix ${COMMON_DIR}/,$(addsuffix Record.h,${RECORDS}))
+   HDRS = ${HEADERS}
+   HDRS += $(RECORDS:%=${COMMON_DIR}/%.h)
    HDRS += ${HEADERS_${EPICSVERSION}}
    export HDRS
    :::
@@ -261,7 +262,7 @@ process runs as follows.
    other headers, including version-specific ones if necessary)
 
 2. There is only one place in the build process that these are relevant: in
-   stage 4 (within the directory `O.${EPICSVERSION}_{T_A}`) we have the
+   stage 3 (within the directory `O.${EPICSVERSION}_{T_A}`) we have the
    following line:
 
    :::{code-block} makefile
@@ -313,19 +314,18 @@ process runs as follows.
    In order to avoid this, you can add a path to the variable `KEEP_HEADER_SUBDIRS`,
    which will preserve the directory tree structure of headers under that path.
 
-### Compiling a `.c` file
+##### Compiling a `.c` file
 
 Building source files at its heart is similar to the above, but the chain of
 dependencies is significantly more complicated. As above however, the inclusion
 of a source file to be compiled into the shared library is simple: add the line
-`SOURCES += $(APPSRC)/file.c` in your module makefile.
+`SOURCES += $(APPSRC)/file.c` in your `Makefile`.
 
 The next steps are complicated due to being shared among different configure
 files.
 
-1. Initially in stage 2 above, we have the line `SRCS += $(if
-   ${SOURCES},$(filter-out -none-,${SOURCES}),${AUTOSRCS})` which includes your
-   file in the variable `SRCS`.
+1. Initially in stage 1 above, we have the line `SRCS = ${SOURCES}` which
+   includes your file in the variable `SRCS`.
 
 2. In the EPICS base configure file `CONFIG_COMMON`, we have the following two
    directives:
@@ -338,7 +338,7 @@ files.
    which converts `$(APPSRC)/file.c` into `file.d` in the variable
    `HDEPENDS_FILES`.
 
-3. Next in stage 4, we include `RULES` from EPICS base which includes
+3. Next in stage 3, we include `RULES` from EPICS base which includes
    `RULES_BUILD`. This includes the following:
 
    :::{code-block} makefile
@@ -366,7 +366,7 @@ files.
    i.e. it compiles the source file with a special flag that produces not only
    `file.o`, but a dependency file `file.d`.
 
-   To wit, on our first pass through in stage 5 we compile all of our source
+   To wit, on our first pass through in stage 3 we compile all of our source
    files to produce object files and dependency files.
 
 4. We now need to connect the source files to the final shared library. The

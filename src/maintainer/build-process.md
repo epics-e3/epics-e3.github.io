@@ -223,22 +223,57 @@ process will be handed over to the EPICS build system. Note that this part of
 `driver.makefile` is by far the most complicated section, and takes some time to
 digest.
 
-To begin with, I would like to point out a couple sections of interest, followed
-by tracing through what happens when you include a line such as `SOURCES +=
-file.c` in your `$(module).Makefile`.
+One way of thinking of this is that the first two passes tell the build system
+_what_ to build, while this pass tells it _how_ to build. Some specific details
+follow; for examples see the next section.
 
-<!--
-## Points of interest
-FIXME (alo): leaving it here just in case, simonrose
--->
+1. We determine where all of the install paths will be via
 
-#### Examples of the `make` process
+   :::{code-block} makefile
+   INSTALL_REV     = ${MODULE_LOCATION}
+   INSTALL_BIN     = ${INSTALL_PREFIX}/bin
+   INSTALL_LIB     = ${INSTALL_PREFIX}/lib
+   INSTALL_INCLUDE = ${INSTALL_PREFIX}/include
+   INSTALL_DBD     = ${INSTALL_REV}/dbd
+   INSTALL_DB      = ${INSTALL_REV}/db
+   INSTALL_CONFIG  = ${INSTALL_REV}/cfg
+   INSTALL_DOC     = ${INSTALL_REV}/doc
+   INSTALL_SCR     = ${INSTALL_REV}
+   :::
+
+   Note that unlike traditional EPICS build systems, we install binaries,
+   libraries, and headers at the root level of the conda environment so that
+   they are more readily found on `PATH`.
+
+2. In this section we heavily use the `vpath` directive to help determine the
+   source of the files that need to be compiled and/or installed
+
+3. In order to manage dependencies chains within e3, we inject a custom source
+   file into every module which runs the registration functions necessary for the
+   module (`init.cpp`)
+
+4. Additional include paths for header files are set here (more generally, this is
+   where we set all the compilation and linking flags). For example:
+
+   :::{code-block} makefile
+   SRC_INCLUDES = $(addprefix -I, $(wildcard $(foreach d,$(call uniq, $(filter-out /%,$(dir ${SRCS:%=../%} ${HDRS:%=../%}))), $d $(addprefix $d/, os/${OS_CLASS} $(POSIX_$(POSIX)) os/default))))
+   :::
+
+   This adds the path of every source and header file to the search path when
+   compiling source files.
+
+There are of course other details. In general this is one of the most complicated
+parts of e3; it can be quite edifying and interesting to understand it but for the
+most part it is not truly necessary to understand (until, of course, something
+goes wrong!).
+
+## Examples of the `make` process
 
 We will provide a few examples of how `make` processes the data and produces the
 desired result. The first is installing a header file, and the second is
 actually compiling a source file.
 
-##### Installing a header file
+### Installing a header file
 
 Before we go on to the more complicated case of compiling source files, let us
 go over the simpler step of having header files be installed so that other
@@ -261,8 +296,8 @@ target in your makefile. This process then runs as follows.
    which passes these on to the variable `HDRS` (as well as collecting a few
    other headers, including version-specific ones if necessary)
 
-2. There is only one place in the build process that these are relevant: in
-   stage 3 (within the directory `O.${EPICSVERSION}_{T_A}`) we have the
+2. As noted above, there is one place in the build process that these are relevant:
+   in stage 3 (within the directory `O.${EPICSVERSION}_{T_A}`) we have the
    following line:
 
    :::{code-block} makefile
@@ -314,7 +349,7 @@ target in your makefile. This process then runs as follows.
    In order to avoid this, you can add a path to the variable `KEEP_HEADER_SUBDIRS`,
    which will preserve the directory tree structure of headers under that path.
 
-##### Compiling a `.c` file
+### Compiling a `.c` file
 
 Building source files at its heart is similar to the above, but the chain of
 dependencies is significantly more complicated. As above however, the inclusion

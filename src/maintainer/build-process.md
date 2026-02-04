@@ -3,11 +3,7 @@
 # `require`'s build process
 
 :::{note}
-This document describes the internal build process in detail and may contain
-information specific to older versions of the build system. While the core
-concepts remain relevant, some implementation details may have changed.
-
-This document further assumes a familiarity with GNU make. See
+This document assumes a familiarity with GNU make. See
 - [GNU Make manual](https://www.gnu.org/software/make/manual/) - comprehensive reference
 - [Make tutorial](https://makefiletutorial.com/) - practical introduction
 :::

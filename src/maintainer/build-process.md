@@ -3,8 +3,13 @@
 # `require`'s build process
 
 :::{note}
-This document describes the internal build process in detail and may contain information specific to older versions
-of the build system. While the core concepts remain relevant, some implementation details may have changed.
+This document describes the internal build process in detail and may contain
+information specific to older versions of the build system. While the core
+concepts remain relevant, some implementation details may have changed.
+
+This document further assumes a familiarity with GNU make. See
+- [GNU Make manual](https://www.gnu.org/software/make/manual/) - comprehensive reference
+- [Make tutorial](https://makefiletutorial.com/) - practical introduction
 :::
 
 The e3 build process is a complicated bit of work. Note that this is in addition
@@ -43,46 +48,6 @@ unpacked and patched.
 We will go over each of these steps in more detail, as well as go over an
 example build to explain how information is collected and used by the build
 process.
-
-## Some details about `make`
-
-Before we can describe the build process, we have to talk a little about how
-`make` works. If you do not understand `make`, it is very *very* hard to
-understand the e3 build process. For a reference, I can suggest [GNU make
-reference](https://www.gnu.org/software/make/manual/html_node/index.html).
-
-In short, `make` does two things:
-
-1. It provides a framework to describe the tree structure of dependencies of a
-   given project
-2. It provides a way to give instructions how to build those dependencies if
-   they are missing or out of date
-
-These are built up of instructions that look like
-
-:::{code-block} makefile
-VARIABLE = value
-
-target: dependency
-    #actions
-    echo $(VARIABLE)
-:::
-
-If you ran the command `make target` it would check first that `dependency` is
-up-to-date (i.e. newer than `target`), and if it is, it would run the commands
-below.
-
-:::{code-block} bash
-$ make target
-echo value
-value
-:::
-
-The key is in how `make` generates its dependency tree. Unlike many programming
-languages (of which `make` is... not necessarily one?), `make` is decidedly
-non-procedural: since lines are not evaluated and actions are not performed in a
-linear order, it can be very difficult to trace exactly how a variable has
-obtained its value, or why certain actions have been performed.
 
 ## The `make` process for e3
 

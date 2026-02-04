@@ -77,7 +77,7 @@ information. This includes (most) source files, header files, scripts, and
 snippets. We also determine which architectures to build for depending, of
 course, on the module-specific configuration (e.g. `EXCLUDE_ARCHS`).
 
-We also load all of the configuration from EPICS base at this point:
+We also load all of the [configuration from EPICS base](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L162-L165):
 
 :::{code-block} makefile
 EB:=${EPICS_BASE}
@@ -88,7 +88,7 @@ EPICS_BASE:=${EB}
 (The redefinition of `EPICS_BASE` is due to the fact that it is overwritten in
 `CONFIG_SITE` from EPICS base)
 
-The sources and other files are handled roughly as
+The sources and other files are handled roughly as [follows](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L197-L198):
 
 :::{code-block} makefile
 SRCS = ${SOURCES}
@@ -106,7 +106,7 @@ called, so even if `SOURCES` will only be defined later (as is the case with the
 e3 build process), it will `export` correctly.
 
 Once we have that sorted, we recursively call `make` and move onto the next
-round. This next stage is triggered by
+round. This next stage is triggered by [the following](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L272-L282):
 
 :::{code-block} makefile
 define target_rule
@@ -146,8 +146,8 @@ files (e.g. any generated `.db` or `.dbd` files, `.o` files, and
 Note that `make clean` simply deletes these directories, removing all generated
 files.
 
-We make a final collection of what objects we should build, and a final
-gathering of information:
+We make a final collection of what objects we should build, and
+[a final gathering of information](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L295-L298):
 
 :::{code-block} makefile
 # Add sources for specific epics types or architectures.
@@ -158,7 +158,7 @@ export VAR_EXTENSIONS
 
 allows the developer to have architecture-specific files: for example, if
 `T_A = linux-x86_64` then `ARCH_PARTS` will be `linux-x86_64 linux x86_64`:
-If we now consider the next segment, we see
+If we now consider the [next segment](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L301-L303), we see
 
 :::{code-block} makefile
 SRCS += $(foreach x, ${VAR_EXTENSIONS}, ${SOURCES_$x})
@@ -170,7 +170,7 @@ which tells us that we can have `SOURCES_x86_64` (or any other part of
 `VAR_EXTENSIONS`) to selectively compile code based on architecture and
 version.
 
-Finally, we run
+Finally, [we run](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L326-L327)
 
 :::{code-block} makefile
 $(RECURSE_TARGETS): O.${EPICSVERSION}_${T_A}
@@ -192,7 +192,7 @@ One way of thinking of this is that the first two passes tell the build system
 _what_ to build, while this pass tells it _how_ to build. Some specific details
 follow; for examples see the next section.
 
-1. We determine where all of the install paths will be via
+1. We determine where all of the install paths will be [via](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L352-L360)
 
    :::{code-block} makefile
    INSTALL_REV     = ${MODULE_LOCATION}
@@ -218,7 +218,7 @@ follow; for examples see the next section.
    module (`init.cpp`)
 
 4. Additional include paths for header files are set here (more generally, this is
-   where we set all the compilation and linking flags). For example:
+   where we set all the compilation and linking flags). [For example](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L400):
 
    :::{code-block} makefile
    SRC_INCLUDES = $(addprefix -I, $(wildcard $(foreach d,$(call uniq, $(filter-out /%,$(dir ${SRCS:%=../%} ${HDRS:%=../%}))), $d $(addprefix $d/, os/${OS_CLASS} $(POSIX_$(POSIX)) os/default))))
@@ -249,7 +249,7 @@ Header files are (this is only slightly a lie) installed by adding the line
 `HEADERS += header.h` to your `Makefile`. This is then handled by the `install`
 target in your makefile. This process then runs as follows.
 
-1. In stage 1 we start with the following:
+1. In stage 1 we start with [the following](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L222-L225):
 
    :::{code-block} makefile
    HDRS = ${HEADERS}
@@ -291,7 +291,7 @@ target in your makefile. This process then runs as follows.
    install: ${INSTALLS}
    :::
 
-   and the following from EPICS base `RULES_BUILD`:
+   and the following from EPICS base [`RULES_BUILD`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L547):
 
    :::{code-block} makefile
    $(INSTALL_INCLUDE)/%: %
@@ -327,8 +327,8 @@ files.
 1. Initially in stage 1 above, we have the line `SRCS = ${SOURCES}` which
    includes your file in the variable `SRCS`.
 
-2. In the EPICS base configure file `CONFIG_COMMON`, we have the following two
-   directives:
+2. In the EPICS base configure file `CONFIG_COMMON`, we have
+   [the following two directives](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG_COMMON#L371):
 
    :::{code-block} makefile
    SRC_FILES = $(LIB_SRCS) $(LIBSRCS) $(SRCS) $(USR_SRCS) $(PROD_SRCS) $(TARGET_SRCS)
@@ -339,7 +339,7 @@ files.
    `HDEPENDS_FILES`.
 
 3. Next in stage 3, we include `RULES` from EPICS base which includes
-   `RULES_BUILD`. This includes the following:
+   `RULES_BUILD`. This includes [the following](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L118):
 
    :::{code-block} makefile
    -include $(HDEPENDS_FILES)
@@ -347,8 +347,8 @@ files.
 
    which seems quite innocuous, but it is a surprisingly important line: `make`,
    when trying to include a file, will first see if it exists, and if it does
-   not, then it will see if it can generate that file. In this case, we have the
-   rule
+   not, then it will see if it can generate that file. In this case, we have
+   [the rule](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L239)
 
    :::{code-block} makefile
    %$(DEP):%.c
@@ -357,7 +357,7 @@ files.
    :::
 
    which provides a rule to create `file.d` from `file.c`: this runs (once
-   again, from `CONFIG_COMMON`):
+   again, from [`CONFIG_COMMON`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG_COMMON#L359)):
 
    :::{code-block} makefile
    HDEPENDS_COMP.c   = $(COMPILE.c) $(HDEPENDS_COMPFLAGS) $(HDEPENDS_ARCHFLAGS)
@@ -370,7 +370,7 @@ files.
    files to produce object files and dependency files.
 
 4. We now need to connect the source files to the final shared library. The
-   first step is the following from `driver.makefile`:
+   first step is the following from [`driver.makefile`](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L362-L372):
 
    :::{code-block} makefile
    LIBRARY_OBJS = $(strip ${LIBOBJS} $(foreach l,${USR_LIBOBJS},$(addprefix ../,$(filter-out /%,$l))$(filter /%,$l)))
@@ -382,8 +382,8 @@ files.
 
 5. Next, we look at `LOADABLE_SHRLIBNAME`: roughly speaking, if you end up with
    a non-empty `LIBRARY_OBJS` (as we have above), then this will be
-   `lib${PRJ}.so`. In particular, we obtain from `RULES_BUILD` the dependency
-   and build rules:
+   `lib${PRJ}.so`. In particular, we obtain from [`RULES_BUILD`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L326)
+   the dependency and build rules:
 
    :::{code-block} makefile
    $(LOADABLE_SHRLIBNAME): $(LIBRARY_OBJS) $(LIBRARY_RESS) $(SHRLIB_DEPLIBS)
@@ -394,7 +394,7 @@ files.
        $(MT_DLL_COMMAND)
    :::
 
-   where the linking command is provided in `CONFIG.Common.UnixCommon`:
+   where the linking command is provided in [`CONFIG.Common.UnixCommon`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/os/CONFIG.Common.UnixCommon#L96):
 
    :::{code-block} makefile
    LINK.shrlib = $(CCC) -o $@ $(TARGET_LIB_LDFLAGS) $(SHRLIBDIR_LDFLAGS) $(LDFLAGS)
@@ -402,7 +402,8 @@ files.
    :::
 
 6. Last but not least, we need to connect this to the target `build`. In
-   `RULES_BUILD` we find:
+   [`RULES_BUILD`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L146)
+   we find:
 
    :::{code-block} makefile
    LIBTARGETS += $(LIBNAME) $(INSTALL_LIBS) $(TESTLIBNAME) \

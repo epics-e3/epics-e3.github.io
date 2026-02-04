@@ -9,11 +9,12 @@ This document assumes a familiarity with GNU make. See
 :::
 
 The e3 build process is a complicated bit of work. Note that this is in addition
-to the conda build process (see [Building modules](../developer/building-modules.md)). We will
+to the conda build process (see [Building modules](../developer/building-modules.md)); we will
 assume that you are comfortable with that process and are interested in learning
 about the internals of the e3-specific build process.
 
-Note that _in general_ the build scripts for e3 modules will contain something like
+_In general_ the build scripts for e3 modules built with require will contain
+something like
 
 :::{code-block} bash
 make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION}
@@ -27,8 +28,8 @@ the recipe's included Makefile must begin with
 include $(E3_REQUIRE_TOOLS)/driver.makefile
 :::
 
-Recall that this is run in the source directory after all sources have been
-unpacked and patched.
+Recall that this script and Makefile are located in the source directory after
+all sources have been unpacked and patched.
 
 1. In the source directory: Target architecture `${T_A}` has not been defined,
    so determine the architecture we are building.
@@ -81,8 +82,15 @@ EB:=${EPICS_BASE}
 EPICS_BASE:=${EB}
 :::
 
-(The redefinition of `EPICS_BASE` is due to the fact that it is overwritten in
-`CONFIG_SITE` from EPICS base)
+The redefinition of `EPICS_BASE` is due to the fact that it is overwritten in
+`CONFIG_SITE` from EPICS base; see
+[here](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG#L15)
+and [here](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG_SITE#L144)
+
+:::{note}
+This does depend on your build configuration, and exists to guard against
+installations that use `INSTALL_LOCATION` to relocate their EPICS installation.
+:::
 
 The sources and other files are handled roughly as [follows](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L197-L198):
 

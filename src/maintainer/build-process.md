@@ -139,8 +139,10 @@ at this point, and are the destination of all intermediate and final output
 files (e.g. any generated `.db` or `.dbd` files, `.o` files, and
 `lib$(module).so`)
 
+:::{note}
 Note that `make clean` simply deletes these directories, removing all generated
 files.
+:::
 
 We make a final collection of what objects we should build, and
 [a final gathering of information](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L295-L298):
@@ -202,9 +204,11 @@ follow; for examples see the next section.
    INSTALL_SCR     = ${INSTALL_REV}
    :::
 
+   :::{note}
    Note that unlike traditional EPICS build systems, we install binaries,
    libraries, and headers at the root level of the conda environment so that
    they are more readily found on `PATH`.
+   :::
 
 2. In this section we heavily use the `vpath` directive to help determine the
    source of the files that need to be compiled and/or installed

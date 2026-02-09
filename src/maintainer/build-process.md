@@ -214,7 +214,7 @@ follow; for examples see the next section.
 
    :::{note}
    Note that unlike traditional EPICS build systems, we install binaries,
-   libraries, and headers at the root level of the conda environment so that
+   libraries, and headers at the root level of the install location so that
    they are more readily found on `PATH`.
    :::
 

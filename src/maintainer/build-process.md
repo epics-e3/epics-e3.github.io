@@ -14,7 +14,7 @@ assume that you are comfortable with that process and are interested in learning
 about the internals of the e3-specific build process.
 
 _In general_ the build scripts for e3 modules built with require will contain
-something like
+something like (see [Build Targets](../reference/build-interface.md#build-targets)):
 
 :::{code-block} bash
 make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION}
@@ -22,7 +22,7 @@ make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION} install
 :::
 
 and, as stated in the section on [Module build configurations](../developer/makefiles.md),
-the recipe's included Makefile must begin with
+the recipe's included `Makefile` must begin with
 
 :::{code-block} makefile
 include $(E3_REQUIRE_TOOLS)/driver.makefile

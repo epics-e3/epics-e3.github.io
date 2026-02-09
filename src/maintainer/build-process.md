@@ -436,6 +436,6 @@ files.
 
    where that last target includes `file.o`.
 
-8. The magic now comes from the fact that we have already built this file back
-   when we were creating `file.d`! As such, we can run the linking command, and
-   we obtain our shared library, ready to install.
+8. This finally allows us to build our shared library; since `file.o` was already
+   created when we generated `file.d`, we can run the linking command in order
+   to obtain our shared library, ready to install.

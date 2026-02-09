@@ -8,10 +8,10 @@ This document assumes a familiarity with GNU make. See
 - [Make tutorial](https://makefiletutorial.com/) - practical introduction
 :::
 
-The e3 build process is a complicated bit of work. Note that this is in addition
+The require build process is a complicated bit of work. Note that this is in addition
 to the conda build process (see [Building modules](../developer/building-modules.md)); we will
 assume that you are comfortable with that process and are interested in learning
-about the internals of the e3-specific build process.
+about the internals of the require-specific build process.
 
 _In general_ the build scripts for e3 modules built with require will contain
 something like (see [Build Targets](../reference/build-interface.md#build-targets)):
@@ -31,7 +31,7 @@ include $(E3_REQUIRE_TOOLS)/driver.makefile
 Recall that this script and Makefile are located in the source directory after
 all sources have been unpacked and patched, which is where the build script runs.
 
-## The `make` process for e3
+## The `make` process for require
 
 ### Overview
 
@@ -101,7 +101,7 @@ variables from one run to the next do not persist unless they are `export`ed. It
 is also extremely important to note when the variable being exported is
 expanded: this happens right before the next iteration of recursive `make` is
 called, so even if `SOURCES` will only be defined later (as is the case with the
-e3 build process), it will `export` correctly.
+require build process), it will `export` correctly.
 
 Once we have that sorted, we recursively call `make` and move onto the next
 round. This next stage is triggered by [the following](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L272-L282):
@@ -238,8 +238,8 @@ follow; for examples see the next section.
    compiling source files.
 
 There are of course other details. In general this is one of the most complicated
-parts of e3; the details are mainly useful when debugging various build or
-install issues.
+parts of the require build process; the details are mainly useful when debugging
+various build or install issues.
 
 ## Examples of the `make` process
 

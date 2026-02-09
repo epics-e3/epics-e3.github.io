@@ -45,8 +45,9 @@ Note that `MODULE` must be provided for many of the build targets, as this is
 used to provide the build system with the location of the target build.
 :::
 
-Regardless of the target, the build process runs several successive passes in
-order to collect all of the necessary information. These are:
+Regardless of the target, the build process runs several successive passes
+(using recursive `make`) in order to collect all of the necessary information.
+These are:
 
 1. Collect initial information and determine target architecture
 2. Determine architecture-specific information (e.g. sources, configuration)

@@ -29,22 +29,7 @@ include $(E3_REQUIRE_TOOLS)/driver.makefile
 :::
 
 Recall that this script and Makefile are located in the source directory after
-all sources have been unpacked and patched.
-
-1. In the source directory: Target architecture `${T_A}` has not been defined,
-   so determine the architecture we are building.
-
-   Note that while we only build a single architecture at a time, we need to
-   determine `${T_A}` as understood by the EPICS build system.
-2. In the source directory: Perform a collection of the relevant files and
-   create the directories `O.${EPICSVERSION}_Common` and
-   `O.${EPICSVERSION}_${T_A}`.
-3. In the directories `O.*`: Build/Install all of the required shared libraries
-   and other files for the given version of EPICS base and target architecture.
-
-We will go over each of these steps in more detail, as well as go over an
-example build to explain how information is collected and used by the build
-process.
+all sources have been unpacked and patched, which is where the build script runs.
 
 ## The `make` process for e3
 
@@ -66,6 +51,14 @@ order to collect all of the necessary information. These are:
 1. Collect initial information and determine target architecture
 2. Determine architecture-specific information (e.g. sources, configuration)
 3. Perform the appropriate build/install/whatever task
+
+The first two steps take place in the source directory, and the final step
+takes place in a generated build directory `O.${EPICSVERSION}_${T_A}`.
+
+We will go over each of these steps in more detail, as well as go over an
+example build to explain how information is collected and used by the build
+process.
+
 
 ### Stage 1: The source directory
 
@@ -136,7 +129,15 @@ build:: $$(foreach arch,$${BUILD_ARCHS},$(target)-$${arch})
 :::
 
 i.e. `build` depends on `build-T_A_1`, `build-T_A_2`, etc., each of which trigger
-a call to run `make build` again with `T_A` set appropriately.[^secondexpansion]
+a call to run `make build` again with `T_A` set appropriately.
+
+:::{note}
+`.SECONDEXPANSION` is used here for the following reason: the architecture
+filters are defined *after* the inclusion of `driver.makefile`. As such, we take
+advantage of GNU make's ability to do a deferred secondary expansion of target
+dependencies to ensure that we perform the correct filtering on architectures.
+:::
+
 
 ### Stage 2: Preparing to build `T_A`
 
@@ -443,9 +444,3 @@ files.
 8. The magic now comes from the fact that we have already built this file back
    when we were creating `file.d`! As such, we can run the linking command, and
    we obtain our shared library, ready to install.
-
-[^secondexpansion]: Why do we need the `.SECONDEXPANSION`? The issue at hand
-is because the architecture filters are defined *after* the inclusion of
-`driver.makefile`. As such, we take advantage of GNU make's ability to do
-a deferred secondary expansion of target dependencies to ensure that we perform
-the correct filtering on architectures.

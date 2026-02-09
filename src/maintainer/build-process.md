@@ -238,9 +238,8 @@ follow; for examples see the next section.
    compiling source files.
 
 There are of course other details. In general this is one of the most complicated
-parts of e3; it can be quite edifying and interesting to understand it but for the
-most part it is not truly necessary to understand (until, of course, something
-goes wrong!).
+parts of e3; the details are mainly useful when debugging various build or
+install issues.
 
 ## Examples of the `make` process
 

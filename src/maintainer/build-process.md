@@ -253,9 +253,15 @@ go over the simpler step of having header files be installed so that other
 modules may include them. As an example, there are many `.h` files that are
 installed with *asyn* and are used by lots of other modules.
 
-Header files are (this is only slightly a lie) installed by adding the line
+Header files are installed by adding the line
 `HEADERS += header.h` to your `Makefile`. This is then handled by the `install`
 target in your makefile. This process then runs as follows.
+
+:::{note}
+There are a few header files that can be installed via other means; for example,
+if you defined device support, then the auto-generated headers are automatically
+installed as well.
+:::
 
 1. In stage 1 we start with [the following](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L222-L225):
 

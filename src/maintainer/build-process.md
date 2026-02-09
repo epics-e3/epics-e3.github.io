@@ -21,7 +21,7 @@ make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION}
 make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION} install
 :::
 
-and, as stated in the section on [Module build configurations](../developer/makefiles.md),
+As stated in the section on [Module build configurations](../developer/makefiles.md),
 the recipe's included `Makefile` must begin with
 
 :::{code-block} makefile
@@ -75,13 +75,13 @@ EB:=${EPICS_BASE}
 EPICS_BASE:=${EB}
 :::
 
+:::{note}
 The redefinition of `EPICS_BASE` is due to the fact that it is overwritten in
 `CONFIG_SITE` from EPICS base; see
 [here](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG#L15)
 and [here](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG_SITE#L144)
 
-:::{note}
-This does depend on your build configuration, and exists to guard against
+This redefinition depends on your build configuration, and exists to guard against
 installations that use `INSTALL_LOCATION` to relocate their EPICS installation.
 :::
 
@@ -163,7 +163,7 @@ VAR_EXTENSIONS = ${EPICSVERSION} ${ARCH_PARTS} ${ARCH_PARTS:%=${EPICSVERSION}_%}
 export VAR_EXTENSIONS
 :::
 
-allows the developer to have architecture-specific files: for example, if
+This allows the developer to have architecture-specific files: for example, if
 `T_A = linux-x86_64` then `ARCH_PARTS` will be `linux-x86_64 linux x86_64`:
 If we now consider the [next segment](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L301-L303), we see
 
@@ -243,16 +243,11 @@ goes wrong!).
 
 ## Examples of the `make` process
 
-We will provide a few examples of how `make` processes the data and produces the
-desired result. The first is installing a header file, and the second is
-actually compiling a source file.
-
 ### Installing a header file
 
 Before we go on to the more complicated case of compiling source files, let us
 go over the simpler step of having header files be installed so that other
-modules may include them. As an example, there are many `.h` files that are
-installed with *asyn* and are used by lots of other modules.
+modules may include them.
 
 Header files are installed by adding the line
 `HEADERS += header.h` to your `Makefile`. This is then handled by the `install`
@@ -276,9 +271,8 @@ installed as well.
    which passes these on to the variable `HDRS` (as well as collecting a few
    other headers, including version-specific ones if necessary)
 
-2. As noted above, there is one place in the build process that these are relevant:
-   in stage 3 (within the directory `O.${EPICSVERSION}_{T_A}`) we have the
-   following line:
+2. As noted above, the variable `HDRS` is used in stage 3 (within the directory
+   `O.${EPICSVERSION}_${T_A}`):
 
    :::{code-block} makefile
    SRC_INCLUDES = $(addprefix -I, $(wildcard $(foreach d,$(call uniq, $(filter-out /%,$(dir ${SRCS:%=../%} ${HDRS:%=../%}))), $d $(addprefix $d/, os/${OS_CLASS} $(POSIX_$(POSIX)) os/default))))

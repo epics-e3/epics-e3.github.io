@@ -196,9 +196,11 @@ process will be handed over to the EPICS build system. Note that this part of
 `driver.makefile` is by far the most complicated section, and takes some time to
 digest.
 
+:::{note}
 One way of thinking of this is that the first two passes tell the build system
 _what_ to build, while this pass tells it _how_ to build. Some specific details
 follow; for examples see the next section.
+:::
 
 1. We determine where all of the install paths will be [via](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L352-L360)
 

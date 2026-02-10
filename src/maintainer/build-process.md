@@ -65,8 +65,8 @@ process.
 On the first pass in the source directory we collect architecture-independent
 information. This includes most source files (the ones that do not depend on the
 architecture), header files, scripts, and snippets. We also determine which
-architectures to build for depending, of course, on the module-specific
-configuration (e.g. `EXCLUDE_ARCHS`).
+architectures to build for depending on the module-specific configuration (e.g.
+`EXCLUDE_ARCH`).
 
 We also load all of the [configuration from EPICS base](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L162-L165):
 
@@ -94,7 +94,11 @@ export SRCS
 :::
 
 which takes the variable `SOURCES` from the module build configuration and passes
-it on to future rounds of the build process.
+it on to future rounds of the build process as the "internal" variable `SRCS`.
+
+:::{note}
+`SRCS` matches the variables in the build configuration from EPICS base
+:::
 
 Note in particular the `export SRCS` line: when make is called recursively,
 variables from one run to the next do not persist unless they are `export`ed. It
@@ -103,8 +107,8 @@ expanded: this happens right before the next iteration of recursive `make` is
 called, so even if `SOURCES` will only be defined later (as is the case with the
 require build process), it will `export` correctly.
 
-Once we have that sorted, we recursively call `make` and move onto the next
-round. This next stage is triggered by [the following](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L272-L282):
+Once we have all of the exports sorted, we recursively call `make` and move onto
+the next round. This next stage is triggered by [the following](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L272-L282):
 
 :::{code-block} makefile
 define target_rule
@@ -130,7 +134,8 @@ build:: $$(foreach arch,$${BUILD_ARCHS},$(target)-$${arch})
 :::
 
 i.e. `build` depends on `build-T_A_1`, `build-T_A_2`, etc., each of which trigger
-a call to run `make build` again with `T_A` set appropriately.
+a call to run `make build` again with `T_A` (the target architecture) set
+appropriately.
 
 :::{note}
 `.SECONDEXPANSION` is used here for the following reason: the architecture
@@ -197,9 +202,9 @@ process will be handed over to the EPICS build system. Note that this part of
 digest.
 
 :::{note}
-One way of thinking of this is that the first two passes tell the build system
-_what_ to build, while this pass tells it _how_ to build. Some specific details
-follow; for examples see the next section.
+One way of thinking of this multi-stage process is that the first two passes
+tell the build system _what_ to build, while this pass tells it _how_ to build.
+Some specific details follow; for examples see the next section.
 :::
 
 1. We determine where all of the install paths will be [via](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L352-L360)
@@ -273,7 +278,7 @@ installed as well.
    which passes these on to the variable `HDRS` (as well as collecting a few
    other headers, including version-specific ones if necessary)
 
-2. As noted above, the variable `HDRS` is used in stage 3 (within the directory
+2. As noted [above](#stage-3-building-t_a), the variable `HDRS` is used in stage 3 (within the directory
    `O.${EPICSVERSION}_${T_A}`):
 
    :::{code-block} makefile

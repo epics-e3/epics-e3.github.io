@@ -28,8 +28,7 @@ the recipe's included `Makefile` must begin with
 include $(E3_REQUIRE_TOOLS)/driver.makefile
 :::
 
-Recall that this script and Makefile are located in the source directory after
-all sources have been unpacked and patched, which is where the build script runs.
+Recall that this script and `Makefile` are located in the source directory after all sources have been unpacked and patched. This is the directory in which the build script runs.
 
 ## The `make` process for require
 
@@ -179,7 +178,7 @@ which tells us that we can have `SOURCES_x86_64` (or any other part of
 `VAR_EXTENSIONS`) to selectively compile code based on architecture and
 version.
 
-Finally, [we run](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L326-L327)
+Finally, [we run](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L326-L327):
 
 :::{code-block} makefile
 $(RECURSE_TARGETS): O.${EPICSVERSION}_${T_A}
@@ -393,7 +392,7 @@ files.
    which adds `file.o` to `LIBRARY_OBJS`.
 
 5. Next, we look at `LOADABLE_SHRLIBNAME`: roughly speaking, if you end up with
-   a non-empty `LIBRARY_OBJS` (as we have above), then this will be
+   a non-empty `LIBRARY_OBJS` (as we have above), then `LOADABLE_SHRLIBNAME` evaluates to
    `lib${PRJ}.so`. In particular, we obtain from [`RULES_BUILD`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L326)
    the dependency and build rules:
 

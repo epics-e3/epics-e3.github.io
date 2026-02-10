@@ -64,9 +64,10 @@ process.
 ### Stage 1: The source directory
 
 On the first pass in the source directory we collect architecture-independent
-information. This includes (most) source files, header files, scripts, and
-snippets. We also determine which architectures to build for depending, of
-course, on the module-specific configuration (e.g. `EXCLUDE_ARCHS`).
+information. This includes most source files (the ones that do not depend on the
+architecture), header files, scripts, and snippets. We also determine which
+architectures to build for depending, of course, on the module-specific
+configuration (e.g. `EXCLUDE_ARCHS`).
 
 We also load all of the [configuration from EPICS base](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L162-L165):
 

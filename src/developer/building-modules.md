@@ -100,7 +100,7 @@ and ESS pinning applied:
 :::
 
 Artifacts are written to your build folder (e.g.
-`~/miniforge3/conda-bld/linux-64/<name>-<version>-<build>.tar.bz2`). You can install the
+`~/miniforge3/conda-bld/linux-64/<name>-<version>-<build>.conda`). You can install the
 fresh build if you want to test it:
 
 :::{code-block} console

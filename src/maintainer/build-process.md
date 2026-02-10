@@ -316,14 +316,16 @@ installed as well.
 
 4. Finally, the `vpath` line above tells `make` where to search for that file,
    and then the instructions tell `make` to run the program defined by
-   `$(INSTALL)` to install the file in the target location. Note however that
-   there is one potential source of problems here: the dependency is just the
-   filename alone, and so if you have the following two header files you would
-   like to include: `dir1/header.h` `dir2/header.h` i.e. the same filename, but
-   different locations, then only one of these two will be installed.
+   `$(INSTALL)` to install the file in the target location.
 
-   In order to avoid this, you can add a path to the variable `KEEP_HEADER_SUBDIRS`,
-   which will preserve the directory tree structure of headers under that path.
+   :::{warning}
+   Note that there is one potential source of problems here: the dependency is
+   just the filename alone. Thus if you would like to install both of the header
+   files `dir1/header.h` `dir2/header.h` (with the same filename but different
+   paths), then only one of these two will be installed. See the
+   [build interface](../reference/build-interface.md) for documentation on this
+   case.
+   :::
 
 ### Compiling a `.c` file
 

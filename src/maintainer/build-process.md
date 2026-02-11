@@ -107,6 +107,27 @@ expanded: this happens right before the next iteration of recursive `make` is
 called, so even if `SOURCES` will only be defined later (as is the case with the
 require build process), it will `export` correctly.
 
+::::{warning}
+There is some complexity and subtlety here. The first part is that we must be
+careful when using variable names that overlap with the build rules from EPICS
+base as when we load the EPICS build configuration, we will trigger some build
+rules if we populate matching variables.
+
+The second point is that, given that `Makefile`s interacting with require will
+be written:
+
+:::{code-block} makefile
+SOME_VAR += SOME_VALUE
+:::
+
+If we are not careful and we were to simply `export SOME_VAR` (instead of
+modifying the variable name), then on each further recursive call to `make` we
+would append `SOME_VALUE` again to `SOME_VAR`; whether or not this is a problem
+depends entirely on what exactly happens to that value later on in the build
+process. As such, the simplest thing to do here is to modify the interface
+variable, such as mapping `SOURCES` to `SRCS`.
+::::
+
 Once we have all of the exports sorted, we recursively call `make` and move onto
 the next round. This next stage is triggered by [the following](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L272-L282):
 

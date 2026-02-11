@@ -11,15 +11,16 @@ This page documents the build-time interface provided by `require` for building 
 
 - `SOURCES` - Source files to compile into the shared library
 - `DBDS` - Database definition (`.dbd`) files to include in `$(module).dbd`
-- `HEADERS` - Header files that should be installed with the module
-- `TEMPLATES` - Database or template files that should be installed in the
+- `HEADERS` - Header files to install with the module
+- `TEMPLATES` - Database or template files to install in the
   `$(module_DB)` path
-- `TMPS` - Template files to inflate to db-file and install in the
-  `$(module_DB)` path
-- `SUBS` - Substitutions files to inflate the template file to db-file and
-  install in the `$(module_DB)` path
-- `SCRIPTS` - Script files that are installed in `$(module_DIR)`
-- `BINS` - Executables that should be installed and be on `$(PATH)`
+- `SUBS` - Substitutions files to inflate to `.db`-files and install in the `$(module_DB)` path
+- `TMPS` - Template files to inflate to `.db`-files and install in the `$(module_DB)` path
+- `SCRIPTS` - Script files to install in `$(module_DIR)`
+- `BINS` - Executables to install and place on `$(PATH)`
+
+Files listed in `SUBS` or `TMPS` are processed automatically during the build using EPICS [msi](https://docs.epics-controls.org/projects/base/en/latest/msi.html)
+(Macro Substitution and Include tool). The resulting `.db` files are installed in `$(module_DB)`.
 
 ### What to link against
 

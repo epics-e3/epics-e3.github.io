@@ -13,8 +13,8 @@ to the conda build process (see [Building modules](../developer/building-modules
 assume that you are comfortable with that process and are interested in learning
 about the internals of the require-specific build process.
 
-_In general_ the build scripts for e3 modules built with require will contain
-something like (see [Build Targets](../reference/build-interface.md#build-targets)):
+In general the build scripts for e3 modules built with require will contain
+the following steps (see [Build Targets](../reference/build-interface.md#build-targets)):
 
 :::{code-block} bash
 make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION}
@@ -197,7 +197,7 @@ directory, using the same `${USERMAKEFILE}` to manage the build process.
 
 We have now collected the majority of the information that we need to build our
 module. We will do a little more organisation and preparation, and then the
-process will be handed over to the EPICS build system. Note that this part of
+process will be handed over to the EPICS build system. Note that this stage of
 `driver.makefile` is by far the most complicated section, and takes some time to
 digest.
 
@@ -278,8 +278,8 @@ installed as well.
    which passes these on to the variable `HDRS` (as well as collecting a few
    other headers, including version-specific ones if necessary)
 
-2. As noted [above](#stage-3-building-t_a), the variable `HDRS` is used in stage 3 (within the directory
-   `O.${EPICSVERSION}_${T_A}`):
+2. As described in [stage 3](#stage-3-building-t_a), the variable `HDRS` is used
+   within the directory `O.${EPICSVERSION}_${T_A}`:
 
    :::{code-block} makefile
    SRC_INCLUDES = $(addprefix -I, $(wildcard $(foreach d,$(call uniq, $(filter-out /%,$(dir ${SRCS:%=../%} ${HDRS:%=../%}))), $d $(addprefix $d/, os/${OS_CLASS} $(POSIX_$(POSIX)) os/default))))

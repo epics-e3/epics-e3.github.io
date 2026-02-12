@@ -218,9 +218,7 @@ directory, using the same `${USERMAKEFILE}` to manage the build process.
 
 We have now collected the majority of the information that we need to build our
 module. We will do a little more organisation and preparation, and then the
-process will be handed over to the EPICS build system. Note that this stage of
-`driver.makefile` is by far the most complicated section, and takes some time to
-digest.
+process will be handed over to the EPICS build system.
 
 :::{note}
 One way of thinking of this multi-stage process is that the first two passes

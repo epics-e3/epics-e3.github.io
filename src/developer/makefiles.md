@@ -132,6 +132,10 @@ USR_DBFLAGS += -I$(where_am_I)/template
 SUBS += $(wildcard template/*.substitutions)
 :::
 
+:::{note}
+Files in `SUBS` are expanded by [msi](https://docs.epics-controls.org/projects/base/en/latest/msi.html) (EPICS Macro Substitution and Include tool) at build time; see [build interface](../reference/build-interface.md).
+:::
+
 ### 4) Build and install
 
 To build, we will need to pass some additional variables to require:

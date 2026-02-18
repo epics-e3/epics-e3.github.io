@@ -3,112 +3,72 @@
 # `require`'s build process
 
 :::{note}
-This document describes the internal build process in detail and may contain information specific to older versions
-of the build system. While the core concepts remain relevant, some implementation details may have changed.
+This document assumes a familiarity with GNU make. See
+- [GNU Make manual](https://www.gnu.org/software/make/manual/) - comprehensive reference
+- [Make tutorial](https://makefiletutorial.com/) - practical introduction
 :::
 
-The e3 build process is a complicated bit of work. To recap, the overview is as follows:
+The require build process is a complicated bit of work. Note that this is in addition
+to the conda build process (see [Building modules](../developer/building-modules.md)); we will
+assume that you are comfortable with that process and are interested in learning
+about the internals of the require-specific build process.
 
-1. In the build directory: we collect some information and decide what
-   build process we will perform (from `RULES_E3`), calling `make` in the module
-   directory with information passed as in `CONFIG_E3_MAKEFILE`. `EPICSVERSION`
-   is determined by the path `EPICS_BASE`.
-2. In the module directory: Target architecture `${T_A}` has not been defined,
-   so determine the architectures to build for.
-3. In the module directory: Perform a final collection of the relevant files,
-   create the directories `O.${EPICSVERSION}_Common` and
-   `O.${EPICSVERSION}_${T_A}`.
-4. In the directories `O.*`: Build/Install all of the required shared libraries
-   and other files for the given version of EPICS base and target architecture.
+In general the build scripts for e3 modules built with require will contain
+the following steps (see [Build Targets](../reference/build-interface.md#build-targets)):
+
+:::{code-block} bash
+make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION}
+make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION} install
+:::
+
+As stated in the section on [Module build configurations](../developer/makefiles.md),
+the recipe's included `Makefile` must begin with
+
+:::{code-block} makefile
+include $(E3_REQUIRE_TOOLS)/driver.makefile
+:::
+
+Recall that this script and `Makefile` are located in the source directory after all sources have been unpacked and patched. This is the directory in which the build script runs.
+
+## The `make` process for require
+
+### Overview
+
+We start in the source directory and run
+:::{code-block} bash
+make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION} target
+:::
+
+:::{note}
+Note that `MODULE` must be provided for many of the build targets, as this is
+used to provide the build system with the location of the target build.
+:::
+
+Regardless of the target, the build process runs several successive passes
+(using recursive `make`) in order to collect all of the necessary information.
+These are:
+
+1. Collect initial information and determine target architecture
+2. Determine architecture-specific information (e.g. sources, configuration)
+3. Perform the appropriate build/install/whatever task
+
+The first two steps take place in the source directory, and the final step
+takes place in a generated build directory `O.${EPICSVERSION}_${T_A}`.
 
 We will go over each of these steps in more detail, as well as go over an
 example build to explain how information is collected and used by the build
 process.
 
-## Some details about `make`
-
-Before we can describe the build process, we have to talk a little about how
-`make` works. If you do not understand `make`, it is very *very* hard to
-understand the e3 build process. For a reference, I can suggest [GNU make
-reference](https://www.gnu.org/software/make/manual/html_node/index.html).
-
-In short, `make` does two things:
-
-1. It provides a framework to describe the tree structure of dependencies of a
-   given project
-2. It provides a way to give instructions how to build those dependencies if
-   they are missing or out of date
-
-These are built up of instructions that look like
-
-:::{code-block} makefile
-VARIABLE = value
-
-target: dependency
-    #actions
-    echo $(VARIABLE)
-:::
-
-If you ran the command `make target` it would check first that `dependency` is
-up-to-date (i.e. newer than `target`), and if it is, it would run the commands
-below.
-
-:::{code-block} bash
-$ make target
-echo value
-value
-:::
-
-The key is in how `make` generates its dependency tree. Unlike many programming
-languages (of which `make` is... not necessarily one?), `make` is decidedly
-non-procedural: since lines are not evaluated and actions are not performed in a
-linear order, it can be very difficult to trace exactly how a variable has
-obtained its value, or why certain actions have been performed.
-
-## The `make` process for e3
 
 ### Stage 1: The source directory
 
-We start in the source directory, and run (for example) `make build`. The
-first thing that happens is that we load the makefiles from the configure
-directory; these in turn load `CONFIG_MODULE` and `RELEASE` which specify
-dependencies and for which version of EPICS base and *require* we are building,
-as well as `CONFIG` from the *require* module (located in
-`configure/modules/CONFIG` in this repository).
+On the first pass in the source directory we collect architecture-independent
+information. This includes most source files (the ones that do not depend on the
+architecture), header files, scripts, and snippets. We also determine which
+architectures to build for depending on the module-specific configuration (e.g.
+`EXCLUDE_ARCH`).
 
-We also load `RULES` which similarly loads a number of rules-related configure
-files installed with `require`. The most important one in `RULES_E3` which
-initiates most of the e3 build process. As an example, we have:
-
-:::{code-block} makefile
-## Build the EPICS Module : $(E3_MODULE_NAME)
-# Build always the Module with the EPICS_MODULES_TAG
-build: conf checkout
-    $(QUIET) $(E3_MODULE_MAKE_CMDS) build
-:::
-
-which first makes sure that `conf` and `checkout` are up to date (these copy the
-`$(module).Makefile` into the module directory, and run a `git checkout` command
-to make sure that the module is up-to-date). Note that `$(E3_MODULE_MAKE_CMDS)`
-is defined in `CONFIG_E3_MAKEFILE` which specifies which arguments should be
-passed to this recursive call of `make`.
-
-### Stage 2: Defining `T_A`
-
-In e3, we only build for a single version of EPICS base at a time. This is defined
-in `driver.makefile` as
-
-:::{code-block} makefile
-EPICSVERSION:=$(patsubst base-%,%,$(notdir $(EPICS_LOCATION)))
-:::
-
-which converts, for example, `/opt/epics/base-7.0.6.1` into `7.0.6.1`.
-
-We begin by determining the target architectures to build for. In this case,
-we may build for more than one architecture at a time; at the moment, ESS
-supports `linux-x86_64`, `linux-corei7-poky`, and `linux-ppc64e6500` (as well
-as a debug architecture, `linux-x86_64-debug`). This is also where we include the
-EPICS build rules: see the sequence
+We also load all of the [configuration from EPICS base](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L162-L165):
 
 :::{code-block} makefile
 EB:=${EPICS_BASE}
@@ -116,17 +76,28 @@ EB:=${EPICS_BASE}
 EPICS_BASE:=${EB}
 :::
 
-(The redefinition of `EPICS_BASE` is due to the fact that it is overwritten in
-`CONFIG_SITE` from EPICS base)
+:::{note}
+The redefinition of `EPICS_BASE` is due to the fact that it is overwritten in
+`CONFIG_SITE` from EPICS base; see
+[here](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG#L15)
+and [here](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG_SITE#L144)
 
-This is also the place where we start collecting information about what to build
-and install. For example, to begin collecting the source files to compile, we
-have the following section:
+This redefinition depends on your build configuration, and exists to guard against
+installations that use `INSTALL_LOCATION` to relocate their EPICS installation.
+:::
+
+The sources and other files are handled roughly as [follows](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L197-L198):
 
 :::{code-block} makefile
-AUTOSRCS := $(filter-out ~%,$(wildcard *.c *.cc *.cpp *.st *.stt *.gt))
-SRCS = $(if ${SOURCES},$(filter-out -none-,${SOURCES}),${AUTOSRCS})
+SRCS = ${SOURCES}
 export SRCS
+:::
+
+which takes the variable `SOURCES` from the module build configuration and passes
+it on to future rounds of the build process as the "internal" variable `SRCS`.
+
+:::{note}
+`SRCS` matches the variables in the build configuration from EPICS base
 :::
 
 Note in particular the `export SRCS` line: when make is called recursively,
@@ -134,28 +105,46 @@ variables from one run to the next do not persist unless they are `export`ed. It
 is also extremely important to note when the variable being exported is
 expanded: this happens right before the next iteration of recursive `make` is
 called, so even if `SOURCES` will only be defined later (as is the case with the
-e3 build process), it will `export` correctly.
+require build process), it will `export` correctly.
 
-The cross-compiler target architectures `CROSS_COMPILER_TARGET_ARCHS` are
-defined in `$(EPICS_LOCATION)/configure/CONFIG_SITE`, which is generated when
-you build EPICS base for the first time.
+::::{warning}
+There is some complexity and subtlety here. The first part is that we must be
+careful when using variable names that overlap with the build rules from EPICS
+base as when we load the EPICS build configuration, we will trigger some build
+rules if we populate matching variables.
 
-The next stage of the build is triggered by
+The second point is that, given that `Makefile`s interacting with require will
+be written:
+
+:::{code-block} makefile
+SOME_VAR += SOME_VALUE
+:::
+
+If we are not careful and we were to simply `export SOME_VAR` (instead of
+modifying the variable name), then on each further recursive call to `make` we
+would append `SOME_VALUE` again to `SOME_VAR`; whether or not this is a problem
+depends entirely on what exactly happens to that value later on in the build
+process. As such, the simplest thing to do here is to modify the interface
+variable, such as mapping `SOURCES` to `SRCS`.
+::::
+
+Once we have all of the exports sorted, we recursively call `make` and move onto
+the next round. This next stage is triggered by [the following](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L272-L282):
 
 :::{code-block} makefile
 define target_rule
-$1-%: | $(COMMON_DIR)
-    $${MAKE} -f $${USERMAKEFILE} T_A=$$* $1
+$1-%:
+	$${MAKE} -f $${USERMAKEFILE} T_A=$$* $1
 endef
-$(foreach target,install build debug,$(eval $(call target_rule,$(target))))
+$(foreach target,$(RECURSE_TARGETS),$(eval $(call target_rule,$(target))))
 
 .SECONDEXPANSION:
 
-$(foreach target,install build debug,$(eval $(target):: $$$$(foreach arch,$$$${BUILD_ARCHS},$(target)-$$$${arch})))
+$(foreach target,$(RECURSE_TARGETS),$(eval $(target): $$$$(foreach arch,$$$${BUILD_ARCHS},$(target)-$$$${arch})))
 :::
 
-We can simplify this by focusing purely on the build target; in that case
-this essentially reads
+We can simplify this by focusing purely on the build target (one of the
+`RECURSE_TARGETS`); in that case this essentially reads
 
 :::{code-block} makefile
 build-%: | $(COMMON_DIR)
@@ -166,22 +155,33 @@ build:: $$(foreach arch,$${BUILD_ARCHS},$(target)-$${arch})
 :::
 
 i.e. `build` depends on `build-T_A_1`, `build-T_A_2`, etc., each of which trigger
-a call to run `make build` again with `T_A` set appropriately.[^secondexpansion]
+a call to run `make build` again with `T_A` (the target architecture) set
+appropriately.
 
-### Stage 3: Preparing to build `T_A`
+:::{note}
+`.SECONDEXPANSION` is used here for the following reason: the architecture
+filters are defined *after* the inclusion of `driver.makefile`. As such, we take
+advantage of GNU make's ability to do a deferred secondary expansion of target
+dependencies to ensure that we perform the correct filtering on architectures.
+:::
 
-For this stage of the build process, we are still in the module directory; the
+
+### Stage 2: Preparing to build `T_A`
+
+For this stage of the build process, we are still in the source directory; the
 next stages will be done in the directories `O.$(EPICSVERSION)_Common` or
 `O.$(EPICSVERSION)_$(T_A)`, respectively. These directories will also be created
 at this point, and are the destination of all intermediate and final output
 files (e.g. any generated `.db` or `.dbd` files, `.o` files, and
 `lib$(module).so`)
 
+:::{note}
 Note that `make clean` simply deletes these directories, removing all generated
 files.
+:::
 
-We make a final collection of what objects we should build, and a final
-gathering of information:
+We make a final collection of what objects we should build, and
+[a final gathering of information](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L295-L298):
 
 :::{code-block} makefile
 # Add sources for specific epics types or architectures.
@@ -190,9 +190,9 @@ VAR_EXTENSIONS = ${EPICSVERSION} ${ARCH_PARTS} ${ARCH_PARTS:%=${EPICSVERSION}_%}
 export VAR_EXTENSIONS
 :::
 
-allows the developer to have architecture-specific files: for example, if
+This allows the developer to have architecture-specific files: for example, if
 `T_A = linux-x86_64` then `ARCH_PARTS` will be `linux-x86_64 linux x86_64`:
-If we now consider the next segment, we see
+If we now consider the [next segment](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L301-L303), we see
 
 :::{code-block} makefile
 SRCS += $(foreach x, ${VAR_EXTENSIONS}, ${SOURCES_$x})
@@ -204,54 +204,92 @@ which tells us that we can have `SOURCES_x86_64` (or any other part of
 `VAR_EXTENSIONS`) to selectively compile code based on architecture and
 version.
 
-Finally, we run
+Finally, [we run](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L326-L327):
 
 :::{code-block} makefile
-install build debug:: O.${EPICSVERSION}_Common O.${EPICSVERSION}_${T_A}
-    @${MAKE} -C O.${EPICSVERSION}_${T_A} -f ../${USERMAKEFILE} $@
+$(RECURSE_TARGETS): O.${EPICSVERSION}_${T_A}
+	@${MAKE} -C O.${EPICSVERSION}_${T_A} -f ../${USERMAKEFILE} $@
 :::
 
 Note that due to the argument `-C O.${EPICSVERSION}_${T_A}` we switch to that
 directory, using the same `${USERMAKEFILE}` to manage the build process.
 
-### Stage 4: Building `T_A`
+### Stage 3: Building `T_A`
 
 We have now collected the majority of the information that we need to build our
 module. We will do a little more organisation and preparation, and then the
-process will be handed over to the EPICS build system. Note that this part of
-`driver.makefile` is by far the most complicated section, and takes some time to
-digest.
+process will be handed over to the EPICS build system.
 
-To begin with, I would like to point out a couple sections of interest, followed
-by tracing through what happens when you include a line such as `SOURCES +=
-file.c` in your `$(module).Makefile`.
+:::{note}
+One way of thinking of this multi-stage process is that the first two passes
+tell the build system _what_ to build, while this pass tells it _how_ to build.
+Some specific details follow; for examples see the next section.
+:::
 
-<!--
-## Points of interest
-FIXME (alo): leaving it here just in case, simonrose
--->
+1. We determine where all of the install paths will be [via](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L352-L360)
+
+   :::{code-block} makefile
+   INSTALL_REV     = ${MODULE_LOCATION}
+   INSTALL_BIN     = ${INSTALL_PREFIX}/bin
+   INSTALL_LIB     = ${INSTALL_PREFIX}/lib
+   INSTALL_INCLUDE = ${INSTALL_PREFIX}/include
+   INSTALL_DBD     = ${INSTALL_REV}/dbd
+   INSTALL_DB      = ${INSTALL_REV}/db
+   INSTALL_CONFIG  = ${INSTALL_REV}/cfg
+   INSTALL_DOC     = ${INSTALL_REV}/doc
+   INSTALL_SCR     = ${INSTALL_REV}
+   :::
+
+   :::{note}
+   Note that unlike traditional EPICS build systems, we install binaries,
+   libraries, and headers at the root level of the install location so that
+   they are more readily found on `PATH`.
+   :::
+
+2. In this section we heavily use the `vpath` directive to help determine the
+   source of the files that need to be compiled and/or installed
+
+3. In order to manage dependencies chains within e3, we inject a custom source
+   file into every module which runs the registration functions necessary for the
+   module (`init.cpp`)
+
+4. Additional include paths for header files are set here (more generally, this is
+   where we set all the compilation and linking flags). [For example](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L400):
+
+   :::{code-block} makefile
+   SRC_INCLUDES = $(addprefix -I, $(wildcard $(foreach d,$(call uniq, $(filter-out /%,$(dir ${SRCS:%=../%} ${HDRS:%=../%}))), $d $(addprefix $d/, os/${OS_CLASS} $(POSIX_$(POSIX)) os/default))))
+   :::
+
+   This adds the path of every source and header file to the search path when
+   compiling source files.
+
+There are of course other details. In general this is one of the most complicated
+parts of the require build process; the details are mainly useful when debugging
+various build or install issues.
 
 ## Examples of the `make` process
-
-We will provide a few examples of how `make` processes the data and produces the
-desired result. The first is installing a header file, and the second is
-actually compiling a source file.
 
 ### Installing a header file
 
 Before we go on to the more complicated case of compiling source files, let us
 go over the simpler step of having header files be installed so that other
-modules may include them. As an example, there are many `.h` files that are
-installed with *asyn* and are used by lots of other modules.
+modules may include them.
 
-The simplest way of including a header file is to add the line `HEADERS +=
-header.h` into your `$(module).Makefile`. Having done this, the build/install
-process runs as follows.
+Header files are installed by adding the line
+`HEADERS += header.h` to your `Makefile`. This is then handled by the `install`
+target in your makefile. This process then runs as follows.
 
-1. In stage 2 we start with the following:
+:::{note}
+There are a few header files that can be installed via other means; for example,
+if you defined device support, then the auto-generated headers are automatically
+installed as well.
+:::
+
+1. In stage 1 we start with [the following](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L222-L225):
 
    :::{code-block} makefile
-   HDRS = ${HEADERS} $(addprefix ${COMMON_DIR}/,$(addsuffix Record.h,${RECORDS}))
+   HDRS = ${HEADERS}
+   HDRS += $(RECORDS:%=${COMMON_DIR}/%.h)
    HDRS += ${HEADERS_${EPICSVERSION}}
    export HDRS
    :::
@@ -259,9 +297,8 @@ process runs as follows.
    which passes these on to the variable `HDRS` (as well as collecting a few
    other headers, including version-specific ones if necessary)
 
-2. There is only one place in the build process that these are relevant: in
-   stage 4 (within the directory `O.${EPICSVERSION}_{T_A}`) we have the
-   following line:
+2. As described in [stage 3](#stage-3-building-t_a), the variable `HDRS` is used
+   within the directory `O.${EPICSVERSION}_${T_A}`:
 
    :::{code-block} makefile
    SRC_INCLUDES = $(addprefix -I, $(wildcard $(foreach d,$(call uniq, $(filter-out /%,$(dir ${SRCS:%=../%} ${HDRS:%=../%}))), $d $(addprefix $d/, os/${OS_CLASS} $(POSIX_$(POSIX)) os/default))))
@@ -289,7 +326,7 @@ process runs as follows.
    install: ${INSTALLS}
    :::
 
-   and the following from EPICS base `RULES_BUILD`:
+   and the following from EPICS base [`RULES_BUILD`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L547):
 
    :::{code-block} makefile
    $(INSTALL_INCLUDE)/%: %
@@ -303,31 +340,32 @@ process runs as follows.
 
 4. Finally, the `vpath` line above tells `make` where to search for that file,
    and then the instructions tell `make` to run the program defined by
-   `$(INSTALL)` to install the file in the target location. Note however that
-   there is one potential source of problems here: the dependency is just the
-   filename alone, and so if you have the following two header files you would
-   like to include: `dir1/header.h` `dir2/header.h` i.e. the same filename, but
-   different locations, then only one of these two will be installed.
+   `$(INSTALL)` to install the file in the target location.
 
-   In order to avoid this, you can add a path to the variable `KEEP_HEADER_SUBDIRS`,
-   which will preserve the directory tree structure of headers under that path.
+   :::{warning}
+   Note that there is one potential source of problems here: the dependency is
+   just the filename alone. Thus if you would like to install both of the header
+   files `dir1/header.h` `dir2/header.h` (with the same filename but different
+   paths), then only one of these two will be installed. See the
+   [build interface](../reference/build-interface.md) for documentation on this
+   case.
+   :::
 
 ### Compiling a `.c` file
 
 Building source files at its heart is similar to the above, but the chain of
 dependencies is significantly more complicated. As above however, the inclusion
 of a source file to be compiled into the shared library is simple: add the line
-`SOURCES += $(APPSRC)/file.c` in your module makefile.
+`SOURCES += $(APPSRC)/file.c` in your `Makefile`.
 
 The next steps are complicated due to being shared among different configure
 files.
 
-1. Initially in stage 2 above, we have the line `SRCS += $(if
-   ${SOURCES},$(filter-out -none-,${SOURCES}),${AUTOSRCS})` which includes your
-   file in the variable `SRCS`.
+1. Initially in stage 1 above, we have the line `SRCS = ${SOURCES}` which
+   includes your file in the variable `SRCS`.
 
-2. In the EPICS base configure file `CONFIG_COMMON`, we have the following two
-   directives:
+2. In the EPICS base configure file `CONFIG_COMMON`, we have
+   [the following two directives](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG_COMMON#L371):
 
    :::{code-block} makefile
    SRC_FILES = $(LIB_SRCS) $(LIBSRCS) $(SRCS) $(USR_SRCS) $(PROD_SRCS) $(TARGET_SRCS)
@@ -337,8 +375,8 @@ files.
    which converts `$(APPSRC)/file.c` into `file.d` in the variable
    `HDEPENDS_FILES`.
 
-3. Next in stage 4, we include `RULES` from EPICS base which includes
-   `RULES_BUILD`. This includes the following:
+3. Next in stage 3, we include `RULES` from EPICS base which includes
+   `RULES_BUILD`. This includes [the following](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L118):
 
    :::{code-block} makefile
    -include $(HDEPENDS_FILES)
@@ -346,8 +384,8 @@ files.
 
    which seems quite innocuous, but it is a surprisingly important line: `make`,
    when trying to include a file, will first see if it exists, and if it does
-   not, then it will see if it can generate that file. In this case, we have the
-   rule
+   not, then it will see if it can generate that file. In this case, we have
+   [the rule](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L239)
 
    :::{code-block} makefile
    %$(DEP):%.c
@@ -356,7 +394,7 @@ files.
    :::
 
    which provides a rule to create `file.d` from `file.c`: this runs (once
-   again, from `CONFIG_COMMON`):
+   again, from [`CONFIG_COMMON`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/CONFIG_COMMON#L359)):
 
    :::{code-block} makefile
    HDEPENDS_COMP.c   = $(COMPILE.c) $(HDEPENDS_COMPFLAGS) $(HDEPENDS_ARCHFLAGS)
@@ -365,11 +403,11 @@ files.
    i.e. it compiles the source file with a special flag that produces not only
    `file.o`, but a dependency file `file.d`.
 
-   To wit, on our first pass through in stage 5 we compile all of our source
+   To wit, on our first pass through in stage 3 we compile all of our source
    files to produce object files and dependency files.
 
 4. We now need to connect the source files to the final shared library. The
-   first step is the following from `driver.makefile`:
+   first step is the following from [`driver.makefile`](https://gitlab.esss.lu.se/epics-modules/require/-/blob/6.0.0/require-ess/tools/driver.makefile?ref_type=tags#L362-L372):
 
    :::{code-block} makefile
    LIBRARY_OBJS = $(strip ${LIBOBJS} $(foreach l,${USR_LIBOBJS},$(addprefix ../,$(filter-out /%,$l))$(filter /%,$l)))
@@ -380,9 +418,9 @@ files.
    which adds `file.o` to `LIBRARY_OBJS`.
 
 5. Next, we look at `LOADABLE_SHRLIBNAME`: roughly speaking, if you end up with
-   a non-empty `LIBRARY_OBJS` (as we have above), then this will be
-   `lib${PRJ}.so`. In particular, we obtain from `RULES_BUILD` the dependency
-   and build rules:
+   a non-empty `LIBRARY_OBJS` (as we have above), then `LOADABLE_SHRLIBNAME` evaluates to
+   `lib${PRJ}.so`. In particular, we obtain from [`RULES_BUILD`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L326)
+   the dependency and build rules:
 
    :::{code-block} makefile
    $(LOADABLE_SHRLIBNAME): $(LIBRARY_OBJS) $(LIBRARY_RESS) $(SHRLIB_DEPLIBS)
@@ -393,7 +431,7 @@ files.
        $(MT_DLL_COMMAND)
    :::
 
-   where the linking command is provided in `CONFIG.Common.UnixCommon`:
+   where the linking command is provided in [`CONFIG.Common.UnixCommon`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/os/CONFIG.Common.UnixCommon#L96):
 
    :::{code-block} makefile
    LINK.shrlib = $(CCC) -o $@ $(TARGET_LIB_LDFLAGS) $(SHRLIBDIR_LDFLAGS) $(LDFLAGS)
@@ -401,7 +439,8 @@ files.
    :::
 
 6. Last but not least, we need to connect this to the target `build`. In
-   `RULES_BUILD` we find:
+   [`RULES_BUILD`](https://github.com/epics-base/epics-base/blob/R7.0.9/configure/RULES_BUILD#L146)
+   we find:
 
    :::{code-block} makefile
    LIBTARGETS += $(LIBNAME) $(INSTALL_LIBS) $(TESTLIBNAME) \
@@ -424,12 +463,6 @@ files.
 
    where that last target includes `file.o`.
 
-8. The magic now comes from the fact that we have already built this file back
-   when we were creating `file.d`! As such, we can run the linking command, and
-   we obtain our shared library, ready to install.
-
-[^secondexpansion]: Why do we need the `.SECONDEXPANSION`? The issue at hand
-is because the architecture filters are defined *after* the inclusion of
-`driver.makefile`. As such, we take advantage of GNU make's ability to do
-a deferred secondary expansion of target dependencies to ensure that we perform
-the correct filtering on architectures.
+8. This finally allows us to build our shared library; since `file.o` was already
+   created when we generated `file.d`, we can run the linking command in order
+   to obtain our shared library, ready to install.

@@ -72,7 +72,7 @@ we would do so at this stage.
 Create a conda environment that contains `epics-base`, `require`, and a compiler:
 
 :::{code-block} console
-$ conda create -n iocstats-build epics-base require gcc gxx
+$ conda create -n iocstats-build epics-base require gcc gxx make
 :::
 
 :::{caution}

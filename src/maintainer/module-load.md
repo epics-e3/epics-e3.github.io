@@ -1,19 +1,19 @@
 
-# require's Module Load
+# `require's` Module Load
 
-The require module is essentially a library loader that loads EPICS modules on
-the running IOC. This article will describe require's internals for version
-6.0.0. Previous versions of require have many differences from the current
+The `require` module is essentially a library loader that loads EPICS modules on
+the running IOC. This article will describe `require's` internals for version
+6.0.0. Previous versions of `require` have many differences from the current
 approach.
 
 ## Self Registration
 
-The most important bit to understand require is
+The most important bit to understand `require` is
 [`init.cpp`](https://gitlab.esss.lu.se/epics-modules/require/-/blob/83f71357ea7e5899445101deaa85f0fbd9f2df09/require-ess/src/init.cpp)
 self registration code. It holds a single function, `__module_library_init()`,
 that at first will load the `<module_name>.dbd` from the libraries directory.
 Then the module registers the record device driver by calling `Registration()`
-and register itself to require via `register_module()` - this sets up require's
+and register itself to `require` via `register_module()` - this sets up `require's`
 own PVs with information about the loaded module. Finally the template directory
 variable is set up accordingly.
 
@@ -40,11 +40,11 @@ ${REGISTRYFILE}: ${MODULEDBD}
 
 The modules built with e3 should specify on `USR_LIBS` the other modules it
 depends, they will be linked in build time. When `require foo` is called
-require will load `foo` using `dlopen` but and that will automatically load all
+`require` will load `foo` using `dlopen` but and that will automatically load all
 dependent modules. For example, `calc` Makefile will have `USR_LIBS += sscan
 sequencer`.
 
-Package dependency and version handling are done by conda. Once require loads
+Package dependency and version handling are done by conda. Once `require` loads
 the first required module the system loader will take care of the dependency
 chain. The `require_priv` function will load the required module:
 
@@ -80,12 +80,12 @@ static int require_priv(const char *module) {
 :::
 
 :::{note}
-Notice that require will check for the `__module_lib_version` symbol to check
+Notice that `require` will check for the `__module_lib_version` symbol to check
 if the library is a e3 compatible EPICS module.
 :::
 
 ## Module Registry
 
-Require holds a linked list with information of every module loaded. The module
+`require` holds a linked list with information of every module loaded. The module
 structure holds modules name, version, and path. The list of loaded modules and
 their versions are then exported in PV form.

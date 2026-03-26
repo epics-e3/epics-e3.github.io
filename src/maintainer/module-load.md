@@ -1,12 +1,12 @@
 
-# `require's` Module Load
+# `require's` module load
 
 The `require` module is essentially a library loader that loads EPICS modules on
 the running IOC. This article will describe `require's` internals for version
 6.0.0. Previous versions of `require` have many differences from the current
 approach.
 
-## Self Registration
+## Self registration
 
 The most important bit to understand `require` is
 [`init.cpp`](https://gitlab.esss.lu.se/epics-modules/require/-/blob/83f71357ea7e5899445101deaa85f0fbd9f2df09/require-ess/src/init.cpp)
@@ -36,7 +36,7 @@ ${REGISTRYFILE}: ${MODULEDBD}
 	echo "#include <init.cpp>" >> $@
 :::
 
-## Dependency Handling
+## Dependency handling
 
 The modules built with e3 should specify on `USR_LIBS` the other modules it
 depends, they will be linked in build time. When `require foo` is called
@@ -84,7 +84,7 @@ Notice that `require` will check for the `__module_lib_version` symbol to check
 if the library is a e3 compatible EPICS module.
 :::
 
-## Module Registry
+## Module registry
 
 `require` holds a linked list with information of every module loaded. The module
 structure holds modules name, version, and path. The list of loaded modules and

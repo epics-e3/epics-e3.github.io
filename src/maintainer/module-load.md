@@ -36,17 +36,25 @@ ${REGISTRYFILE}: ${MODULEDBD}
 	echo "#include <init.cpp>" >> $@
 :::
 
+:::{seealso}
+[`require's` build process](../build-process.md)
+:::
+
 ## Dependency handling
 
-The modules built with e3 should specify on `USR_LIBS` the other modules it
-depends, they will be linked in build time. When `require foo` is called
-`require` will load `foo` using `dlopen` but and that will automatically load all
-dependent modules. For example, `calc` Makefile will have `USR_LIBS += sscan
-sequencer`.
+The modules built with e3 must specify as dependent library all other modules
+it depends, [see documentation] (https://docs.epics-controls.org/en/latest/build-system/specifications.html#specifying-dependant-libraries-to-be-linked-when-creating-a-library).
+When `require foo` is called `require` will load `foo` using `dlopen` but
+and that will automatically load all dependent modules. For example, `calc`
+Makefile will have `USR_LIBS += sscan sequencer`.
 
-Package dependency and version handling are done by conda. Once `require` loads
-the first required module the system loader will take care of the dependency
-chain. The `require_priv` function will load the required module:
+:::{note}
+Package dependency and version handling are done by conda.
+:::
+
+Once `require` loads the first required module the system loader will take
+care of the dependency chain. The `require_priv` function will load the
+required module:
 
 :::{code-block} C
 static int require_priv(const char *module) {

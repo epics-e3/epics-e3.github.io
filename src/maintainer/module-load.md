@@ -37,7 +37,10 @@ ${REGISTRYFILE}: ${MODULEDBD}
 :::
 
 :::{seealso}
-[`require's` build process](../build-process.md)
+Related topics:
+
+- [C++ Static Initialization Order Fiasco](https://en.cppreference.com/w/cpp/language/siof.html)
+- [`require's` build process](../build-process.md)
 :::
 
 ## Dependency handling

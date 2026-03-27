@@ -32,7 +32,7 @@ dbLoadRecords("${iocstats_DB}/iocAdminSoft.db", "IOC=$(IOCNAME)")
 
 `require` creates debugging PVs that expose information about loaded modules and components:
 
-- `$(IOCNAME):Require-Version` - require version
+- `$(IOCNAME):Require-Version` - `require` version
 - `$(IOCNAME):Require-RtComponents` - runtime components (Q-group)
 - `$(IOCNAME):Require-LoadedModules` - loaded modules (Q-group)
 

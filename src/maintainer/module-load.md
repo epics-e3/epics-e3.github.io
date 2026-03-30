@@ -18,10 +18,11 @@ is the most important file in require. It implements the self registration
 mechanism that allows `require` to offload dependency loading to the system
 loader. It have a single function, `__module_library_init()`,
 that at first will load the `<module_name>.dbd` from the libraries directory.
-Then the module registers the record device driver by calling `Registration()`
-and register itself to `require` via `register_module()` (this sets up `require's`
-own PVs with information about the loaded module). Finally the template environment
-variables are updated - `module_DB`, `TEMPLATES` and `EPICS_DB_INCLUDE_PATH`.
+Then the module registers the record device driver by calling `Registration()`.
+Then registers itself to `require` via `register_module()`, that sets up `require's`
+own PVs and environment variables about the loaded module. Finally the following
+environment variables are updated calling `setup_db_path()`: `module_DB`, 
+`TEMPLATES` and `EPICS_DB_INCLUDE_PATH`.
 
 This file is embedded into every module build for e3 by `driver.Makefile`. Just
 after creating the `module_registerRecordDeviceDriver`, the inclusion of

@@ -49,7 +49,7 @@ ${REGISTRYFILE}: ${MODULEDBD}
 ## Dependency handling
 
 The modules built with e3 must specify as dependent library all other modules
-it depends, [see documentation] (https://docs.epics-controls.org/en/latest/build-system/specifications.html#specifying-dependant-libraries-to-be-linked-when-creating-a-library).
+it depends, [see documentation](https://docs.epics-controls.org/en/latest/build-system/specifications.html#specifying-dependant-libraries-to-be-linked-when-creating-a-library).
 The module `calc` depends on `sscan` and `sequencer`, which is defined in it's Makefile: `USR_LIBS += sscan sequencer`. When `require calc` is called, `require` will try to load `calc` using `dlopen`, and
 and that will automatically load the library dependencies, starting with `sscan` and `sequencer`.
 

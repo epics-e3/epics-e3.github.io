@@ -6,6 +6,12 @@ the running IOC. This article will describe `require's` internals for version
 6.0.0. Previous versions of `require` have many differences from the current
 approach.
 
+:::{seealso}
+Related topics:
+
+- [`require's` build process](../build-process.md)
+:::
+
 ## Self registration
 
 The most important bit to understand `require` is
@@ -37,10 +43,7 @@ ${REGISTRYFILE}: ${MODULEDBD}
 :::
 
 :::{seealso}
-Related topics:
-
 - [C++ Static Initialization Order Fiasco](https://en.cppreference.com/w/cpp/language/siof.html)
-- [`require's` build process](../build-process.md)
 :::
 
 ## Dependency handling

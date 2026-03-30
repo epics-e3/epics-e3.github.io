@@ -46,7 +46,7 @@ ${REGISTRYFILE}: ${MODULEDBD}
 - [C++ Static Initialization Order Fiasco](https://en.cppreference.com/w/cpp/language/siof.html)
 :::
 
-## Dependency handling
+## Module loading
 
 The modules built with e3 must specify as dependent library all other modules
 it depends, [see documentation](https://docs.epics-controls.org/en/latest/build-system/specifications.html#specifying-dependant-libraries-to-be-linked-when-creating-a-library).

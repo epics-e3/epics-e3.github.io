@@ -102,4 +102,4 @@ if the library is an e3 compatible EPICS module.
 
 `require` holds a linked list with information of every module loaded. The module
 structure holds modules name, version, and path. This list of loaded modules and
-their versions is also what later is exposed in PV form (See [article](link).
+their versions is also what later is exposed in PV form (See [The `require` function](../reference/require.md)).

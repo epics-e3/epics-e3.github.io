@@ -19,8 +19,8 @@ mechanism that allows `require` to offload dependency loading to the system
 loader. It have a single function, `__module_library_init()`,
 that at first will load the `<module_name>.dbd` from the libraries directory.
 Then the module registers the record device driver by calling `Registration()`
-and register itself to `require` via `register_module()` - this sets up `require's`
-own PVs with information about the loaded module. Finally the template environment
+and register itself to `require` via `register_module()` (this sets up `require's`
+own PVs with information about the loaded module). Finally the template environment
 variables are updated - `module_DB`, `TEMPLATES` and `EPICS_DB_INCLUDE_PATH`.
 
 This file is embedded into every module build for e3 by `driver.Makefile`. Just

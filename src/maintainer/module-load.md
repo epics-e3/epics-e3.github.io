@@ -1,14 +1,14 @@
 
-# `require's` module load
+# `require`'s module load
 
 The `require` module is essentially a library loader that loads EPICS modules on
-the running IOC. This article will describe `require's` kernel implementation:
+the running IOC. This article will describe `require`'s kernel implementation:
 self registering, module loading and module registry.
 
 :::{seealso}
 Related topics:
 
-- [`require's` build process](../build-process.md)
+- [`require`'s build process](../build-process.md)
 :::
 
 ## Self registration
@@ -19,7 +19,7 @@ mechanism that allows `require` to offload dependency loading to the system
 loader. It have a single function, `__module_library_init()`,
 that at first will load the `<module_name>.dbd` from the libraries directory.
 Then the module registers the record device driver by calling `Registration()`.
-Then registers itself to `require` via `register_module()`, that sets up `require's`
+Then registers itself to `require` via `register_module()`, that sets up `require`'s
 own PVs and environment variables about the loaded module. Finally the following
 environment variables are updated calling `setup_db_path()`: `module_DB`,
 `TEMPLATES` and `EPICS_DB_INCLUDE_PATH`.

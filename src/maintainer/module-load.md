@@ -25,7 +25,7 @@ environment variables are updated calling `setup_db_path()`: `module_DB`,
 `TEMPLATES` and `EPICS_DB_INCLUDE_PATH`.
 
 This file is embedded into every module build for e3 by `driver.Makefile`. Just
-after creating the `module_registerRecordDeviceDriver`, the inclusion of
+after creating the `<module_name>_registerRecordDeviceDriver`, the inclusion of
 `init.cpp` replaces a direct call to `Registration()`. This unfortunately
 necessary to avoid initialization order issues.
 

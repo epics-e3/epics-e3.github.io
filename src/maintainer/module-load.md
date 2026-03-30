@@ -43,8 +43,8 @@ ${REGISTRYFILE}: ${MODULEDBD}
 	echo "#include <init.cpp>" >> $@
 :::
 
-:::{seealso}
-- [C++ Static Initialization Order Fiasco](https://en.cppreference.com/w/cpp/language/siof.html)
+:::{note}
+[C++ Static Initialization Order Fiasco](https://en.cppreference.com/w/cpp/language/siof.html)
 :::
 
 ## Module loading

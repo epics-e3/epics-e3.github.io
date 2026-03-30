@@ -57,9 +57,7 @@ and that will automatically load the library dependencies, starting with `sscan`
 As we use `conda` for package dependency and version handling, `require` does not have to care about these.
 :::
 
-Once `require` loads the first required module the system loader will take
-care of the dependency chain. The `require_priv` function will load the
-required module:
+The `require_priv` function will load the required module:
 
 :::{code-block} C
 static int require_priv(const char *module) {

@@ -1,3 +1,4 @@
+(module_load)=
 
 # `require`'s module load
 

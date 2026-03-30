@@ -6,7 +6,7 @@ the running IOC. This article will describe `require`'s kernel implementation:
 self registering, module loading and module registry.
 
 :::{seealso}
-Related topics:
+**Related topics:**
 
 - [`require`'s build process](../build-process.md)
 :::
@@ -44,7 +44,7 @@ ${REGISTRYFILE}: ${MODULEDBD}
 :::
 
 :::{note}
-[C++ Static Initialization Order Fiasco](https://en.cppreference.com/w/cpp/language/siof.html)
+See [C++ Static Initialization Order Fiasco](https://en.cppreference.com/w/cpp/language/siof.html) for background on the workaround above.
 :::
 
 ## Module loading

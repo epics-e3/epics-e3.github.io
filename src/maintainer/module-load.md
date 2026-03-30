@@ -16,17 +16,17 @@ self registering, module loading and module registry.
 The [`init.cpp`](https://gitlab.esss.lu.se/epics-modules/require/-/blob/83f71357ea7e5899445101deaa85f0fbd9f2df09/require-ess/src/init.cpp)
 is the most important file in require. It implements the self registration
 mechanism that allows `require` to offload dependency loading to the system
-loader. It have a single function, `__module_library_init()`,
+loader. It has a single function, `__module_library_init()`,
 that at first will load the `<module_name>.dbd` from the libraries directory.
 Then the module registers the record device driver by calling `Registration()`.
-Then registers itself to `require` via `register_module()`, that sets up `require`'s
+It registers itself to `require` via `register_module()`, that sets up `require`'s
 own PVs and environment variables about the loaded module. Finally the following
 environment variables are updated calling `setup_db_path()`: `module_DB`,
 `TEMPLATES` and `EPICS_DB_INCLUDE_PATH`.
 
 This file is embedded into every module build for e3 by `driver.Makefile`. Just
 after creating the `<module_name>_registerRecordDeviceDriver`, the inclusion of
-`init.cpp` replaces a direct call to `Registration()`. This unfortunately
+`init.cpp` replaces a direct call to `Registration()`. This is unfortunately
 necessary to avoid initialization order issues.
 
 :::{code-block} makefile
@@ -49,9 +49,11 @@ See [C++ Static Initialization Order Fiasco](https://en.cppreference.com/w/cpp/l
 
 ## Module loading
 
-The modules built with e3 must declare all other modules they depend on as linked libraries, [see documentation](https://docs.epics-controls.org/en/latest/build-system/specifications.html#specifying-dependant-libraries-to-be-linked-when-creating-a-library).
-The module `calc` depends on `sscan` and `sequencer`, which is defined in it's Makefile: `USR_LIBS += sscan sequencer`. When `require calc` is called, `require` will try to load `calc` using `dlopen`, and
-and that will automatically load the library dependencies, starting with `sscan` and `sequencer`.
+The modules built with e3 must declare all other modules they depend on as linked libraries,
+[see documentation](https://docs.epics-controls.org/en/latest/build-system/specifications.html#specifying-dependant-libraries-to-be-linked-when-creating-a-library).
+The module `calc` depends on `sscan` and `sequencer`, which is defined in its Makefile: 
+`USR_LIBS += sscan sequencer`. When `require calc` is called, `require` will try to load `calc` using `dlopen`, and
+that will automatically load the library dependencies, starting with `sscan` and `sequencer`.
 
 :::{note}
 As we use `conda` for package dependency and version handling, `require` does not have to care about these.
@@ -92,7 +94,7 @@ static int require_priv(const char *module) {
 
 :::{note}
 Notice that `require` will check for the `__module_lib_version` symbol to check
-if the library is a e3 compatible EPICS module.
+if the library is an e3 compatible EPICS module.
 :::
 
 ## Module registry

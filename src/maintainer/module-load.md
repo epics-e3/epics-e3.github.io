@@ -49,8 +49,7 @@ See [C++ Static Initialization Order Fiasco](https://en.cppreference.com/w/cpp/l
 
 ## Module loading
 
-The modules built with e3 must specify as dependent library all other modules
-it depends, [see documentation](https://docs.epics-controls.org/en/latest/build-system/specifications.html#specifying-dependant-libraries-to-be-linked-when-creating-a-library).
+The modules built with e3 must declare all other modules they depend on as linked libraries, [see documentation](https://docs.epics-controls.org/en/latest/build-system/specifications.html#specifying-dependant-libraries-to-be-linked-when-creating-a-library).
 The module `calc` depends on `sscan` and `sequencer`, which is defined in it's Makefile: `USR_LIBS += sscan sequencer`. When `require calc` is called, `require` will try to load `calc` using `dlopen`, and
 and that will automatically load the library dependencies, starting with `sscan` and `sequencer`.
 
@@ -58,7 +57,7 @@ and that will automatically load the library dependencies, starting with `sscan`
 As we use `conda` for package dependency and version handling, `require` does not have to care about these.
 :::
 
-The `require_priv` function will load the required module:
+The loading is done by `require_priv`, which also validates that the library is a `require`-compatible EPICS module:
 
 :::{code-block} C
 static int require_priv(const char *module) {

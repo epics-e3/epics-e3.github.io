@@ -13,9 +13,10 @@ Related topics:
 
 ## Self registration
 
-The most important bit to understand `require` is
-[`init.cpp`](https://gitlab.esss.lu.se/epics-modules/require/-/blob/83f71357ea7e5899445101deaa85f0fbd9f2df09/require-ess/src/init.cpp)
-self registration code. It holds a single function, `__module_library_init()`,
+The [`init.cpp`](https://gitlab.esss.lu.se/epics-modules/require/-/blob/83f71357ea7e5899445101deaa85f0fbd9f2df09/require-ess/src/init.cpp)
+is the most important file in require. It implements the self registration 
+mechanism that allows `require` to offload dependency loading to the system
+loader. It have a single function, `__module_library_init()`,
 that at first will load the `<module_name>.dbd` from the libraries directory.
 Then the module registers the record device driver by calling `Registration()`
 and register itself to `require` via `register_module()` - this sets up `require's`

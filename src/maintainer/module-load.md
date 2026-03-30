@@ -47,12 +47,11 @@ Related topics:
 
 The modules built with e3 must specify as dependent library all other modules
 it depends, [see documentation] (https://docs.epics-controls.org/en/latest/build-system/specifications.html#specifying-dependant-libraries-to-be-linked-when-creating-a-library).
-When `require foo` is called `require` will load `foo` using `dlopen` but
-and that will automatically load all dependent modules. For example, `calc`
-Makefile will have `USR_LIBS += sscan sequencer`.
+The module `calc` depends on `sscan` and `sequencer`, which is defined in it's Makefile: `USR_LIBS += sscan sequencer`. When `require calc` is called, `require` will try to load `calc` using `dlopen`, and
+and that will automatically load the library dependencies, starting with `sscan` and `sequencer`.
 
 :::{note}
-Package dependency and version handling are done by conda.
+As we use `conda` for package dependency and version handling, `require` does not have to care about these.
 :::
 
 Once `require` loads the first required module the system loader will take
@@ -98,5 +97,5 @@ if the library is a e3 compatible EPICS module.
 ## Module registry
 
 `require` holds a linked list with information of every module loaded. The module
-structure holds modules name, version, and path. The list of loaded modules and
-their versions are then exported in PV form.
+structure holds modules name, version, and path. This list of loaded modules and
+their versions is also what later is exposed in PV form (See [article](link).

@@ -30,6 +30,12 @@ include $(E3_REQUIRE_TOOLS)/driver.makefile
 
 Recall that this script and `Makefile` are located in the source directory after all sources have been unpacked and patched. This is the directory in which the build script runs.
 
+:::{seealso}
+**Related Topics**
+
+- [`require`'s module load](module_load)
+:::
+
 ## The `make` process for `require`
 
 ### Overview

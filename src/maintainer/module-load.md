@@ -3,7 +3,7 @@
 # `require`'s module load
 
 The `require` module is essentially a library loader that loads EPICS modules on
-the running IOC. This article will describe `require`'s kernel implementation:
+the running IOC. This article will describe `require`'s core implementation:
 self registering, module loading and module registry.
 
 :::{seealso}

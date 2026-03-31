@@ -21,9 +21,9 @@ loader. It has a single function, `__module_library_init()`,
 that at first will load the `<module_name>.dbd` from the libraries directory.
 Then the module registers the record device driver by calling `Registration()`.
 It registers itself to `require` via `register_module()`, that sets up `require`'s
-own PVs and environment variables about the loaded module. Finally the following
-environment variables are updated calling `setup_db_path()`: `module_DB`,
-`TEMPLATES` and `EPICS_DB_INCLUDE_PATH`.
+own PVs and environment variables about the loaded module. Finally
+`setup_db_path()` updates the environment variables that point to the module's
+database files: `module_DB`, `TEMPLATES` and `EPICS_DB_INCLUDE_PATH`.
 
 This file is embedded into every module build for e3 by `driver.Makefile`. Just
 after creating the `<module_name>_registerRecordDeviceDriver`, the inclusion of

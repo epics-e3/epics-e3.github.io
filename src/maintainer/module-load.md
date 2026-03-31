@@ -27,8 +27,10 @@ database files: `module_DB`, `TEMPLATES` and `EPICS_DB_INCLUDE_PATH`.
 
 This file is embedded into every module build for e3 by `driver.Makefile`. Just
 after creating the `<module_name>_registerRecordDeviceDriver`, the inclusion of
-`init.cpp` replaces a direct call to `Registration()`. This is unfortunately
-necessary to avoid initialization order issues.
+`init.cpp` replaces a direct call to `Registration()`. This is done to avoid
+running into the C++ static initialization order fiasco. Basically, C++ cannot
+guarantee the initialization order of any static code, so all initialization
+must be done in a single function.
 
 :::{code-block} makefile
 # Create file to fill registry from dbd file. Because of c++ static

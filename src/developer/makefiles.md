@@ -197,7 +197,7 @@ make[1]: Leaving directory '/home/johndoe/iocStats'
 :::
 
 :::{note}
-We have to define `MODULE` for require to know the name of the module in question.
+We have to define `MODULE` for `require` to know the name of the module in question.
 :::
 
 This compiles the sources against EPICS base in your environment.

@@ -8,12 +8,12 @@ This document assumes a familiarity with GNU make. See
 - [Make tutorial](https://makefiletutorial.com/) - practical introduction
 :::
 
-The require build process is a complicated bit of work. Note that this is in addition
+The `require` build process is a complicated bit of work. Note that this is in addition
 to the conda build process (see [Building modules](../developer/building-modules.md)); we will
 assume that you are comfortable with that process and are interested in learning
-about the internals of the require-specific build process.
+about the internals of the `require`-specific build process.
 
-In general the build scripts for e3 modules built with require will contain
+In general the build scripts for e3 modules built with `require` will contain
 the following steps (see [Build Targets](../reference/build-interface.md#build-targets)):
 
 :::{code-block} bash
@@ -30,7 +30,13 @@ include $(E3_REQUIRE_TOOLS)/driver.makefile
 
 Recall that this script and `Makefile` are located in the source directory after all sources have been unpacked and patched. This is the directory in which the build script runs.
 
-## The `make` process for require
+:::{seealso}
+**Related Topics**
+
+- [`require`'s module load](module_load)
+:::
+
+## The `make` process for `require`
 
 ### Overview
 
@@ -105,7 +111,7 @@ variables from one run to the next do not persist unless they are `export`ed. It
 is also extremely important to note when the variable being exported is
 expanded: this happens right before the next iteration of recursive `make` is
 called, so even if `SOURCES` will only be defined later (as is the case with the
-require build process), it will `export` correctly.
+`require` build process), it will `export` correctly.
 
 ::::{warning}
 There is some complexity and subtlety here. The first part is that we must be
@@ -113,7 +119,7 @@ careful when using variable names that overlap with the build rules from EPICS
 base as when we load the EPICS build configuration, we will trigger some build
 rules if we populate matching variables.
 
-The second point is that, given that `Makefile`s interacting with require will
+The second point is that, given that `Makefile`s interacting with `require` will
 be written:
 
 :::{code-block} makefile
@@ -264,7 +270,7 @@ Some specific details follow; for examples see the next section.
    compiling source files.
 
 There are of course other details. In general this is one of the most complicated
-parts of the require build process; the details are mainly useful when debugging
+parts of the `require` build process; the details are mainly useful when debugging
 various build or install issues.
 
 ## Examples of the `make` process

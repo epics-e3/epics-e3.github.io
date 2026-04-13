@@ -55,8 +55,8 @@ $ git init
 Create the basic EPICS application structure using `makeBaseApp`:
 
 :::{code-block} console
-$ makeBaseApp.pl -t example exampleModule
-$ makeBaseApp.pl -i -t example exampleModule
+$ makeBaseApp.pl -t ioc exampleModule
+$ makeBaseApp.pl -i -t ioc exampleModule
 :::
 
 This creates the standard EPICS application structure with `configure/`, `exampleModuleApp/`, `iocBoot/`, and more.

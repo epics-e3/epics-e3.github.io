@@ -13,7 +13,7 @@ build:
   stage: build
   image: registry.esss.lu.se/ics-docker/sphinx
   script:
-    - sphinx-build -M html src build
+    - sphinx-build -M html src build -W --keep-going
   artifacts:
     paths:
       - build

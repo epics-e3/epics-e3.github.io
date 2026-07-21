@@ -43,6 +43,8 @@ $ conda activate conda-build
 
 :::
 
+(building-a-conda-package)=
+
 ## Building a conda package - an example with iocStats
 
 We would typically be able to build a conda package just by doing:
@@ -50,7 +52,7 @@ We would typically be able to build a conda package just by doing:
 :::{code-block} console
 (base) $ git clone https://gitlab.esss.lu.se/e3/recipes/iocstats-recipe
 (base) $ cd iocstats-recipe
-(base) $ conda build recipe
+(base) $ conda build --no-long-test-prefix recipe
 :::
 
 Where running the above commands would resolve build (and host) requirements and download these, before it builds iocStats
@@ -62,6 +64,25 @@ which must first be processed. This leads us to the next topic: pinning files.
 If you still would like to run the steps above, it should still build on most platforms if you remove or comment
 out the line containing `stdlib('c')` in `./recipe/meta.yaml`.
 :::
+
+:::{important}
+Always pass `--no-long-test-prefix`. By default, `conda-build` runs the package tests in an environment
+whose path is padded to 255 characters. That is long enough to break EPICS macro expansion of
+`$(<module>_DIR)`, so recipes whose tests load an iocsh snippet fail on a file that does exist. The ESS
+CI templates pass this flag for the same reason.
+:::
+
+::::{tip}
+Rather than repeating the flag on every build, set it once in `~/.condarc` and leave it out of the
+commands that follow:
+
+:::{code-block} yaml
+conda-build:
+  long_test_prefix: false
+:::
+
+Unlike the channel settings, this one has no `conda config` equivalent and must be edited by hand.
+::::
 
 ## Pinning and variants
 
@@ -96,7 +117,7 @@ Thus, if we wanted to re-build the earlier iocStats example with conda-forge
 and ESS pinning applied:
 
 :::{code-block} console
-(base) $ conda build -m /tmp/conda_forge_pins.yaml -m /tmp/e3_pins.yaml recipe
+(base) $ conda build -m /tmp/conda_forge_pins.yaml -m /tmp/e3_pins.yaml --no-long-test-prefix recipe
 :::
 
 Artifacts are written to your build folder (e.g.

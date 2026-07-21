@@ -296,11 +296,15 @@ Create a clean build environment and run a local build:
 :::{code-block} console
 $ conda create -n conda-build conda-build conda-verify
 $ conda activate conda-build
-$ conda build recipe
+$ conda build --no-long-test-prefix recipe
 :::
 
+`--no-long-test-prefix` keeps the package tests out of a padded 255-character path, which is long
+enough to break EPICS macro expansion of `$(<module>_DIR)` - see
+[Building a conda package](building-a-conda-package).
+
 ::::{tip}
-To catch overlinking and long-prefix path issues during local builds, add:
+To catch overlinking during local builds, add `--error-overlinking`:
 
 :::{code-block} console
 $ conda build --error-overlinking --no-long-test-prefix recipe
@@ -330,7 +334,7 @@ For production-like testing, use the ESS conda-build Docker image:
 :::{code-block} console
 $ docker run --rm -v $(pwd):/workspace \
   registry.esss.lu.se/ics-docker/conda-build:latest \
-  conda-build /workspace/recipe
+  conda-build --no-long-test-prefix /workspace/recipe
 :::
 
 #### Test the package

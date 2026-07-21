@@ -121,11 +121,38 @@ and ESS pinning applied:
 :::
 
 Artifacts are written to your build folder (e.g.
-`~/miniforge3/conda-bld/linux-64/<name>-<version>-<build>.conda`). You can install the
-fresh build if you want to test it:
+`~/miniforge3/conda-bld/linux-64/<name>-<version>-<build>.conda`).
+
+## Configuring conda for development
+
+To install a package you have just built, prepend your build folder (shown above as
+`~/miniforge3/conda-bld`) to the [user configuration](../getting-started/installation.md#configuring-conda),
+so it takes precedence over the released packages:
 
 :::{code-block} console
-(conda-build) $ conda install --use-local <package-name>
+(conda-build) $ conda config --prepend channels ~/miniforge3/conda-bld
+:::
+
+::::{note}
+Your `~/.condarc` will then list it at the top of `channels`:
+
+:::{code-block} yaml
+channels:
+  - ~/miniforge3/conda-bld
+  - ess-conda-local
+  - conda-forge
+:::
+::::
+
+You can then install and test the fresh build as usual:
+
+:::{code-block} console
+(conda-build) $ conda install <package-name>
+:::
+
+:::{note}
+Upstream documentation usually suggests `conda install --use-local`. With `conda-build` in an
+environment of its own that can quietly miss your build, so prepend the folder explicitly instead.
 :::
 
 :::{tip}

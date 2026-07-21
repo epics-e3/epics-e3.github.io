@@ -9,7 +9,7 @@ self registering, module loading and module registry.
 :::{seealso}
 **Related topics:**
 
-- [`require`'s build process](../build-process.md)
+- [`require`'s build process](build-process.md)
 :::
 
 ## Self registration

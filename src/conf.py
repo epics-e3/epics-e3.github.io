@@ -126,6 +126,10 @@ myst_enable_extensions = [
     "substitution",
 ]
 
+# Generate anchors for headings down to level 4, so that `page.md#a-heading`
+# links resolve (and are checked) instead of silently pointing nowhere.
+myst_heading_anchors = 4
+
 # The reST default role (used for this markup: `text`) to use for all documents.
 default_role = "any"
 keep_warnings = False
@@ -139,8 +143,6 @@ todo_include_todos = True
 # Ignore highlighting ansi in notebooks
 suppress_warnings = [
     "misc.highlighting_failure",
-    "myst.header",
-    "myst.xref_missing",
 ]
 
 # Copybutton configuration for prompts in code blocks

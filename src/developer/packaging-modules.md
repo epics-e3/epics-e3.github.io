@@ -179,7 +179,7 @@ source:
 build:
   number: 0
   run_exports:
-    - {{ pin_subpackage(name, max_pin='x.x.x') }}
+    - {{ pin_subpackage(name|lower, max_pin='x.x.x') }}
 
 requirements:
   build:

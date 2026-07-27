@@ -319,8 +319,9 @@ $ conda clean --index-cache
 :::
 ::::
 
-Artifacts are written to your `conda-bld` folder. You can install the fresh
-build for local testing using `--use-local` (see below).
+Artifacts are written to your `conda-bld` folder. With that folder first in your channel list
+(see [Configuring conda for development](building-modules.md#configuring-conda-for-development)),
+you can install the fresh build for local testing (see below).
 
 #### Build with pinning files (recommended)
 
@@ -340,7 +341,7 @@ $ docker run --rm -v $(pwd):/workspace \
 #### Test the package
 
 :::{code-block} console
-$ conda install --use-local examplemodule
+$ conda install examplemodule
 $ iocsh -r examplemodule
 :::
 

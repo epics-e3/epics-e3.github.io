@@ -1,8 +1,6 @@
 # e3 documentation
 
-Source for e3 documentation hosted on GitLab pages: https://e3.pages.ess.eu
-
-The URL relies on this project's path, see https://docs.gitlab.com/user/project/pages/getting_started_part_one/#gitlab-pages-default-domain-names.
+Source for e3 documentation hosted on GitHub pages: https://epics-e3.github.io
 
 The documentation is built using
 [Sphinx](http://www.sphinx-doc.org/en/master/index.html) and

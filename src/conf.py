@@ -14,9 +14,11 @@ author = "European Spallation Source ERIC"
 
 # The full version, including alpha/beta/rc tags
 try:
-    # CI_COMMIT_REF_NAME is defined by GitLab Runner
-    # The branch or tag name for which project is built
-    release = os.environ["CI_COMMIT_REF_NAME"]
+    # GITHUB_REF_NAME is defined by a github runner, and is
+    # the branch or tag name for which project is built
+    #
+    # See https://docs.github.com/en/actions/reference/workflows-and-actions/variables
+    release = os.environ["GITHUB_REF_NAME"]
 except KeyError:
     # Fallback in dev mode
     release = os.popen("git describe").read().strip()
@@ -56,16 +58,14 @@ html_theme = "furo"
 html_theme_options = {
     "navigation_with_keys": True,
     "top_of_page_button": "edit",
-    "source_repository": "https://gitlab.esss.lu.se/e3/e3.pages.ess.eu",
+    "source_repository": "https://github.com/epics-e3/epics-e3.github.io",
     "source_branch": "main",
     "source_directory": "src/",
-    "source_edit_link": "https://gitlab.esss.lu.se/e3/e3.pages.ess.eu/-/edit/main/src/{filename}",
-    "source_view_link": "https://gitlab.esss.lu.se/e3/e3.pages.ess.eu/-/blob/main/src/{filename}",
     "sidebar_hide_name": False,
     "footer_icons": [
         {
-            "name": "GitLab",
-            "url": "https://gitlab.esss.lu.se/e3/e3.pages.ess.eu",
+            "name": "GitHub",
+            "url": "https://github.com/epics-e3/epics-e3.github.io",
             "html": "",
             "class": "",
         },
@@ -101,7 +101,7 @@ html_show_copyright = True
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
-    "e3": ("https://e3.pages.ess.eu/", None),
+    "e3": ("https://epics-e3.github.io/", None),
     "epics": ("https://docs.epics-controls.org/en/latest/", None),
 }
 

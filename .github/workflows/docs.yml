@@ -39,7 +39,7 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v4
         with:
           environment-file: environment.yml
-      - run: sphinx-build -M html src build
+      - run: sphinx-build -M html src build -W --keep-going
       - uses: actions/upload-pages-artifact@v5
         with:
           path: build/html

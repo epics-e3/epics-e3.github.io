@@ -1,11 +1,11 @@
-# ESS EPICS Environment (e3)
+# e3
 
 :::{important}
 This documentation is being migrated from European Spallation Source internal gitlab, some internal references are still present.
 Please contact us if any questions arise.
 :::
 
-Welcome to the documentation for ESS EPICS Environment (e3) - a toolkit designed to simplify EPICS development and
+Welcome to the documentation for e3 - a toolkit designed to simplify EPICS development and
 deployment at the [European Spallation Source](https://ess.eu).
 
 ## What is e3?

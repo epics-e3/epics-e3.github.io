@@ -25,12 +25,6 @@ For detailed EPICS module development guidance, refer to:
 
 - [Creating an IOC application](https://docs.epics-controls.org/en/latest/getting-started/creating-ioc.html)
 - [EPICS application developer's guide](https://docs.epics-controls.org/en/latest/AppDevGuide/index.html)
-
-We recommend storing modules in the ESS GitLab
-[epics-modules](https://gitlab.esss.lu.se/epics-modules) namespace and
-submitting them to the
-[EPICS modules database](https://epics-controls.org/resources-and-support/modules/)
-for community awareness.
 :::
 
 :::{tip}
@@ -172,7 +166,7 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://gitlab.esss.lu.se/epics-modules/{{ name }}/-/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz
+  - url: https://github.com/epics-modules/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
     sha256: <checksum>
   - path: ../src
 
@@ -199,7 +193,7 @@ test:
     - run-iocsh -r {{ name|lower }}
 
 about:
-  home: https://gitlab.esss.lu.se/epics-modules/exampleModule
+  home: https://github.com/epics-modules/exampleModule
   license: BSD-3-Clause
   license_file: LICENSE
   summary: "EPICS example module"
@@ -237,7 +231,7 @@ the `src/` directory as described in
 Compute the checksum from the exact tarball URL you use:
 
 :::{code-block} console
-$ curl -L "https://gitlab.esss.lu.se/epics-modules/{{ name }}/-/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz" | shasum -a 256
+$ curl -L "https://github.com/epics-modules/{{ name }}/archive/refs/tags/{{ version }}.tar.gz" | shasum -a 256
 :::
 
 :::

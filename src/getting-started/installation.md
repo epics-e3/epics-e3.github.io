@@ -1,25 +1,13 @@
 # Getting started with e3
 
-The ESS EPICS environment (e3) uses [conda](https://docs.conda.io/en/latest/) for
+e3 uses [conda](https://docs.conda.io/en/latest/) for
 environment and package management and explicitly builds on [conda-forge](https://conda-forge.org/):
 we follow conda-forge's global pinning file and use their repodata for dependency
-resolution. ESS site-specific packages (typically EPICS modules) are hosted on an
-internal conda channel in our Artifactory.
+resolution.
 
-## Quickstart
-
-:::{code-block} console
-$ # Configure conda to use ESS packages (after installing conda/miniforge)
-$ conda config --prepend channels ess-conda-local
-$ conda config --set channel_alias https://artifactory.esss.lu.se/artifactory/api/conda
-$ conda config --set channel_priority strict
-$
-$ # Create and activate an environment with EPICS base and require
-$ conda create --name=e3 epics-base require
-$ conda activate e3
-$
-$ # Start an IOC
-$ iocsh
+:::{note}
+For site specific configurations check:
+* [European Spallation Source](../site-specific/ess.md)
 :::
 
 ## Installing conda
@@ -36,11 +24,10 @@ See [mamba documentation](https://mamba.readthedocs.io/) for details.
 
 ## Configuring conda
 
-Configure your machine to find packages in the ESS conda channel:
+Configure your machine to find packages in the conda-forge channel.
 
 :::{code-block} console
-$ conda config --prepend channels ess-conda-local
-$ conda config --set channel_alias https://artifactory.esss.lu.se/artifactory/api/conda
+$ conda config --add channels conda-forge
 $ conda config --set channel_priority strict
 :::
 
@@ -50,17 +37,10 @@ like:
 
 :::{code-block} yaml
 channels:
-  - ess-conda-local
   - conda-forge
-channel_alias: https://artifactory.esss.lu.se/artifactory/api/conda
 channel_priority: strict
 :::
 
-:::
-
-:::{important}
-Keep the channel order exactly as shown and use `channel_priority: strict`. This
-ensures that ESS packages get prioritised and avoids environment conflicts.
 :::
 
 :::{caution}

@@ -135,7 +135,7 @@ make MODULE=${PKG_NAME} LIBVERSION=${PKG_VERSION} install
 conda-build will automatically execute this script during the build process.
 
 :::{tip}
-You can use the [cookiecutter-e3-recipe](https://gitlab.esss.lu.se/ics-cookiecutter/cookiecutter-e3-recipe)
+You can use the [cookiecutter-e3-recipe](https://github.com/epics-e3/cookiecutter-e3-recipe)
 template to scaffold a recipe repository with the standard structure and files.
 :::
 

@@ -38,6 +38,13 @@ parameters. These macro values must be defined by the IOC.
 
 ### Where modules come from
 
+:::{important}
+We are in process of migrating our recipes from internal hosting. Some of them
+are already available on [Github](https://github.com/epics-e3), however they
+still reference our internal setup. In order to build them you need at minimum
+to change the dependency from `require` to `require3`.
+:::
+
 Modules are distributed as conda packages. At ESS, many modules come from the
 upstream EPICS community (like *asyn*, *StreamDevice*, *iocStats*), while others
 are developed internally for site-specific needs.
